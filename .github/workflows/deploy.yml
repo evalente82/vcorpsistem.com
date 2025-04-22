@@ -29,12 +29,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: 'npm'
 
-      - name: Install dependencies
+      - name: Clean install dependencies
         run: |
-          npm ci
-          rm -rf node_modules/.cache
+          rm -rf node_modules
+          rm -f package-lock.json
+          npm install
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
