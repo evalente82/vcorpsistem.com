@@ -11,13 +11,13 @@ export default function Home() {
         </p>
         <div className="flex justify-center gap-4">
           <a
-            href="/contato"
+            href="./contato.html"
             className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors"
           >
             Fale Conosco
           </a>
           <a
-            href="/servicos"
+            href="./servicos.html"
             className="border border-blue-600 text-blue-600 px-8 py-3 rounded-lg hover:bg-blue-50 transition-colors"
           >
             Nossos Serviços

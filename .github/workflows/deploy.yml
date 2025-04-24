@@ -33,16 +33,16 @@ jobs:
 
       - name: Install dependencies
         run: |
-          npm install
+          npm install --no-optional
           npm install --save-dev tailwindcss@latest postcss@latest autoprefixer@latest
-          npx tailwindcss init -p
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
-      - name: Build with Next.js
+      - name: Build static site
         run: |
           npm run build
+          touch out/.nojekyll
         env:
           NODE_ENV: production
           NEXT_PUBLIC_BASE_PATH: /vcorpsistem.com
@@ -55,6 +55,9 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
