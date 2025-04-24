@@ -19,47 +19,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: 'npm'
-
-      - name: Clean install
-        run: |
-          rm -rf node_modules
-          rm -f package-lock.json
-
-      - name: Install dependencies
-        run: |
-          npm install
-          npm install tailwindcss@latest postcss@latest autoprefixer@latest
-          npx tailwindcss init -p
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: Build static site
-        run: |
-          npm run build
-          touch out/.nojekyll
-        env:
-          NODE_ENV: production
-          NEXT_PUBLIC_BASE_PATH: /vcorpsistem.com
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./out
-
   deploy:
-    needs: build
     runs-on: ubuntu-latest
     permissions:
       pages: write
@@ -68,6 +28,17 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./docs
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
