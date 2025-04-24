@@ -29,12 +29,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+          cache: 'npm'
 
       - name: Install dependencies
         run: |
-          npm install -g npm@latest
           npm install
-          npm install tailwindcss postcss autoprefixer --save-dev
+          npm install --save-dev tailwindcss@latest postcss@latest autoprefixer@latest
           npx tailwindcss init -p
 
       - name: Setup Pages
@@ -42,8 +42,9 @@ jobs:
 
       - name: Build with Next.js
         run: |
-          NODE_ENV=production npm run build
+          npm run build
         env:
+          NODE_ENV: production
           NEXT_PUBLIC_BASE_PATH: /vcorpsistem.com
 
       - name: Upload artifact
