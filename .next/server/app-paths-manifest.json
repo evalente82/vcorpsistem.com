@@ -1,0 +1,9 @@
+{
+  "/not-found": "app/not-found.js",
+  "/page": "app/page.js",
+  "/sistema-escalas/page": "app/sistema-escalas/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/servicos/page": "app/servicos/page.js",
+  "/sobre/page": "app/sobre/page.js",
+  "/contato/page": "app/contato/page.js"
+}
