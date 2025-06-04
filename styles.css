@@ -1,0 +1,70 @@
+/* Reset básico */
+body, html {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  font-family: 'Open Sans', sans-serif;
+}
+/* Menu fixo no topo, com degradê de cinza para branco */
+#navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(to bottom, #333333, #bbbbbb)!important; /* Degradê de cinza escuro para claro */
+
+  /*background: linear-gradient(to bottom, #6c757d, #ffffff) !important;  Degradê de cinza para branco */
+  color: white;
+  z-index: 1030;
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.7);
+  padding: 1rem 2rem;
+  border-bottom: 2px solid #444; /* Linha de separação do menu */
+}
+
+/* Logo / Nome da empresa */
+#navbar .navbar-brand {
+  color: white;
+  font-weight: 700;
+  font-size: 24px;
+  text-decoration: none;
+  margin-right: auto; /* Centraliza a logo */
+}
+
+/* Menu de navegação */
+#navbar .nav-link {
+  color: white; /* Cor do texto branco no fundo cinza */
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+  padding: 10px 20px;
+}
+
+#navbar .nav-link:hover,
+#navbar .nav-link.active {
+  color: #00c2b8; /* Cor quando o link é ativado ou hover */
+}
+
+/* Conteúdo principal ajustado para não ficar atrás do menu */
+main {
+  margin-top: 80px; /* Espaço para o menu fixo */
+  padding: 20px;
+}
+
+/* Responsividade para o menu */
+@media (max-width: 768px) {
+  #navbar {
+    padding: 1rem 1.5rem;
+  }
+
+  #navbar .navbar-brand {
+    font-size: 20px;
+  }
+
+  #navbar .nav-link {
+    font-size: 18px;
+  }
+
+  main {
+    margin-top: 60px;
+  }
+}
