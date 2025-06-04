@@ -1,19 +1,28 @@
-// Inicializa carrossel Swiper
-const swiper = new Swiper('.swiper-container', {
+// Inicializa carrossel Swiper com efeito COVERFLOW
+const swiper = new Swiper('.swiper-container-coverflow', {
+  effect: 'coverflow',
+  grabCursor: true,
+  centeredSlides: true,
+  slidesPerView: 'auto',
   loop: true,
   autoplay: {
     delay: 4000,
     disableOnInteraction: false,
   },
   speed: 700,
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
+
+  coverflowEffect: {
+    rotate: 50,       // rotação em graus
+    stretch: 0,       // espaçamento entre slides
+    depth: 100,       // profundidade Z
+    modifier: 1,      // multiplicador
+    slideShadows: true // sombras
   },
+
   pagination: {
     el: '.swiper-pagination',
     clickable: true,
-  },
+  }
 });
 
 // Scroll suave e ativação do link ativo no menu

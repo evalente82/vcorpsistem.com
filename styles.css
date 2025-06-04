@@ -5,6 +5,7 @@ body, html {
   scroll-behavior: smooth;
   font-family: 'Open Sans', sans-serif;
 }
+
 /* Menu fixo no topo, com degradê de cinza para branco */
 #navbar {
   position: fixed;
@@ -12,13 +13,14 @@ body, html {
   left: 0;
   width: 100%;
   background: linear-gradient(to bottom, #333333, #bbbbbb)!important; /* Degradê de cinza escuro para claro */
-
-  /*background: linear-gradient(to bottom, #6c757d, #ffffff) !important;  Degradê de cinza para branco */
   color: white;
   z-index: 1030;
   text-shadow: 0 0 6px rgba(0, 0, 0, 0.7);
   padding: 1rem 2rem;
-  border-bottom: 2px solid #444; /* Linha de separação do menu */
+  border-bottom: 2px solid #444;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap; /* Para que o menu se ajuste em telas menores */
 }
 
 /* Logo / Nome da empresa */
@@ -44,27 +46,79 @@ body, html {
   color: #00c2b8; /* Cor quando o link é ativado ou hover */
 }
 
+/* Imagem no canto direito */
+.navbar-image {
+  position: absolute;
+  top: 50%;
+  right: 20px; /* Ajuste a distância da borda direita */
+  transform: translateY(-50%); /* Centraliza a imagem verticalmente */
+}
+
+.navbar-image img {
+  width: 150px; /* Ajuste o tamanho da imagem conforme necessário */
+  height: auto;
+}
+
 /* Conteúdo principal ajustado para não ficar atrás do menu */
 main {
-  margin-top: 80px; /* Espaço para o menu fixo */
+  margin-top: 80px; /* Ajuste para o menu fixo */
   padding: 20px;
+  box-sizing: border-box; /* Garante que o padding não ultrapasse a largura */
 }
 
-/* Responsividade para o menu */
+/* Estilo para o carrossel com efeito coverflow */
+.swiper-container-coverflow {
+  max-width: 20%; /* Garante que o carrossel não ultrapasse a tela */
+  margin: 0 auto;
+  padding: 40px 0; /* Adiciona padding se necessário */
+}
+
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 300px; /* Largura controlada para cada slide */
+  height: 300px; /* Defina a altura fixa para o slide */
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2); /* Adiciona sombra ao slide */
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+  margin-right: 10px; /* Espaçamento entre as imagens */
+}
+
+.swiper-slide img {
+  width: 100%; /* A imagem ocupa toda a largura do slide */
+  height: 100%; /* A imagem preenche toda a altura do slide */
+  object-fit: cover; /* Garante que a imagem cubra o espaço do slide sem distorcer */
+  border-radius: 10px;
+}
+
+/* Responsividade para o carrossel */
 @media (max-width: 768px) {
-  #navbar {
-    padding: 1rem 1.5rem;
+  .swiper-container-coverflow {
+    height: 250px; /* Ajusta a altura do carrossel para telas menores */
   }
 
-  #navbar .navbar-brand {
-    font-size: 20px;
+  .swiper-slide {
+    width: 200px; /* Ajusta a largura dos slides */
+    height: 200px; /* Ajusta a altura dos slides */
   }
 
-  #navbar .nav-link {
-    font-size: 18px;
-  }
-
-  main {
-    margin-top: 60px;
+  .swiper-slide img {
+    object-fit: cover; /* Garante que a imagem preencha o slide sem distorcer */
   }
 }
+
+@media (max-width: 480px) {
+  .swiper-container-coverflow {
+    height: 200px; /* Ajuste ainda maior para telas menores */
+  }
+
+  .swiper-slide {
+    width: 150px; /* Ajusta a largura dos slides */
+    height: 150px; /* Ajusta a altura dos slides */
+  }
+
+  .swiper-slide img {
+    object-fit: cover; /* Garante que a imagem preencha o slide sem distorcer */
+  }
+}
+

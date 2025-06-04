@@ -17,61 +17,79 @@
 <body>
   <!-- Menu fixo no topo, centralizado -->
   <nav id="navbar" class="navbar navbar-expand-lg navbar-dark fixed-top bg-gradient p-3">
-    <!-- Logo / Nome da empresa -->
-    <a class="navbar-brand mx-auto fs-4 fw-bold text-decoration-none" href="#">VCorp Sistem</a>
-    
-    <!-- Menu de navegação -->
-    <div class="collapse navbar-collapse justify-content-center">
-      <ul class="navbar-nav mb-2 mb-lg-0 text-center">
-        <li class="nav-item">
-          <a href="#home" class="nav-link text-white">Início</a>
-        </li>
-        <li class="nav-item">
-          <a href="#produto" class="nav-link text-white">Produto</a>
-        </li>
-        <li class="nav-item">
-          <a href="#carrossel" class="nav-link text-white">Galeria</a>
-        </li>
-        <li class="nav-item">
-          <a href="#contato" class="nav-link text-white">Contato</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
+  <!-- Logo / Nome da empresa -->
+  <a class="navbar-brand mx-auto fs-4 fw-bold text-decoration-none" href="#">VCorp Sistem</a>
+  
+  <!-- Menu de navegação -->
+  <div class="collapse navbar-collapse justify-content-center">
+    <ul class="navbar-nav mb-2 mb-lg-0 text-center">
+      <li class="nav-item">
+        <a href="#home" class="nav-link text-white">Início</a>
+      </li>
+      <li class="nav-item">
+        <a href="#produto" class="nav-link text-white">Produto</a>
+      </li>
+      <li class="nav-item">
+        <a href="#carrossel" class="nav-link text-white">Galeria</a>
+      </li>
+      <li class="nav-item">
+        <a href="#contato" class="nav-link text-white">Contato</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Imagem no canto direito -->
+  <div class="navbar-image">
+    <img src="assets/logo_sem_fundo.png" alt="Logo Imagem" class="img-fluid">
+  </div>
+</nav>
 
   <!-- Conteúdo principal -->
   <main style="margin-top: 80px; padding: 20px;"> <!-- Adicionando padding para evitar sobreposição com o menu fixo -->
 
-    <!-- Carrossel de Imagens na seção home -->
-    <section id="home" class="vh-100 bg-dark">
-      <div class="swiper-container">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <img src="assets/logo1.jpg" alt="Imagem 1" class="img-fluid">
+    <!-- Swiper -->
+    <section id="home" class="py-5 bg-light">
+      <h2 class="text-center mb-4">Venha descobrir uma nova forma de criar Escalas!</h2>
+      <!-- Contêiner principal com tamanho controlado -->
+      <div class="carousel-container">
+        <div class="swiper-container-coverflow">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="assets/pessoas/mulher_que_trabalha_em_escritorio_estressada_olhando.jpeg" alt="Projeto 1" class="img-fluid rounded" />
+            </div>
+            <div class="swiper-slide">
+              <img src="assets/pessoas/mulher_que_trabalha_em_escritorio_estressada_olhando (1).jpeg" alt="Projeto 2" class="img-fluid rounded" />
+            </div>
+            <div class="swiper-slide">
+              <img src="assets/pessoas/mulher__feliz_com_a_tela_do (3).jpeg" alt="Projeto 3" class="img-fluid rounded" />
+            </div>
+
+            <div class="swiper-slide">
+              <img src="assets/pessoas/colaborador_de_varias_etnias_de_um_hospital (1).jpeg" alt="Projeto 3" class="img-fluid rounded" />
+            </div>
+
+            <div class="swiper-slide">
+              <img src="assets/pessoas/grupo_de_medicos_felizes_olhando_o_celular.jpeg" alt="Projeto 3" class="img-fluid rounded" />
+            </div>
           </div>
-          <div class="swiper-slide">
-            <img src="assets/logo2.jpeg" alt="Imagem 2" class="img-fluid">
-          </div>
-          <div class="swiper-slide">
-            <img src="assets/logo3.png" alt="Imagem 3" class="img-fluid">
-          </div>
+
+          <!-- Add Pagination -->
+          <div class="swiper-pagination"></div>
         </div>
-        <!-- Arrows for navigation -->
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
-        <!-- Pagination -->
-        <div class="swiper-pagination"></div>
       </div>
     </section>
 
+
+
+
     <section id="imagem-destaque" class="py-5 bg-light text-center">
-      <img src="assets/img01.jpeg" alt="Imagem Destaque" class="img-fluid rounded" style="max-height: 400px; object-fit: cover;">
+      <img src="assets/vcorpLogo.png" alt="Imagem Destaque" class="img-fluid rounded" style="max-height: 400px; object-fit: cover;">
     </section>
 
     <section id="produto" class="py-5 container">
       <h2 class="mb-4">Produto em Destaque</h2>
       <div class="card shadow animate-slide-in">
-        <img src="assets/logo1.jpg" class="card-img-top" alt="Produto Destaque" />
+        <img src="assets/exibição.png" class="card-img-top" alt="Produto Destaque" />
         <div class="card-body">
           <h3 class="card-title">Produto XYZ</h3>
           <p class="card-text">
@@ -83,17 +101,15 @@
     </section>
 
     <section id="carrossel" class="py-5 bg-light">
-      <h2 class="text-center mb-4">Galeria de Projetos</h2>
+      <h2 class="text-center mb-4">Galeria do Projeto</h2>
       <!-- Swiper -->
       <div class="swiper-container">
         <div class="swiper-wrapper">
-          <div class="swiper-slide"><img src="assets/logo2.jpeg" alt="Projeto 1" /></div>
-          <div class="swiper-slide"><img src="assets/logo3.png" alt="Projeto 2" /></div>
-          <div class="swiper-slide"><img src="assets/check.png" alt="Projeto 3" /></div>
+          <div class="swiper-slide"><img src="assets/escalas.png" alt="Projeto 1" /></div>
+          <div class="swiper-slide"><img src="assets/cadastros.png" alt="Projeto 2" /></div>
+          <div class="swiper-slide"><img src="assets/cargo.png" alt="Projeto 3" /></div>
         </div>
-        <!-- Add Arrows -->
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
+        
         <!-- Add Pagination -->
         <div class="swiper-pagination"></div>
       </div>
@@ -127,6 +143,9 @@
 
   <!-- Swiper JS -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+  
+<!-- Swiper CSS (carrossel) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
 
   <!-- Custom JS -->
   <script src="scripts.js"></script>
