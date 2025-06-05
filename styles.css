@@ -105,11 +105,7 @@ main {
   .swiper-slide img {
     object-fit: cover; /* Garante que a imagem preencha o slide sem distorcer */
   }
-
-  .swiper-container-second {
-    height: 250px; /* Ajusta a altura do carrossel para telas menores */
 }
-
 
 @media (max-width: 480px) {
   .swiper-container-coverflow {
@@ -225,68 +221,3 @@ section {
 }
 
 
-/* Estilo para o layout da seção */
-#imagem-destaque {
-  padding: 20px;
-  position: relative;
-}
-
-/* Ajustes de largura e alinhamento dos textos */
-.text-content {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  text-align: center; /* Centraliza o texto dentro da div */
-}
-
-/* Personalize a formatação do texto da esquerda */
-.text-content .left {
-  font-size: 5.2rem; /* Tamanho da fonte dos primeiros h1 */
-  font-weight: bold;
-  text-align: left;
-  color: #333; /* Cor do texto */
-}
-
-/* Personalize a formatação do texto da direita */
-.text-content .right {
-  font-size: 5.2rem; /* Tamanho da fonte dos últimos h5 */
-  font-weight: bold;
-  text-align: right;
-  color: #333; /* Cor do texto */
-}
-
-/* Ajustando a imagem */
-#imagem-destaque img {
-  width: 100%; /* Faz a imagem ocupar 80% da largura do container */
-  height: auto; /* Mantém a proporção da imagem */
-  object-fit: contain; /* Garante que a imagem se ajuste sem cortar ou distorcer */
-  margin-top: 20px; /* Ajuste a distância entre o texto e a imagem */
-  max-height: 450px; /* Limita a altura máxima da imagem */
-}
-
-
-/* Ajustes responsivos para telas pequenas */
-@media (max-width: 768px) {
-  /* Ajusta a largura das colunas em telas pequenas */
-  .col-12 {
-    width: 100%;
-    margin-bottom: 15px; /* Adiciona um pequeno espaçamento entre os elementos */
-  }
-
-  .text-content .left, .text-content .right {
-    font-size: 2.5rem; /* Ajuste de tamanho para telas menores */
-  }
-
-  #imagem-destaque img {
-    max-height: 250px; /* Ajusta a altura da imagem em telas pequenas */
-  }
-}
-
-
-/* Estilo para o carrossel de miniaturas (Thumbs) */
-  .swiper-container-thumbs {
-    width: 100%;
-    height: 100px; /* Altura para as miniaturas */
-    margin-top: 20px; /* Espaço entre o carrossel principal e as miniaturas */
-  }
-}
