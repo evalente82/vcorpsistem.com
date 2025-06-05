@@ -93,3 +93,29 @@ const swiperSecond = new Swiper('.swiper-container-second', {
     swiper: swiperThumbs, // Referência ao carrossel de miniaturas
   }
 });
+
+// Inicializa o EmailJS
+emailjs.init("-uCdYWVFgdh2kcxRK"); // Substitua pelo seu user_id obtido do EmailJS
+
+const btn = document.getElementById('button'); // Agora o botão existe no HTML
+
+document.getElementById('contactForm')
+  .addEventListener('submit', function(event) {
+    event.preventDefault();  // Previne o envio tradicional do formulário
+
+    btn.value = 'Enviando...';  // Altera o botão para mostrar que está enviando
+
+    const serviceID = 'service_qsxytmo';  // O ID do seu serviço no EmailJS
+    const templateID = 'template_pr6gg5r';  // O ID do seu modelo de e-mail no EmailJS
+
+    // Envia o formulário para o EmailJS
+    emailjs.sendForm(serviceID, templateID, this)
+      .then(() => {
+        btn.value = 'Enviar Email';  // Retorna o botão ao estado original
+        alert('Mensagem enviada com sucesso!');  // Exibe o alerta de sucesso
+      }, (err) => {
+        btn.value = 'Enviar Email';  // Retorna o botão ao estado original
+        alert('Erro ao enviar a mensagem: ' + JSON.stringify(err));  // Exibe o alerta de erro
+      });
+});
+
