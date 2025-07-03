@@ -1,9 +1,14 @@
 /* Reset básico */
+* {
+  box-sizing: border-box;
+}
+
 body, html {
   margin: 0;
   padding: 0;
   scroll-behavior: smooth;
   font-family: 'Open Sans', sans-serif;
+  overflow-x: hidden; /* Previne scroll horizontal */
 }
 
 /* Menu fixo no topo, com degradê de cinza para branco */
@@ -12,7 +17,7 @@ body, html {
   top: 0;
   left: 0;
   width: 100%;
-  background: linear-gradient(to bottom, #333333, #bbbbbb)!important; /* Degradê de cinza escuro para claro */
+  background: linear-gradient(to bottom, #333333, #bbbbbb)!important;
   color: white;
   z-index: 1030;
   text-shadow: 0 0 6px rgba(0, 0, 0, 0.7);
@@ -20,106 +25,193 @@ body, html {
   border-bottom: 2px solid #444;
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap; /* Para que o menu se ajuste em telas menores */
+  align-items: center;
+  flex-wrap: wrap;
+  min-height: 70px;
 }
 
 /* Logo / Nome da empresa */
 #navbar .navbar-brand {
   color: white;
   font-weight: 700;
-  font-size: 24px;
+  font-size: clamp(18px, 4vw, 24px); /* Fonte responsiva */
   text-decoration: none;
-  margin-right: auto; /* Centraliza a logo */
+  flex: 1;
+  text-align: center;
 }
 
 /* Menu de navegação */
+#navbar .navbar-collapse {
+  flex-basis: 100%;
+  justify-content: center;
+}
+
+#navbar .navbar-nav {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
 #navbar .nav-link {
-  color: white; /* Cor do texto branco no fundo cinza */
+  color: white;
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: clamp(14px, 2.5vw, 18px);
   transition: color 0.3s ease;
-  padding: 10px 20px;
+  padding: 10px 15px;
+  text-decoration: none;
+  white-space: nowrap;
 }
 
 #navbar .nav-link:hover,
 #navbar .nav-link.active {
-  color: #00c2b8; /* Cor quando o link é ativado ou hover */
+  color: #00c2b8;
 }
 
 /* Imagem no canto direito */
 .navbar-image {
   position: absolute;
   top: 50%;
-  right: 20px; /* Ajuste a distância da borda direita */
-  transform: translateY(-50%); /* Centraliza a imagem verticalmente */
+  right: 20px;
+  transform: translateY(-50%);
 }
 
 .navbar-image img {
-  width: 150px; /* Ajuste o tamanho da imagem conforme necessário */
+  width: clamp(80px, 15vw, 150px); /* Imagem responsiva */
   height: auto;
 }
 
 /* Conteúdo principal ajustado para não ficar atrás do menu */
 main {
-  margin-top: 80px; /* Ajuste para o menu fixo */
+  margin-top: 80px;
   padding: 20px;
-  box-sizing: border-box; /* Garante que o padding não ultrapasse a largura */
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Container responsivo para carrossel */
+.carousel-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 /* Estilo para o carrossel com efeito coverflow */
 .swiper-container-coverflow {
-  max-width: 20%; /* Garante que o carrossel não ultrapasse a tela */
+  width: 100%;
+  max-width: 800px;
   margin: 0 auto;
-  padding: 40px 0; /* Adiciona padding se necessário */
+  padding: 40px 0;
+  overflow: hidden;
 }
 
 .swiper-slide {
   background-position: center;
   background-size: cover;
-  width: 300px; /* Largura controlada para cada slide */
-  height: 300px; /* Defina a altura fixa para o slide */
-  box-shadow: 0 10px 20px rgba(0,0,0,0.2); /* Adiciona sombra ao slide */
+  width: clamp(200px, 40vw, 300px);
+  height: clamp(200px, 40vw, 300px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
   border-radius: 10px;
   transition: transform 0.3s ease;
-  margin-right: 10px; /* Espaçamento entre as imagens */
+  margin-right: 10px;
 }
 
 .swiper-slide img {
-  width: 100%; /* A imagem ocupa toda a largura do slide */
-  height: 100%; /* A imagem preenche toda a altura do slide */
-  object-fit: cover; /* Garante que a imagem cubra o espaço do slide sem distorcer */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   border-radius: 10px;
 }
 
-/* Responsividade para o carrossel */
-@media (max-width: 768px) {
-  .swiper-container-coverflow {
-    height: 250px; /* Ajusta a altura do carrossel para telas menores */
-  }
-
-  .swiper-slide {
-    width: 200px; /* Ajusta a largura dos slides */
-    height: 200px; /* Ajusta a altura dos slides */
-  }
-
-  .swiper-slide img {
-    object-fit: cover; /* Garante que a imagem preencha o slide sem distorcer */
-  }
+/* Seção de imagem destaque responsiva */
+#imagem-destaque .row {
+  align-items: center;
+  text-align: center;
 }
 
-@media (max-width: 480px) {
-  .swiper-container-coverflow {
-    height: 200px; /* Ajuste ainda maior para telas menores */
-  }
+#imagem-destaque h1 {
+  font-size: clamp(18px, 4vw, 32px);
+  margin: 20px 0;
+}
 
-  .swiper-slide {
-    width: 150px; /* Ajusta a largura dos slides */
-    height: 150px; /* Ajusta a altura dos slides */
-  }
+#imagem-destaque img {
+  max-width: 100%;
+  height: auto;
+}
 
-  .swiper-slide img {
-    object-fit: cover; /* Garante que a imagem preencha o slide sem distorcer */
-  }
+/* Cards responsivos */
+.card {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Carrossel de galeria responsivo */
+.swiper-container-thumbs {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 20px;
+  height: clamp(60px, 15vw, 100px);
+}
+
+.swiper-container-thumbs .swiper-slide {
+  width: clamp(80px, 20vw, 120px);
+  height: clamp(60px, 15vw, 100px);
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.swiper-container-thumbs .swiper-slide-thumb-active {
+  opacity: 1;
+}
+
+.swiper-container-thumbs img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.swiper-container-second {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  height: clamp(300px, 50vw, 500px);
+}
+
+.swiper-container-second .swiper-slide {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-container-second img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Mantém proporção sem cortar */
+  border-radius: 10px;
+}
+
+/* Formulário responsivo */
+#contato {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px; /* Previne zoom no iOS */
+  border: 1px solid #ddd;
+  border-radius: 5px;
 }
 
 /* Adicionando um fundo de degradê SVG ao corpo do site */
@@ -136,26 +228,16 @@ html, body {
 section {
   background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Cdefs%3E%3ClinearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%"%3E%3Cstop offset="0%" style="stop-color:rgb(255,255,255);stop-opacity:1" /%3E%3Cstop offset="100%" style="stop-color:rgb(169,169,169);stop-opacity:1" /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width="100%" height="100%" fill="url(%23grad1)" /%3E%3C/svg%3E');
   background-size: cover;
-  padding: 40px 0; /* Espaçamento interno da section */
+  padding: 40px 20px;
+  width: 100%;
 }
 
-
-/* 
- html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  background: url('assets/pessoas/backgroud.jpeg');
-  background-size: cover;
-  font-family: 'Open Sans', sans-serif;
-  scroll-behavior: smooth;
-}  */
 /* Estilos do footer */
 #footer {
   background: linear-gradient(to bottom, #333333, #bbbbbb);
   color: white;
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding: 40px 20px;
+  width: 100%;
 }
 
 #footer .container {
@@ -165,7 +247,7 @@ section {
 
 #footer h5 {
   font-weight: 700;
-  font-size: 18px;
+  font-size: clamp(16px, 3vw, 18px);
   margin-bottom: 20px;
 }
 
@@ -175,48 +257,226 @@ section {
 
 #footer ul li {
   list-style: none;
+  margin-bottom: 8px;
 }
 
 #footer ul li a {
   text-decoration: none;
   color: white;
   transition: color 0.3s ease;
+  font-size: clamp(14px, 2.5vw, 16px);
 }
 
 #footer ul li a:hover {
-  color: #00c2b8; /* Cor quando o link é ativado ou hover */
+  color: #00c2b8;
 }
 
 #footer p {
-  font-size: 14px;
+  font-size: clamp(12px, 2.5vw, 14px);
   color: #ccc;
-}
-
-#footer .text-center p {
-  margin-top: 20px;
-  font-size: 14px;
-  color: #ccc;
+  line-height: 1.5;
 }
 
 /* Classe personalizada para manipular as fontes das legendas */
 .carousel-caption-custom {
-  font-family: 'Arial', sans-serif; /* Fonte personalizada */
-  font-size: 25px; /* Tamanho da fonte */
-  font-weight: bold; /* Peso da fonte */
-  color: #040404; /* Cor do texto */
-  /*text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Sombra do texto */
-  line-height: 1.5; /* Altura da linha */
-  position: relative; /* Permite mover o elemento */
-  top: 5px; /* Mover para baixo (ajuste conforme necessário) */
-  left: 1%; /* Posiciona a legenda no meio da largura do slide */
-  text-align: center; /* Centraliza o texto horizontalmente */
+  font-family: 'Arial', sans-serif;
+  font-size: clamp(16px, 4vw, 25px);
+  font-weight: bold;
+  color: #040404;
+  line-height: 1.5;
+  position: relative;
+  top: 5px;
+  left: 1%;
+  text-align: center;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 5px;
+  margin: 10px;
 }
 
 .carousel-caption-custom h5 {
-  font-size: 24px; /* Tamanho da fonte para o título */
+  font-size: clamp(18px, 4.5vw, 24px);
+  margin-bottom: 10px;
 }
 
 .carousel-caption-custom p {
-  font-size: 16px; /* Tamanho da fonte para o parágrafo */
+  font-size: clamp(14px, 3vw, 16px);
+  margin: 0;
+}
+
+/* Media Queries para diferentes dispositivos */
+
+/* Tablets em modo retrato */
+@media (max-width: 768px) {
+  #navbar {
+    padding: 1rem;
+    flex-direction: column;
+    min-height: auto;
+  }
+  
+  #navbar .navbar-brand {
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  #navbar .navbar-nav {
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .navbar-image {
+    position: static;
+    transform: none;
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  main {
+    margin-top: 120px;
+    padding: 15px;
+  }
+  
+  .swiper-container-coverflow {
+    padding: 20px 0;
+  }
+  
+  #imagem-destaque .col-md-3,
+  #imagem-destaque .col-md-6 {
+    margin-bottom: 20px;
+  }
+  
+  .carousel-caption-custom {
+    position: static;
+    margin-top: 15px;
+  }
+}
+
+/* Smartphones */
+@media (max-width: 480px) {
+  #navbar {
+    padding: 0.5rem;
+  }
+  
+  main {
+    margin-top: 140px;
+    padding: 10px;
+  }
+  
+  .swiper-container-coverflow {
+    padding: 15px 0;
+  }
+  
+  section {
+    padding: 20px 10px;
+  }
+  
+  #footer {
+    padding: 30px 15px;
+  }
+  
+  #footer .row > div {
+    margin-bottom: 30px;
+  }
+  
+  .btn {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+/* Smartphones muito pequenos */
+@media (max-width: 320px) {
+  #navbar .navbar-brand {
+    font-size: 16px;
+  }
+  
+  main {
+    margin-top: 160px;
+    padding: 5px;
+  }
+  
+  .swiper-slide {
+    width: 150px;
+    height: 150px;
+  }
+  
+  section {
+    padding: 15px 5px;
+  }
+}
+
+/* Telas grandes (desktops) */
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+  
+  #navbar {
+    padding: 1.5rem 3rem;
+  }
+  
+  .swiper-container-coverflow {
+    max-width: 1000px;
+  }
+  
+  .carousel-caption-custom {
+    font-size: 28px;
+  }
+}
+
+/* Orientação landscape em dispositivos móveis */
+@media (max-height: 500px) and (orientation: landscape) {
+  main {
+    margin-top: 60px;
+  }
+  
+  .swiper-container-coverflow {
+    padding: 10px 0;
+  }
+  
+  .carousel-caption-custom {
+    font-size: 14px;
+    padding: 5px;
+  }
+}
+
+/* Ajustes para acessibilidade e usabilidade */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Ajustes para impressão */
+@media print {
+  #navbar,
+  #footer {
+    display: none;
+  }
+  
+  main {
+    margin-top: 0;
+  }
+  
+  .swiper-container-coverflow,
+  .swiper-container-second {
+    display: none;
+  }
+}
+
+/* Ajustes para telas de alta densidade (Retina) */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .navbar-image img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
 }
 

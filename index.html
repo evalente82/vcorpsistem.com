@@ -1,11 +1,14 @@
-
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Vcorp Sistem</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="description" content="VCorp Sistem - Soluções inovadoras para gestão de escalas e permutas" />
+  <meta name="keywords" content="gestão, escalas, permutas, sistema, vcorp" />
+  <title>Vcorp Sistem - Gestão de Escalas e Permutas</title>
+
+  <link rel="icon" type="image/x-icon" href="assets/vcorpLogo.png">
+  
 
   <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -17,171 +20,215 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- Menu fixo no topo, centralizado -->
-  <nav id="navbar" class="navbar navbar-expand-lg navbar-dark fixed-top bg-gradient p-3">
-  <!-- Logo / Nome da empresa -->
-  <a class="navbar-brand mx-auto fs-4 fw-bold text-decoration-none" href="#">VCorp Sistem</a>
-  
-  <!-- Menu de navegação -->
-  <div class="collapse navbar-collapse justify-content-center">
-    <ul class="navbar-nav mb-2 mb-lg-0 text-center">
-      <li class="nav-item">
-        <a href="#home" class="nav-link text-white">Início</a>
-      </li>
-      <li class="nav-item">
-        <a href="#produto" class="nav-link text-white">Produto</a>
-      </li>
-      <li class="nav-item">
-        <a href="#carrossel" class="nav-link text-white">Galeria</a>
-      </li>
-      <li class="nav-item">
-        <a href="#contato" class="nav-link text-white">Contato</a>
-      </li>
-    </ul>
-  </div>
+  <!-- Menu fixo no topo, responsivo -->
+  <nav id="navbar" class="navbar navbar-expand-lg navbar-dark fixed-top bg-gradient">
+    <div class="container-fluid">
+      <!-- Logo / Nome da empresa -->
+      <a class="navbar-brand mx-auto fs-4 fw-bold text-decoration-none" href="#home">VCorp Sistem</a>
+      
+      <!-- Botão hambúrguer para mobile -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <!-- Menu de navegação colapsável -->
+      <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+        <ul class="navbar-nav mb-2 mb-lg-0 text-center">
+          <li class="nav-item">
+            <a href="#home" class="nav-link text-white">Início</a>
+          </li>
+          <li class="nav-item">
+            <a href="#produto" class="nav-link text-white">Produto</a>
+          </li>
+          <li class="nav-item">
+            <a href="#carrossel" class="nav-link text-white">Galeria</a>
+          </li>
+          <li class="nav-item">
+            <a href="#contato" class="nav-link text-white">Contato</a>
+          </li>
+        </ul>
+      </div>
 
-  <!-- Imagem no canto direito -->
-  <div class="navbar-image">
-    <img src="assets/logo_sem_fundo.png" alt="Logo Imagem" class="img-fluid">
-  </div>
-</nav>
+      <!-- Imagem no canto direito (oculta em mobile) -->
+      <div class="navbar-image d-none d-lg-block">
+        <img src="assets/logo_sem_fundo.png" alt="Logo VCorp" class="img-fluid" loading="lazy">
+      </div>
+    </div>
+  </nav>
 
   <!-- Conteúdo principal -->
-  <main style="margin-top: 80px; padding: 20px;"> <!-- Adicionando padding para evitar sobreposição com o menu fixo -->
-
+  <main>
     <!-- Swiper -->
     <section id="home" class="py-5 bg-light">
-      <h2 class="text-center mb-4">Venha descobrir uma nova forma de criar Escalas!</h2>
-      <!-- Contêiner principal com tamanho controlado -->
-      <div class="carousel-container">
-        <div class="swiper-container-coverflow">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <img src="assets/pessoas/mulher_que_trabalha_em_escritorio_estressada_olhando.jpeg" alt="Projeto 1" class="img-fluid rounded" />
-               <div class="carousel-caption d-none d-md-block carousel-caption-custom">
-                <h5>Cansado de planilhas e papéis ?</h5>
-                <p>Sempre fazendo o mesmo trabalho repetitivo todos os messes?.</p>
+      <div class="container">
+        <h2 class="text-center mb-4">Venha descobrir uma nova forma de criar Escalas!</h2>
+        <!-- Contêiner principal com tamanho controlado -->
+        <div class="carousel-container">
+          <div class="swiper-container-coverflow">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <img src="assets/pessoas/mulher_que_trabalha_em_escritorio_estressada_olhando.jpeg" alt="Mulher estressada no escritório" class="img-fluid rounded" loading="lazy" />
+                <div class="carousel-caption d-none d-md-block carousel-caption-custom">
+                  <h5>Cansado de planilhas e papéis?</h5>
+                  <p>Sempre fazendo o mesmo trabalho repetitivo todos os meses?</p>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <img src="assets/pessoas/mulher_que_trabalha_em_escritorio_estressada_olhando (1).jpeg" alt="Mulher trabalhando estressada" class="img-fluid rounded" loading="lazy" />
+                <div class="carousel-caption d-none d-md-block carousel-caption-custom">
+                  <h5>Quebrando a cabeça para fazer escalas?</h5>
+                  <p>Todo mês tendo que repetir, copiar e colar, trocar nomes etc...</p>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <img src="assets/pessoas/grupo_de_medicos_felizes_olhando_o_celular.jpeg" alt="Mulher feliz com a tela" class="img-fluid rounded" loading="lazy" />
+                <div class="carousel-caption d-none d-md-block carousel-caption-custom">
+                  <h5>A Vcorp te ajuda!</h5>
+                  <p>Nossa solução de Escalas e Permutas te ajuda em todas as etapas.</p>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <img src="assets/pessoas/mulher__feliz_com_a_tela.jpeg" alt="Colaboradores de hospital" class="img-fluid rounded" loading="lazy" />
+                <div class="carousel-caption d-none d-md-block carousel-caption-custom">
+                  <h5>Não importa o segmento da sua empresa.</h5>
+                  <p>Seus colaboradores de qualquer segmento vão adorar as soluções!</p>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <img src="assets/pessoas/colaborador_de_varias_etnias_de_um_hospital (1).jpeg" alt="Grupo de médicos felizes" class="img-fluid rounded" loading="lazy" />
+                <div class="carousel-caption d-none d-md-block carousel-caption-custom">
+                  <h5>Seu time não vai mais reclamar da burocracia.</h5>
+                  <p>Permutas na palma da mão, escalas objetivas, Praticidade é Felicidade!</p>
+                </div>
               </div>
             </div>
-            <div class="swiper-slide">
-              <img src="assets/pessoas/mulher_que_trabalha_em_escritorio_estressada_olhando (1).jpeg" alt="Projeto 2" class="img-fluid rounded" />
-               <div class="carousel-caption d-none d-md-block carousel-caption-custom">
-                <h5>Quebrando a cabeça para fazer escalas ?</h5>
-                <p>Todo mês tendo que repetir, copiar e colar trocar nomes etc...</p>
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <img src="assets/pessoas/mulher__feliz_com_a_tela.jpeg" alt="Projeto 3" class="img-fluid rounded" />
-               <div class="carousel-caption d-none d-md-block carousel-caption-custom">
-                <h5>A Vcorp te ajuda !</h5>
-                <p>Nossa solução de Escalas e Permutas te ajuda em todas as etapas.</p>
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <img src="assets/pessoas/colaborador_de_varias_etnias_de_um_hospital (1).jpeg" alt="Projeto 3" class="img-fluid rounded" />
-               <div class="carousel-caption d-none d-md-block carousel-caption-custom">
-                <h5>Não importa o seguimento da sua empresa.</h5>
-                <p>Seus colaboradores de qualquer seguimento vão adorar as soluções !</p>
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <img src="assets/pessoas/grupo_de_medicos_felizes_olhando_o_celular.jpeg" alt="Projeto 3" class="img-fluid rounded" />
-               <div class="carousel-caption d-none d-md-block carousel-caption-custom">
-                <h5>Seu time não vai mais reclamar da burocracia.</h5>
-                <p>Permutas na palma da mão, escalas objetivas, Praticidade é Felicidade!</p>
-              </div>
-            </div>
+            <div class="swiper-pagination"></div>
           </div>
         </div>
       </div>
+      <!-- Add Pagination -->          
     </section>
 
     <section id="imagem-destaque" class="py-5 bg-light text-center">
       <div class="container">
         <!-- Linha para o texto à esquerda e à direita, e a imagem centralizada -->
-        <div class="row align-items-center">
-          <div class="col-12 col-md-3">
-            <h1 class="left">Cansado de planilhas e papéis ?</h1>
+        <div class="row align-items-center g-4">
+          <div class="col-12 col-lg-3 order-1 order-lg-1">
+            <h1 class="left">Cansado de planilhas e papéis?</h1>
           </div>
-          <div class="col-12 col-md-6">
+          <div class="col-12 col-lg-6 order-3 order-lg-2">
             <!-- Imagem no centro -->
-            <img src="assets/vcorpLogo.png" alt="Imagem Destaque" class="img-fluid rounded">
+            <img src="assets/vcorpLogo.png" alt="Logo VCorp Sistem" class="img-fluid rounded" loading="lazy">
           </div>
-          <div class="col-12 col-md-3">
-            <h1 class="right">Te ajudamos neste processo !</h1>
+          <div class="col-12 col-lg-3 order-2 order-lg-3">
+            <h1 class="right">Te ajudamos neste processo!</h1>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="produto" class="py-5 container">
-      <h2 class="mb-4">Produto em Destaque: Gestão de Escala e Permutas Vcorp.</h2>
-      <div class="card shadow animate-slide-in">
-        <img src="assets/exibição.png" class="card-img-top" alt="Produto Destaque" />
-        <div class="card-body">
-          <h3 class="card-title">Gestão Escala</h3>
-          <p class="card-text">
-            Descrição completa do produto com recursos, benefícios e diferenciais.
-          </p>
-          <a href="#contato" class="btn btn-primary">Solicitar Demonstração</a>
+    <section id="produto" class="py-5">
+      <div class="container">
+        <h2 class="mb-4 text-center">Produto em Destaque: Gestão de Escala e Permutas Vcorp</h2>
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-8 col-lg-6">
+            <div class="card shadow animate-slide-in">
+              <img src="assets/exibição.png" class="card-img-top" alt="Tela do sistema de gestão de escalas" loading="lazy" />
+              <div class="card-body">
+                <h3 class="card-title">Gestão Escala</h3>
+                <p class="card-text">
+                  Descrição completa do produto com recursos, benefícios e diferenciais.
+                </p>
+                <a href="#contato" class="btn btn-primary w-100">Solicitar Demonstração</a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
     <section id="carrossel" class="py-5 bg-light">
-      <h2 class="text-center mb-4">Galeria do Projeto Gestão Escala</h2>
-      
-      <!-- Swiper de miniaturas (Thumbs) -->
-      <div class="swiper-container-thumbs mb-4">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide"><img src="assets/escalas.png" alt="Projeto 1" /></div>
-          <div class="swiper-slide"><img src="assets/funcionario.png" alt="Projeto 2" /></div>
-          <div class="swiper-slide"><img src="assets/trocar.png" alt="Projeto 3" /></div>
-          <div class="swiper-slide"><img src="assets/permuta.png" alt="Projeto 4" /></div>
-          <div class="swiper-slide"><img src="assets/tipoEscala.png" alt="Projeto 5" /></div>
-          <div class="swiper-slide"><img src="assets/cadastros.png" alt="Projeto 6" /></div>
-        </div>
-      </div>
-
-      <!-- Swiper principal -->
-      <div class="swiper-container-second">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide"><img src="assets/escalas.png" alt="Projeto 1" /></div>
-          <div class="swiper-slide"><img src="assets/funcionario.png" alt="Projeto 2" /></div>
-          <div class="swiper-slide"><img src="assets/trocar.png" alt="Projeto 3" /></div>
-          <div class="swiper-slide"><img src="assets/permuta.png" alt="Projeto 4" /></div>
-          <div class="swiper-slide"><img src="assets/tipoEscala.png" alt="Projeto 5" /></div>
-          <div class="swiper-slide"><img src="assets/cadastros.png" alt="Projeto 6" /></div>
-        </div>
+      <div class="container">
+        <h2 class="text-center mb-4">Galeria do Projeto Gestão Escala</h2>
         
-        <!-- Add Pagination -->
-        <div class="swiper-pagination"></div>
+        <!-- Swiper de miniaturas (Thumbs) -->
+        <div class="swiper-container-thumbs mb-4">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="assets/escalas.png" alt="Tela de escalas" loading="lazy" />
+            </div>
+            <div class="swiper-slide">
+              <img src="assets/funcionario.png" alt="Tela de funcionários" loading="lazy" />
+            </div>
+            <div class="swiper-slide">
+              <img src="assets/trocar.png" alt="Tela de troca" loading="lazy" />
+            </div>
+            <div class="swiper-slide">
+              <img src="assets/permuta.png" alt="Tela de permutas" loading="lazy" />
+            </div>
+            <div class="swiper-slide">
+              <img src="assets/tipoEscala.png" alt="Tela de tipos de escala" loading="lazy" />
+            </div>
+            <div class="swiper-slide">
+              <img src="assets/cadastros.png" alt="Tela de cadastros" loading="lazy" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Swiper principal -->
+        <div class="swiper-container-second">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="assets/escalas.png" alt="Tela de escalas" loading="lazy" />
+            </div>
+            <div class="swiper-slide">
+              <img src="assets/funcionario.png" alt="Tela de funcionários" loading="lazy" />
+            </div>
+            <div class="swiper-slide">
+              <img src="assets/trocar.png" alt="Tela de troca" loading="lazy" />
+            </div>
+            <div class="swiper-slide">
+              <img src="assets/permuta.png" alt="Tela de permutas" loading="lazy" />
+            </div>
+            <div class="swiper-slide">
+              <img src="assets/tipoEscala.png" alt="Tela de tipos de escala" loading="lazy" />
+            </div>
+            <div class="swiper-slide">
+              <img src="assets/cadastros.png" alt="Tela de cadastros" loading="lazy" />
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
-   <section id="contato" class="py-5 container">
-    <h2 class="mb-4">Entre em Contato</h2>
-    <form id="contactForm" class="needs-validation" novalidate>
-      <div class="mb-3">
-        <label for="from_name" class="form-label">Nome</label>
-        <input type="text" class="form-control" name="from_name" id="from_name" required />
-        <div class="invalid-feedback">Por favor, informe seu nome.</div>
+    <section id="contato" class="py-5">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-8 col-lg-6">
+            <h2 class="mb-4 text-center">Entre em Contato</h2>
+            <form id="contactForm" class="needs-validation" novalidate>
+              <div class="mb-3">
+                <label for="from_name" class="form-label">Nome</label>
+                <input type="text" class="form-control" name="from_name" id="from_name" required />
+                <div class="invalid-feedback">Por favor, informe seu nome.</div>
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" name="email" id="email" required />
+                <div class="invalid-feedback">Por favor, informe um email válido.</div>
+              </div>
+              <div class="mb-3">
+                <label for="message" class="form-label">Mensagem</label>
+                <textarea class="form-control" name="message" id="message" rows="4" required></textarea>
+                <div class="invalid-feedback">Por favor, escreva sua mensagem.</div>
+              </div>
+              <button type="submit" id="button" class="btn btn-primary w-100">Enviar</button>
+            </form>
+          </div>
+        </div>
       </div>
-      <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" name="email" id="email" required />
-        <div class="invalid-feedback">Por favor, informe um email válido.</div>
-      </div>
-      <div class="mb-3">
-        <label for="message" class="form-label">Mensagem</label>
-        <textarea class="form-control" name="message" id="message" rows="4" required></textarea>
-        <div class="invalid-feedback">Por favor, escreva sua mensagem.</div>
-      </div>
-      <button type="submit" id="button" class="btn btn-primary">Enviar</button>
-    </form>
-  </section>
-
-
+    </section>
   </main>
 
   <!-- Envio de E-mail -->
