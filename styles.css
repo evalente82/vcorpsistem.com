@@ -480,3 +480,45 @@ section {
   }
 }
 
+/* Ajuste para o carrossel Bootstrap na seção de galeria */
+#galleryCarousel {
+  max-width: 800px; /* Defina uma largura máxima para o carrossel */
+  margin: 0 auto; /* Centraliza o carrossel na página */
+  position: relative; /* Garante que os botões de navegação sejam posicionados corretamente em relação a este elemento */
+}
+
+#galleryCarousel .carousel-inner {
+  border-radius: 10px; /* Mantém o arredondamento das bordas */
+  overflow: hidden; /* Garante que a imagem não transborde as bordas arredondadas */
+}
+
+#galleryCarousel .carousel-item img {
+  width: 100%; /* A imagem preenche a largura do item do carrossel */
+  height: clamp(300px, 50vw, 500px); /* Ajusta a altura de forma responsiva */
+  object-fit: contain; /* Reduz a imagem para que caiba no contêiner, mantendo a proporção */
+}
+
+/* Estilo para os botões de navegação (setas) */
+#galleryCarousel .carousel-control-prev,
+#galleryCarousel .carousel-control-next {
+  width: 5%; /* Define uma largura pequena para os botões */
+  background-color: rgba(0, 0, 0, 0.3); /* Fundo semitransparente */
+  height: 40%; /* Altura dos botões */
+  top: 50%; /* Move o topo do botão para o meio do carrossel */
+  transform: translateY(-50%); /* Ajusta para centralizar verticalmente com base na própria altura do botão */
+  opacity: 0.8; /* Torna os botões um pouco mais visíveis */
+}
+
+#galleryCarousel .carousel-control-prev-icon,
+#galleryCarousel .carousel-control-next-icon {
+  filter: brightness(0) invert(1); /* Torna as setas brancas para melhor visibilidade em fundos escuros */
+}
+/* Para garantir que os ícones fiquem centralizados dentro do botão */
+#galleryCarousel .carousel-control-prev-icon,
+#galleryCarousel .carousel-control-next-icon {
+  filter: brightness(0) invert(1); /* Torna as setas brancas */
+  display: flex; /* Habilita flexbox para centralizar o ícone */
+  align-items: center; /* Centraliza verticalmente o ícone */
+  justify-content: center; /* Centraliza horizontalmente o ícone */
+  height: 100%; /* Garante que o ícone ocupe toda a altura do botão para centralização */
+}
