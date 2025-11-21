@@ -1,524 +1,275 @@
-/* Reset básico */
-* {
-  box-sizing: border-box;
+/* Variáveis de Cores e Fontes */
+:root {
+  --primary-color: #0062cc;
+  --primary-dark: #004a99;
+  --secondary-color: #00c2b8;
+  --dark-color: #1a1a1a;
+  --light-color: #f8f9fa;
+  --text-color: #333;
+  --text-light: #6c757d;
+  --gradient-primary: linear-gradient(135deg, #0062cc 0%, #00c2b8 100%);
+  --font-primary: 'Poppins', sans-serif;
+  --font-secondary: 'Inter', sans-serif;
 }
 
-body, html {
-  margin: 0;
-  padding: 0;
-  scroll-behavior: smooth;
-  font-family: 'Open Sans', sans-serif;
-  overflow-x: hidden; /* Previne scroll horizontal */
+/* Reset e Base */
+body {
+  font-family: var(--font-secondary);
+  color: var(--text-color);
+  overflow-x: hidden;
 }
 
-/* Menu fixo no topo, com degradê de cinza para branco */
-#navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: linear-gradient(to bottom, #333333, #bbbbbb)!important;
-  color: white;
-  z-index: 1030;
-  text-shadow: 0 0 6px rgba(0, 0, 0, 0.7);
-  padding: 1rem 2rem;
-  border-bottom: 2px solid #444;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  min-height: 70px;
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-primary);
 }
 
-/* Logo / Nome da empresa */
-#navbar .navbar-brand {
-  color: white;
+.text-gradient {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.ls-2 {
+  letter-spacing: 2px;
+}
+
+/* Navbar */
+.navbar {
+  transition: all 0.3s ease;
+  padding: 1.5rem 0;
+  background-color: transparent;
+}
+
+.navbar.scrolled {
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 1rem 0;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+  font-family: var(--font-primary);
   font-weight: 700;
-  font-size: clamp(18px, 4vw, 24px); /* Fonte responsiva */
-  text-decoration: none;
-  flex: 1;
-  text-align: center;
+  color: #fff !important;
 }
 
-/* Menu de navegação */
-#navbar .navbar-collapse {
-  flex-basis: 100%;
-  justify-content: center;
+.navbar.scrolled .navbar-brand {
+  color: var(--primary-color) !important;
 }
 
-#navbar .navbar-nav {
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+.nav-link {
+  font-weight: 500;
+  color: rgba(255,255,255,0.9) !important;
+  margin: 0 10px;
+  position: relative;
 }
 
-#navbar .nav-link {
-  color: white;
-  font-weight: 600;
-  font-size: clamp(14px, 2.5vw, 18px);
-  transition: color 0.3s ease;
-  padding: 10px 15px;
-  text-decoration: none;
-  white-space: nowrap;
+.navbar.scrolled .nav-link {
+  color: var(--dark-color) !important;
 }
 
-#navbar .nav-link:hover,
-#navbar .nav-link.active {
-  color: #00c2b8;
-}
-
-/* Imagem no canto direito */
-.navbar-image {
+.nav-link::after {
+  content: '';
   position: absolute;
-  top: 50%;
-  right: 20px;
-  transform: translateY(-50%);
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--secondary-color);
+  transition: width 0.3s ease;
 }
 
-.navbar-image img {
-  width: clamp(80px, 15vw, 150px); /* Imagem responsiva */
-  height: auto;
-}
-
-/* Conteúdo principal ajustado para não ficar atrás do menu */
-main {
-  margin-top: 80px;
-  padding: 20px;
+.nav-link:hover::after {
   width: 100%;
-  max-width: 100%;
 }
 
-/* Container responsivo para carrossel */
-.carousel-container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+.navbar-toggler {
+  border: none;
+  outline: none;
 }
 
-/* Estilo para o carrossel com efeito coverflow */
-.swiper-container-coverflow {
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 40px 0;
+.navbar.scrolled .navbar-toggler i {
+  color: var(--dark-color) !important;
+}
+
+/* Botões Customizados */
+.btn-custom-primary {
+  background: var(--gradient-primary);
+  border: none;
+  color: white;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-custom-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 98, 204, 0.4);
+  color: white;
+}
+
+/* Hero Section */
+.hero-section {
+  position: relative;
+  min-height: 100vh;
+  padding-top: 80px;
+  background: url('assets/background-hero.jpg') no-repeat center center/cover; /* Fallback image if needed, or use gradient */
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
   overflow: hidden;
 }
 
-.swiper-slide {
-  background-position: center;
-  background-size: cover;
-  width: clamp(200px, 40vw, 300px);
-  height: clamp(200px, 40vw, 300px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-  border-radius: 10px;
-  transition: transform 0.3s ease;
-  margin-right: 10px;
-}
-
-.swiper-slide img {
+.hero-bg-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  border-radius: 10px;
+  background: radial-gradient(circle at top right, rgba(0, 194, 184, 0.1), transparent 40%),
+              radial-gradient(circle at bottom left, rgba(0, 98, 204, 0.1), transparent 40%);
 }
 
-/* Seção de imagem destaque responsiva */
-#imagem-destaque .row {
-  align-items: center;
-  text-align: center;
+.hero-img {
+  max-width: 80%;
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
 }
 
-#imagem-destaque h1 {
-  font-size: clamp(18px, 4vw, 32px);
-  margin: 20px 0;
+.floating-anim {
+  animation: float 6s ease-in-out infinite;
 }
 
-#imagem-destaque img {
-  max-width: 100%;
-  height: auto;
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
 }
 
-/* Cards responsivos */
-.card {
-  max-width: 100%;
-  margin: 0 auto;
-}
-
-.card img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-}
-
-/* Carrossel de galeria responsivo */
-.swiper-container-thumbs {
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto 20px;
-  height: clamp(60px, 15vw, 100px);
-}
-
-.swiper-container-thumbs .swiper-slide {
-  width: clamp(80px, 20vw, 120px);
-  height: clamp(60px, 15vw, 100px);
-  opacity: 0.6;
-  cursor: pointer;
-}
-
-.swiper-container-thumbs .swiper-slide-thumb-active {
-  opacity: 1;
-}
-
-.swiper-container-thumbs img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 5px;
-}
-
-.swiper-container-second {
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
-  height: clamp(300px, 50vw, 500px);
-}
-
-.swiper-container-second .swiper-slide {
-  width: 100%;
-  height: 100%;
-}
-
-.swiper-container-second img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain; /* Mantém proporção sem cortar */
-  border-radius: 10px;
-}
-
-/* Formulário responsivo */
-#contato {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-.form-control {
-  width: 100%;
-  padding: 12px;
-  font-size: 16px; /* Previne zoom no iOS */
-  border: 1px solid #ddd;
-  border-radius: 5px;
-}
-
-/* Adicionando um fundo de degradê SVG ao corpo do site */
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Cdefs%3E%3ClinearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%"%3E%3Cstop offset="0%" style="stop-color:rgb(255,255,255);stop-opacity:1" /%3E%3Cstop offset="100%" style="stop-color:rgb(169,169,169);stop-opacity:1" /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width="100%" height="100%" fill="url(%23grad1)" /%3E%3C/svg%3E');
-  background-size: cover;
-  font-family: 'Open Sans', sans-serif;
-  scroll-behavior: smooth;
-}
-
-section {
-  background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Cdefs%3E%3ClinearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%"%3E%3Cstop offset="0%" style="stop-color:rgb(255,255,255);stop-opacity:1" /%3E%3Cstop offset="100%" style="stop-color:rgb(169,169,169);stop-opacity:1" /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width="100%" height="100%" fill="url(%23grad1)" /%3E%3C/svg%3E');
-  background-size: cover;
-  padding: 40px 20px;
-  width: 100%;
-}
-
-/* Estilos do footer */
-#footer {
-  background: linear-gradient(to bottom, #333333, #bbbbbb);
-  color: white;
-  padding: 40px 20px;
-  width: 100%;
-}
-
-#footer .container {
-  max-width: 1140px;
-  margin: 0 auto;
-}
-
-#footer h5 {
-  font-weight: 700;
-  font-size: clamp(16px, 3vw, 18px);
-  margin-bottom: 20px;
-}
-
-#footer ul {
-  padding-left: 0;
-}
-
-#footer ul li {
-  list-style: none;
-  margin-bottom: 8px;
-}
-
-#footer ul li a {
-  text-decoration: none;
-  color: white;
-  transition: color 0.3s ease;
-  font-size: clamp(14px, 2.5vw, 16px);
-}
-
-#footer ul li a:hover {
-  color: #00c2b8;
-}
-
-#footer p {
-  font-size: clamp(12px, 2.5vw, 14px);
-  color: #ccc;
-  line-height: 1.5;
-}
-
-/* Classe personalizada para manipular as fontes das legendas */
-.carousel-caption-custom {
-  font-family: 'Arial', sans-serif;
-  font-size: clamp(16px, 4vw, 25px);
-  font-weight: bold;
-  color: #040404;
-  line-height: 1.5;
-  position: relative;
-  top: 5px;
-  left: 1%;
-  text-align: center;
-  padding: 10px;
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 5px;
-  margin: 10px;
-}
-
-.carousel-caption-custom h5 {
-  font-size: clamp(18px, 4.5vw, 24px);
-  margin-bottom: 10px;
-}
-
-.carousel-caption-custom p {
-  font-size: clamp(14px, 3vw, 16px);
-  margin: 0;
-}
-
-/* Media Queries para diferentes dispositivos */
-
-/* Tablets em modo retrato */
-@media (max-width: 768px) {
-  #navbar {
-    padding: 1rem;
-    flex-direction: column;
-    min-height: auto;
-  }
-  
-  #navbar .navbar-brand {
-    margin-bottom: 10px;
-    text-align: center;
-  }
-  
-  #navbar .navbar-nav {
-    flex-direction: column;
-    gap: 0.5rem;
+/* Divisor de Onda SVG */
+.custom-shape-divider-bottom-1684365942 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
     width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1684365942 svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 100px;
+}
+
+.custom-shape-divider-bottom-1684365942 .shape-fill {
+    fill: #FFFFFF;
+}
+
+/* Produtos Cards */
+.product-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.product-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important;
+}
+
+.icon-box {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.highlight-card {
+  border: 2px solid var(--secondary-color) !important;
+  transform: scale(1.05);
+  z-index: 2;
+}
+
+.highlight-card:hover {
+  transform: scale(1.05) translateY(-10px);
+}
+
+.price-tag {
+  font-family: var(--font-primary);
+  font-weight: 700;
+  color: var(--dark-color);
+}
+
+.price-tag .currency {
+  font-size: 1.2rem;
+  vertical-align: top;
+}
+
+.price-tag .amount {
+  font-size: 2rem;
+}
+
+/* Sobre Section */
+.btn-square {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+/* Contato Section */
+.transform-rotate-n15 {
+  transform: rotate(-15deg);
+  opacity: 0.05;
+}
+
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-control:not(:placeholder-shown) ~ label {
+  color: var(--primary-color);
+}
+
+.form-control:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.25rem rgba(0, 98, 204, 0.25);
+}
+
+/* Footer */
+.hover-white:hover {
+  color: white !important;
+}
+
+/* Responsividade */
+@media (max-width: 991.98px) {
+  .navbar {
+    background-color: white;
+    padding: 1rem 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+  
+  .navbar-brand, .nav-link, .navbar-toggler i {
+    color: var(--dark-color) !important;
+  }
+  
+  .hero-section {
+    padding-top: 100px;
     text-align: center;
   }
   
-  .navbar-image {
-    position: static;
-    transform: none;
-    margin-top: 10px;
-    text-align: center;
+  .hero-section h1 {
+    font-size: 2.5rem;
   }
   
-  main {
-    margin-top: 120px;
-    padding: 15px;
-  }
-  
-  .swiper-container-coverflow {
-    padding: 20px 0;
-  }
-  
-  #imagem-destaque .col-md-3,
-  #imagem-destaque .col-md-6 {
+  .highlight-card {
+    transform: scale(1);
+    margin-top: 20px;
     margin-bottom: 20px;
   }
   
-  .carousel-caption-custom {
-    position: static;
-    margin-top: 15px;
+  .highlight-card:hover {
+    transform: translateY(-10px);
   }
-}
-
-/* Smartphones */
-@media (max-width: 480px) {
-  #navbar {
-    padding: 0.5rem;
-  }
-  
-  main {
-    margin-top: 140px;
-    padding: 10px;
-  }
-  
-  .swiper-container-coverflow {
-    padding: 15px 0;
-  }
-  
-  section {
-    padding: 20px 10px;
-  }
-  
-  #footer {
-    padding: 30px 15px;
-  }
-  
-  #footer .row > div {
-    margin-bottom: 30px;
-  }
-  
-  .btn {
-    width: 100%;
-    margin-bottom: 10px;
-  }
-}
-
-/* Smartphones muito pequenos */
-@media (max-width: 320px) {
-  #navbar .navbar-brand {
-    font-size: 16px;
-  }
-  
-  main {
-    margin-top: 160px;
-    padding: 5px;
-  }
-  
-  .swiper-slide {
-    width: 150px;
-    height: 150px;
-  }
-  
-  section {
-    padding: 15px 5px;
-  }
-}
-
-/* Telas grandes (desktops) */
-@media (min-width: 1200px) {
-  .container {
-    max-width: 1140px;
-  }
-  
-  #navbar {
-    padding: 1.5rem 3rem;
-  }
-  
-  .swiper-container-coverflow {
-    max-width: 1000px;
-  }
-  
-  .carousel-caption-custom {
-    font-size: 28px;
-  }
-}
-
-/* Orientação landscape em dispositivos móveis */
-@media (max-height: 500px) and (orientation: landscape) {
-  main {
-    margin-top: 60px;
-  }
-  
-  .swiper-container-coverflow {
-    padding: 10px 0;
-  }
-  
-  .carousel-caption-custom {
-    font-size: 14px;
-    padding: 5px;
-  }
-}
-
-/* Ajustes para acessibilidade e usabilidade */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-  
-  html {
-    scroll-behavior: auto;
-  }
-}
-
-/* Ajustes para impressão */
-@media print {
-  #navbar,
-  #footer {
-    display: none;
-  }
-  
-  main {
-    margin-top: 0;
-  }
-  
-  .swiper-container-coverflow,
-  .swiper-container-second {
-    display: none;
-  }
-}
-
-/* Ajustes para telas de alta densidade (Retina) */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .navbar-image img {
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: crisp-edges;
-  }
-}
-
-/* Ajuste para o carrossel Bootstrap na seção de galeria */
-#galleryCarousel {
-  max-width: 800px; /* Defina uma largura máxima para o carrossel */
-  margin: 0 auto; /* Centraliza o carrossel na página */
-  position: relative; /* Garante que os botões de navegação sejam posicionados corretamente em relação a este elemento */
-}
-
-#galleryCarousel .carousel-inner {
-  border-radius: 10px; /* Mantém o arredondamento das bordas */
-  overflow: hidden; /* Garante que a imagem não transborde as bordas arredondadas */
-}
-
-#galleryCarousel .carousel-item img {
-  width: 100%; /* A imagem preenche a largura do item do carrossel */
-  height: clamp(300px, 50vw, 500px); /* Ajusta a altura de forma responsiva */
-  object-fit: contain; /* Reduz a imagem para que caiba no contêiner, mantendo a proporção */
-}
-
-/* Estilo para os botões de navegação (setas) */
-#galleryCarousel .carousel-control-prev,
-#galleryCarousel .carousel-control-next {
-  width: 5%; /* Define uma largura pequena para os botões */
-  background-color: rgba(0, 0, 0, 0.3); /* Fundo semitransparente */
-  height: 40%; /* Altura dos botões */
-  top: 50%; /* Move o topo do botão para o meio do carrossel */
-  transform: translateY(-50%); /* Ajusta para centralizar verticalmente com base na própria altura do botão */
-  opacity: 0.8; /* Torna os botões um pouco mais visíveis */
-}
-
-#galleryCarousel .carousel-control-prev-icon,
-#galleryCarousel .carousel-control-next-icon {
-  filter: brightness(0) invert(1); /* Torna as setas brancas para melhor visibilidade em fundos escuros */
-}
-/* Para garantir que os ícones fiquem centralizados dentro do botão */
-#galleryCarousel .carousel-control-prev-icon,
-#galleryCarousel .carousel-control-next-icon {
-  filter: brightness(0) invert(1); /* Torna as setas brancas */
-  display: flex; /* Habilita flexbox para centralizar o ícone */
-  align-items: center; /* Centraliza verticalmente o ícone */
-  justify-content: center; /* Centraliza horizontalmente o ícone */
-  height: 100%; /* Garante que o ícone ocupe toda a altura do botão para centralização */
 }
