@@ -43,7 +43,7 @@ document.getElementById('contactForm').addEventListener('submit', function (even
   btn.innerText = 'Enviando...';
   btn.disabled = true;
 
-  const serviceID = 'service_pr6gg5r'; // Ou seu Service ID específico do EmailJS
+  const serviceID = 'service_qsxytmo'; // Ou seu Service ID específico do EmailJS
   const templateID = 'template_pr6gg5r'; // Substitua pelo seu Template ID do EmailJS
 
   emailjs.sendForm(serviceID, templateID, this)
