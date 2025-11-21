@@ -20,7 +20,7 @@ window.addEventListener('scroll', () => {
 // IMPORTANTE: Substitua "YOUR_PUBLIC_KEY" pela sua chave pública do EmailJS
 (function () {
   // https://dashboard.emailjs.com/admin/account
-  emailjs.init("YOUR_PUBLIC_KEY");
+  emailjs.init("-uCdYWVFgdh2kcxRK");
 })();
 
 // Manipulação do Formulário de Contato
@@ -43,8 +43,8 @@ document.getElementById('contactForm').addEventListener('submit', function (even
   btn.innerText = 'Enviando...';
   btn.disabled = true;
 
-  const serviceID = 'default_service'; // Ou seu Service ID específico do EmailJS
-  const templateID = 'template_id'; // Substitua pelo seu Template ID do EmailJS
+  const serviceID = 'service_pr6gg5r'; // Ou seu Service ID específico do EmailJS
+  const templateID = 'template_pr6gg5r'; // Substitua pelo seu Template ID do EmailJS
 
   emailjs.sendForm(serviceID, templateID, this)
     .then(() => {
