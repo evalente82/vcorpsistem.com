@@ -1,271 +1,407 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <meta name="description" content="VCorp Sistem - Soluções inovadoras para gestão de escalas e permutas" />
-  <meta name="keywords" content="gestão, escalas, permutas, sistema, vcorp" />
-  <title>Vcorp Sistem - Gestão de Escalas e Permutas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="VCorp Sistem - Soluções tecnológicas para o seu negócio. Escala de Trabalho, Atendimento Inteligente e Sistema Lotus para Varejo." />
+  <meta name="keywords" content="vcorp, sistema, escala, atendimento whatsapp, pdv, varejo, lotus sistem" />
+  <title>VCorp Sistem | Soluções Inteligentes</title>
 
   <link rel="icon" type="image/x-icon" href="assets/vcorpLogo.png">
-  
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@400;600;700;800&display=swap"
+    rel="stylesheet">
 
   <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-  <!-- Swiper CSS (carrossel) -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- AOS Animation CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
   <!-- Custom CSS -->
   <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
-  <!-- Menu fixo no topo, responsivo -->
-  <nav id="navbar" class="navbar navbar-expand-lg navbar-dark fixed-top bg-gradient">
-    <div class="container-fluid">
-      <!-- Logo / Nome da empresa -->
-      <a class="navbar-brand mx-auto fs-4 fw-bold text-decoration-none" href="#home">VCorp Sistem</a>
-      
-      <!-- Botão hambúrguer para mobile -->
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
-              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg fixed-top" id="navbar">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img src="assets/logo_sem_fundo.png" alt="VCorp Sistem" height="40" class="d-inline-block align-text-top me-2">
+        VCorp Sistem
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars text-white"></i>
       </button>
-      
-      <!-- Menu de navegação colapsável -->
-      <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-        <ul class="navbar-nav mb-2 mb-lg-0 text-center">
-          <li class="nav-item">
-            <a href="#home" class="nav-link text-white">Início</a>
-          </li>
-          <li class="nav-item">
-            <a href="#produto" class="nav-link text-white">Produto</a>
-          </li>
-          <li class="nav-item">
-            <a href="#carrossel" class="nav-link text-white">Galeria</a>
-          </li>
-          <li class="nav-item">
-            <a href="#contato" class="nav-link text-white">Contato</a>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="#home">Início</a></li>
+          <li class="nav-item"><a class="nav-link" href="#produtos">Soluções</a></li>
+          <li class="nav-item"><a class="nav-link" href="#sobre">Sobre</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contato">Contato</a></li>
+          <li class="nav-item ms-lg-3">
+            <a href="#produtos" class="btn btn-custom-primary btn-sm px-4 rounded-pill">Contratar Agora</a>
           </li>
         </ul>
-      </div>
-
-      <!-- Imagem no canto direito (oculta em mobile) -->
-      <div class="navbar-image d-none d-lg-block">
-        <img src="assets/logo_sem_fundo.png" alt="Logo VCorp" class="img-fluid" loading="lazy">
       </div>
     </div>
   </nav>
 
-  <!-- Conteúdo principal -->
-  <main>
-    <!-- Swiper -->
-    <section id="home" class="py-5 bg-light">
-      <div class="container">
-        <h2 class="text-center mb-4">Venha descobrir uma nova forma de criar Escalas!</h2>
-        <!-- Contêiner principal com tamanho controlado -->
-        <div class="carousel-container">
-          <div class="swiper-container-coverflow">
-            <div class="swiper-wrapper">
-              <div class="swiper-slide">
-                <img src="assets/pessoas/mulher_que_trabalha_em_escritorio_estressada_olhando.jpeg" alt="Mulher estressada no escritório" class="img-fluid rounded" loading="lazy" />
-                <div class="carousel-caption d-none d-md-block carousel-caption-custom">
-                  <h5>Cansado de planilhas e papéis?</h5>
-                  <p>Sempre fazendo o mesmo trabalho repetitivo todos os meses?</p>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <img src="assets/pessoas/mulher_que_trabalha_em_escritorio_estressada_olhando (1).jpeg" alt="Mulher trabalhando estressada" class="img-fluid rounded" loading="lazy" />
-                <div class="carousel-caption d-none d-md-block carousel-caption-custom">
-                  <h5>Quebrando a cabeça para fazer escalas?</h5>
-                  <p>Todo mês tendo que repetir, copiar e colar, trocar nomes etc...</p>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <img src="assets/pessoas/grupo_de_medicos_felizes_olhando_o_celular.jpeg" alt="Mulher feliz com a tela" class="img-fluid rounded" loading="lazy" />
-                <div class="carousel-caption d-none d-md-block carousel-caption-custom">
-                  <h5>A Vcorp te ajuda!</h5>
-                  <p>Nossa solução de Escalas e Permutas te ajuda em todas as etapas.</p>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <img src="assets/pessoas/mulher__feliz_com_a_tela.jpeg" alt="Colaboradores de hospital" class="img-fluid rounded" loading="lazy" />
-                <div class="carousel-caption d-none d-md-block carousel-caption-custom">
-                  <h5>Não importa o segmento da sua empresa.</h5>
-                  <p>Seus colaboradores de qualquer segmento vão adorar as soluções!</p>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <img src="assets/pessoas/colaborador_de_varias_etnias_de_um_hospital (1).jpeg" alt="Grupo de médicos felizes" class="img-fluid rounded" loading="lazy" />
-                <div class="carousel-caption d-none d-md-block carousel-caption-custom">
-                  <h5>Seu time não vai mais reclamar da burocracia.</h5>
-                  <p>Permutas na palma da mão, escalas objetivas, Praticidade é Felicidade!</p>
-                </div>
-              </div>
-            </div>
-            <div class="swiper-pagination"></div>
+  <!-- Hero Section -->
+  <section id="home" class="hero-section d-flex align-items-center">
+    <div class="hero-bg-overlay"></div>
+    <div class="container position-relative z-2">
+      <div class="row align-items-center">
+        <div class="col-lg-6 text-white" data-aos="fade-right" data-aos-duration="1000">
+          <h1 class="display-4 fw-bold mb-4">Tecnologia que <span class="text-gradient">Transforma</span> o seu Negócio
+          </h1>
+          <p class="lead mb-4">De gestão de escalas a automação de atendimento e sistemas para varejo. Temos a solução
+            completa para você escalar seus resultados.</p>
+          <div class="d-flex gap-3">
+            <a href="#produtos" class="btn btn-custom-primary btn-lg rounded-pill px-5">Ver Soluções</a>
+            <a href="#contato" class="btn btn-outline-light btn-lg rounded-pill px-5">Fale Conosco</a>
           </div>
         </div>
-      </div>
-      <!-- Add Pagination -->          
-    </section>
-
-    <section id="imagem-destaque" class="py-5 bg-light text-center">
-      <div class="container">
-        <!-- Linha para o texto à esquerda e à direita, e a imagem centralizada -->
-        <div class="row align-items-center g-4">
-          <div class="col-12 col-lg-3 order-1 order-lg-1">
-            <h1 class="left">Cansado de planilhas e papéis?</h1>
-          </div>
-          <div class="col-12 col-lg-6 order-3 order-lg-2">
-            <!-- Imagem no centro -->
-            <img src="assets/vcorpLogo.png" alt="Logo VCorp Sistem" class="img-fluid rounded" loading="lazy">
-          </div>
-          <div class="col-12 col-lg-3 order-2 order-lg-3">
-            <h1 class="right">Te ajudamos neste processo!</h1>
-          </div>
+        <div class="col-lg-6 mt-5 mt-lg-0 text-center" data-aos="fade-left" data-aos-duration="1000">
+          <img src="assets/vcorpLogo.png" alt="VCorp Technology" class="img-fluid hero-img floating-anim">
         </div>
-      </div>
-    </section>
-
-    <section id="produto" class="py-5">
-      <div class="container">
-        <h2 class="mb-4 text-center">Produto em Destaque: Gestão de Escala e Permutas Vcorp</h2>
-        <div class="row justify-content-center">
-          <div class="col-12 col-md-8 col-lg-6">
-            <div class="card shadow animate-slide-in">
-              <img src="assets/exibição.png" class="card-img-top" alt="Tela do sistema de gestão de escalas" loading="lazy" />
-              <div class="card-body">
-                <h3 class="card-title">Gestão Escala</h3>
-                <p class="card-text">
-                  Descrição completa do produto com recursos, benefícios e diferenciais.
-                </p>
-                <a href="#contato" class="btn btn-primary w-100">Solicitar Demonstração</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="carrossel" class="py-5 bg-light">
-      <div class="container">
-        <h2 class="text-center mb-4">Galeria do Projeto Gestão Escala</h2>
-        
-        <!-- Swiper de miniaturas (Thumbs) -->
-        
-
-        <!-- Swiper principal -->
-        <div class="swiper-container-second">
-          <div id="galleryCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img src="assets/escalas.png" class="d-block w-100" alt="Tela de escalas" loading="lazy" />
-              </div>
-              <div class="carousel-item">
-                <img src="assets/funcionario.png" class="d-block w-100" alt="Tela de funcionários" loading="lazy" />
-              </div>
-              <div class="carousel-item">
-                <img src="assets/trocar.png" class="d-block w-100" alt="Tela de troca" loading="lazy" />
-              </div>
-              <div class="carousel-item">
-                <img src="assets/permuta.png" class="d-block w-100" alt="Tela de permutas" loading="lazy" />
-              </div>
-              <div class="carousel-item">
-                <img src="assets/tipoEscala.png" class="d-block w-100" alt="Tela de tipos de escala" loading="lazy" />
-              </div>
-              <div class="carousel-item">
-                <img src="assets/cadastros.png" class="d-block w-100" alt="Tela de cadastros" loading="lazy" />
-              </div>
-            </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#galleryCarousel" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#galleryCarousel" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
-        </div>
-      </div>
-    </section>
-
-    <section id="contato" class="py-5">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-12 col-md-8 col-lg-6">
-            <h2 class="mb-4 text-center">Entre em Contato</h2>
-            <form id="contactForm" class="needs-validation" novalidate>
-              <div class="mb-3">
-                <label for="from_name" class="form-label">Nome</label>
-                <input type="text" class="form-control" name="from_name" id="from_name" required />
-                <div class="invalid-feedback">Por favor, informe seu nome.</div>
-              </div>
-              <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" name="email" id="email" required />
-                <div class="invalid-feedback">Por favor, informe um email válido.</div>
-              </div>
-              <div class="mb-3">
-                <label for="message" class="form-label">Mensagem</label>
-                <textarea class="form-control" name="message" id="message" rows="4" required></textarea>
-                <div class="invalid-feedback">Por favor, escreva sua mensagem.</div>
-              </div>
-              <button type="submit" id="button" class="btn btn-primary w-100">Enviar</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- Envio de E-mail -->
-  <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
-
-
-  <!-- Bootstrap 5 JS Bundle + Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Swiper JS -->
-  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-  
-  <!-- Swiper CSS (carrossel) -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
-
-  <!-- Custom JS -->
-  <script src="scripts.js"></script>
-</body>
-<footer id="footer" class="py-5 bg-dark text-white">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4">
-        <h5>VCorp Sistem</h5>
-        <p>Somos especialistas em soluções tecnológicas inovadoras. Transforme seu negócio com nossos produtos e serviços de alta qualidade.</p>
-      </div>
-      <div class="col-md-4">
-        <h5>Links Úteis</h5>
-        <ul class="list-unstyled">
-          <li><a href="#home" class="text-white">Início</a></li>
-          <li><a href="#produto" class="text-white">Produto</a></li>
-          <li><a href="#carrossel" class="text-white">Galeria</a></li>
-          <li><a href="#contato" class="text-white">Contato</a></li>
-        </ul>
-      </div>
-      <div class="col-md-4">
-        <h5>Contato</h5>
-        <p>Email: vcorpsistem@gmail.com</p>
-        <p>Telefone: (21) 99359-3760</p>
-        <!-- Botão WhatsApp -->
-        <!-- Botão WhatsApp com mensagem pré-definida -->
-        <a href="https://wa.me/5521993593760?text=Oi%2C%20vim%20do%20site%20da%20Vcorp%20e%20gostaria%20de%20mais%20informações%20sobre%20o%20produto." 
-          target="_blank" class="btn btn-success">Fale com a gente no WhatsApp</a>
       </div>
     </div>
-  </div>
-  <div class="text-center mt-4">
-    <p>&copy; 2025 VCorp Sistem. Todos os direitos reservados.</p>
-  </div>
-</footer>
+    <div class="custom-shape-divider-bottom-1684365942">
+      <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path
+          d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+          class="shape-fill"></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Produtos Section -->
+  <section id="produtos" class="py-5 position-relative">
+    <div class="container py-5">
+      <div class="text-center mb-5" data-aos="fade-up">
+        <h6 class="text-uppercase text-primary fw-bold ls-2">Nossas Soluções</h6>
+        <h2 class="fw-bold display-5">Escolha o plano ideal para você</h2>
+        <p class="text-muted mx-auto" style="max-width: 600px;">Ferramentas poderosas desenvolvidas para otimizar
+          processos e aumentar a produtividade da sua empresa.</p>
+      </div>
+
+      <div class="row g-4">
+        <!-- Produto 1: Escala Trabalho -->
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+          <div class="card product-card h-100 border-0 shadow-sm">
+            <div class="card-header bg-transparent border-0 pt-4 pb-0 text-center">
+              <div class="icon-box mb-3 mx-auto bg-primary-subtle text-primary">
+                <i class="fas fa-calendar-alt fa-2x"></i>
+              </div>
+              <h3 class="card-title fw-bold">Escala Trabalho</h3>
+              <p class="text-muted small">Gestão de Escalas e Permutas</p>
+            </div>
+            <div class="card-body text-center">
+              <ul class="list-unstyled mb-4 text-start mx-auto" style="max-width: 250px;">
+                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Trocas automatizadas</li>
+                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Gestão de folgas</li>
+                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>App para colaboradores</li>
+                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Relatórios detalhados</li>
+              </ul>
+              <div class="price-tag mb-3">
+                <span class="currency">R$</span><span class="amount">Consultar</span>
+              </div>
+              <div class="d-grid gap-2">
+                <a href="escala-trabalho.html" class="btn btn-outline-primary rounded-pill">Saiba Mais</a>
+                <a href="https://wa.me/5521993593760?text=Olá,%20tenho%20interesse%20no%20sistema%20de%20Escala%20de%20Trabalho."
+                  target="_blank" class="btn btn-primary rounded-pill">Contratar Agora</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Produto 2: Atendimento Inteligente -->
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+          <div class="card product-card h-100 border-0 shadow highlight-card">
+            <div class="position-absolute top-0 start-50 translate-middle">
+              <span class="badge bg-warning text-dark rounded-pill px-3 py-2">Mais Popular</span>
+            </div>
+            <div class="card-header bg-transparent border-0 pt-5 pb-0 text-center">
+              <div class="icon-box mb-3 mx-auto bg-success-subtle text-success">
+                <i class="fab fa-whatsapp fa-2x"></i>
+              </div>
+              <h3 class="card-title fw-bold">Atendimento IA</h3>
+              <p class="text-muted small">Bot Inteligente para WhatsApp</p>
+            </div>
+            <div class="card-body text-center">
+              <ul class="list-unstyled mb-4 text-start mx-auto" style="max-width: 250px;">
+                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Atendimento 24/7</li>
+                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Respostas automáticas</li>
+                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Múltiplos atendentes</li>
+                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Dashboard de conversas</li>
+              </ul>
+              <div class="price-tag mb-3">
+                <span class="currency">R$</span><span class="amount">Consultar</span>
+              </div>
+              <div class="d-grid gap-2">
+                <a href="atendimento-inteligente.html" class="btn btn-outline-success rounded-pill">Saiba Mais</a>
+                <a href="https://wa.me/5521993593760?text=Olá,%20tenho%20interesse%20no%20Atendimento%20Inteligente%20para%20WhatsApp."
+                  target="_blank" class="btn btn-success rounded-pill shadow-sm">Contratar Agora</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Produto 3: Lotus Sistem -->
+        <div class="col-lg-4 col-md-6 mx-auto" data-aos="fade-up" data-aos-delay="300">
+          <div class="card product-card h-100 border-0 shadow-sm">
+            <div class="card-header bg-transparent border-0 pt-4 pb-0 text-center">
+              <div class="icon-box mb-3 mx-auto bg-danger-subtle text-danger">
+                <i class="fas fa-store fa-2x"></i>
+              </div>
+              <h3 class="card-title fw-bold">Sistema Lotus</h3>
+              <p class="text-muted small">PDV e Retaguarda para Varejo</p>
+            </div>
+            <div class="card-body text-center">
+              <ul class="list-unstyled mb-4 text-start mx-auto" style="max-width: 250px;">
+                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Controle de estoque</li>
+                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Emissão de notas fiscais</li>
+                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Frente de caixa (PDV)</li>
+                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Gestão financeira</li>
+              </ul>
+              <div class="price-tag mb-3">
+                <span class="currency">R$</span><span class="amount">Consultar</span>
+              </div>
+              <div class="d-grid gap-2">
+                <a href="sistema-lotus.html" class="btn btn-outline-danger rounded-pill">Saiba Mais</a>
+                <a href="https://wa.me/5521993593760?text=Olá,%20tenho%20interesse%20no%20Sistema%20Lotus%20para%20Varejo."
+                  target="_blank" class="btn btn-outline-primary w-100 rounded-pill">Contratar Agora</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sobre Section -->
+  <section id="sobre" class="py-5 bg-light">
+    <div class="container py-5">
+      <div class="row align-items-center">
+        <div class="col-lg-6 mb-4 mb-lg-0" data-aos="fade-right">
+          <img src="assets/pessoas/mulher__feliz_com_a_tela.jpeg" alt="Sobre VCorp"
+            class="img-fluid rounded-4 shadow-lg">
+        </div>
+        <div class="col-lg-6 ps-lg-5" data-aos="fade-left">
+          <h6 class="text-uppercase text-primary fw-bold ls-2">Sobre Nós</h6>
+          <h2 class="fw-bold mb-4">Inovação que impulsiona o seu crescimento</h2>
+          <p class="text-muted mb-4">A VCorp Sistem nasceu com a missão de simplificar a gestão empresarial através da
+            tecnologia. Nossas soluções são desenvolvidas pensando na usabilidade e na eficiência, permitindo que você
+            foque no que realmente importa: o seu negócio.</p>
+          <div class="row g-4 mb-4">
+            <div class="col-6">
+              <div class="d-flex align-items-center">
+                <div class="flex-shrink-0 btn-square bg-primary text-white rounded-3 p-3">
+                  <i class="fas fa-rocket"></i>
+                </div>
+                <div class="ms-3">
+                  <h5 class="mb-1 fw-bold">Agilidade</h5>
+                  <p class="mb-0 small text-muted">Processos otimizados</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="d-flex align-items-center">
+                <div class="flex-shrink-0 btn-square bg-primary text-white rounded-3 p-3">
+                  <i class="fas fa-headset"></i>
+                </div>
+                <div class="ms-3">
+                  <h5 class="mb-1 fw-bold">Suporte</h5>
+                  <p class="mb-0 small text-muted">Atendimento humanizado</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <a href="#contato" class="btn btn-dark rounded-pill px-4">Saiba Mais</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-5 bg-primary text-white text-center position-relative overflow-hidden">
+    <div class="container py-4 position-relative z-2">
+      <h2 class="fw-bold mb-3" data-aos="zoom-in">Pronto para transformar sua gestão?</h2>
+      <p class="lead mb-4" data-aos="zoom-in" data-aos-delay="100">Entre em contato hoje mesmo e descubra como nossas
+        soluções podem ajudar sua empresa.</p>
+      <a href="#contato" class="btn btn-light btn-lg rounded-pill px-5 fw-bold text-primary shadow" data-aos="zoom-in"
+        data-aos-delay="200">Falar com Especialista</a>
+    </div>
+    <!-- Decorative circles -->
+    <div class="position-absolute top-0 start-0 translate-middle rounded-circle bg-white opacity-10"
+      style="width: 300px; height: 300px;"></div>
+    <div class="position-absolute bottom-0 end-0 translate-middle rounded-circle bg-white opacity-10"
+      style="width: 400px; height: 400px;"></div>
+  </section>
+
+  <!-- Contato Section -->
+  <section id="contato" class="py-5">
+    <div class="container py-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 text-center mb-5" data-aos="fade-up">
+          <h6 class="text-uppercase text-primary fw-bold ls-2">Contato</h6>
+          <h2 class="fw-bold">Vamos conversar?</h2>
+          <p class="text-muted">Preencha o formulário abaixo ou nos chame no WhatsApp.</p>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          <div class="card border-0 shadow-lg overflow-hidden rounded-4">
+            <div class="row g-0">
+              <div class="col-md-5 bg-dark text-white p-5 d-flex flex-column justify-content-center position-relative">
+                <div class="position-relative z-2">
+                  <h3 class="fw-bold mb-4">Informações</h3>
+                  <div class="d-flex mb-4">
+                    <i class="fas fa-envelope mt-1 me-3 text-primary"></i>
+                    <div>
+                      <h6 class="fw-bold mb-1">Email</h6>
+                      <p class="mb-0 text-white-50">vcorpsistem@gmail.com</p>
+                    </div>
+                  </div>
+                  <div class="d-flex mb-4">
+                    <i class="fas fa-phone mt-1 me-3 text-primary"></i>
+                    <div>
+                      <h6 class="fw-bold mb-1">Telefone / WhatsApp</h6>
+                      <p class="mb-0 text-white-50">(21) 99359-3760</p>
+                    </div>
+                  </div>
+                  <div class="d-flex">
+                    <i class="fas fa-map-marker-alt mt-1 me-3 text-primary"></i>
+                    <div>
+                      <h6 class="fw-bold mb-1">Localização</h6>
+                      <p class="mb-0 text-white-50">Rio de Janeiro, RJ</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="position-absolute bottom-0 end-0 opacity-10">
+                  <i class="fas fa-comments fa-10x transform-rotate-n15"></i>
+                </div>
+              </div>
+              <div class="col-md-7 p-5 bg-white">
+                <form id="contactForm" class="needs-validation" novalidate>
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <div class="form-floating">
+                        <input type="text" class="form-control" id="from_name" name="from_name" placeholder="Seu Nome"
+                          required>
+                        <label for="from_name">Nome</label>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-floating">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Seu Email"
+                          required>
+                        <label for="email">Email</label>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="form-floating">
+                        <select class="form-select" id="subject" name="subject">
+                          <option selected>Tenho interesse em...</option>
+                          <option value="Escala Trabalho">Escala Trabalho</option>
+                          <option value="Atendimento WhatsApp">Atendimento WhatsApp</option>
+                          <option value="Sistema Lotus">Sistema Lotus (Varejo)</option>
+                          <option value="Outros">Outros Assuntos</option>
+                        </select>
+                        <label for="subject">Assunto</label>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="form-floating">
+                        <textarea class="form-control" placeholder="Sua mensagem" id="message" name="message"
+                          style="height: 150px" required></textarea>
+                        <label for="message">Mensagem</label>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <button class="btn btn-primary w-100 py-3 rounded-3 fw-bold" type="submit" id="button">Enviar
+                        Mensagem</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white pt-5 pb-3">
+    <div class="container">
+      <div class="row g-4 mb-5">
+        <div class="col-lg-4 col-md-6">
+          <a href="#" class="d-flex align-items-center text-white text-decoration-none mb-3">
+            <img src="assets/logo_sem_fundo.png" alt="Logo" height="40" class="me-2 bg-white rounded-circle p-1">
+            <span class="fs-4 fw-bold">VCorp Sistem</span>
+          </a>
+          <p class="text-white-50">Transformando a gestão do seu negócio com tecnologia de ponta e soluções
+            inteligentes.</p>
+          <div class="d-flex gap-3 mt-4">
+            <a href="#" class="btn btn-outline-light btn-sm rounded-circle"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="btn btn-outline-light btn-sm rounded-circle"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="btn btn-outline-light btn-sm rounded-circle"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-6">
+          <h5 class="fw-bold mb-3">Links Rápidos</h5>
+          <ul class="list-unstyled text-white-50">
+            <li class="mb-2"><a href="#home" class="text-white-50 text-decoration-none hover-white">Início</a></li>
+            <li class="mb-2"><a href="#produtos" class="text-white-50 text-decoration-none hover-white">Soluções</a>
+            </li>
+            <li class="mb-2"><a href="#sobre" class="text-white-50 text-decoration-none hover-white">Sobre</a></li>
+            <li class="mb-2"><a href="#contato" class="text-white-50 text-decoration-none hover-white">Contato</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <h5 class="fw-bold mb-3">Soluções</h5>
+          <ul class="list-unstyled text-white-50">
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Gestão de Escalas</a>
+            </li>
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Bot WhatsApp</a></li>
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Sistema PDV</a></li>
+            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Consultoria</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <h5 class="fw-bold mb-3">Contato</h5>
+          <ul class="list-unstyled text-white-50">
+            <li class="mb-2"><i class="fas fa-envelope me-2"></i> vcorpsistem@gmail.com</li>
+            <li class="mb-2"><i class="fas fa-phone me-2"></i> (21) 99359-3760</li>
+            <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> Rio de Janeiro, RJ</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="border-secondary">
+      <div class="text-center text-white-50 pt-3">
+        <p class="mb-0">&copy; 2025 VCorp Sistem. Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script src="scripts.js"></script>
+</body>
 
 </html>
