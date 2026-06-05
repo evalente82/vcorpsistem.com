@@ -5,11 +5,22 @@
   --secondary-color: #00c2b8;
   --dark-color: #1a1a1a;
   --light-color: #f8f9fa;
-  --text-color: #333;
-  --text-light: #6c757d;
+  --text-color: #1e293b;
+  --text-light: #475569;
   --gradient-primary: linear-gradient(135deg, #0062cc 0%, #00c2b8 100%);
   --font-primary: 'Poppins', sans-serif;
   --font-secondary: 'Inter', sans-serif;
+  --atendia-primary: #00b289;
+  --atendia-primary-hover: #009673;
+  --atendia-bg-dark: #12161a;
+  --atendia-bg-light: #f4fbf9;
+  --atendia-card-border: rgba(0, 178, 137, 0.25);
+  --atendia-gradient: linear-gradient(135deg, #12161a 0%, #00b289 100%);
+  --cor-revenda-primaria: #4f46e5;
+  --cor-revenda-primaria-hover: #4338ca;
+  --cor-revenda-fundo-suave: #ede9fe;
+  --cor-revenda-fundo-escura: #0f172a;
+  --gradiente-revenda: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
 }
 
 /* Reset e Base */
@@ -17,6 +28,26 @@ body {
   font-family: var(--font-secondary);
   color: var(--text-color);
   overflow-x: hidden;
+}
+
+/* Garante legibilidade em todas as seções com fundo suave/colorido */
+.bg-revenda-suave .text-muted,
+.bg-revenda-suave p,
+.bg-revenda-suave li,
+.bg-revenda-suave small {
+  color: #374151 !important;
+}
+
+.bg-light .text-muted,
+.bg-light p.text-muted {
+  color: #475569 !important;
+}
+
+/* Hero: garante máximo contraste no texto descritivo */
+.hero-section .lead {
+  color: rgba(255, 255, 255, 0.97) !important;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  font-weight: 400;
 }
 
 h1,
@@ -57,6 +88,14 @@ h6 {
   font-family: var(--font-primary);
   font-weight: 700;
   color: #fff !important;
+  display: flex;
+  align-items: center;
+}
+
+.logotipo-marca {
+  height: 50px;
+  width: auto;
+  transition: all 0.3s ease;
 }
 
 .navbar.scrolled .navbar-brand {
@@ -117,9 +156,10 @@ h6 {
   position: relative;
   min-height: 100vh;
   padding-top: 80px;
+  padding-bottom: 120px; /* espaço para o wave SVG */
   background: url('assets/background-hero.jpg') no-repeat center center/cover;
   background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-  overflow: hidden;
+  /* overflow: hidden removido — estava cortando os divisores SVG */
 }
 
 .hero-bg-overlay {
@@ -155,7 +195,46 @@ h6 {
   }
 }
 
-/* Divisor de Onda SVG */
+/* ===== Divisor de Onda – Sistema Novo (Onda Dupla com Profundidade) ===== */
+.divisor-onda-hero {
+  position: absolute;
+  bottom: -1px; /* -1px garante sobreposição pixel-perfect sem gap branco */
+  left: 0;
+  width: 100%;
+  line-height: 0;
+  pointer-events: none;
+  /* overflow: hidden apenas no eixo-x para não cortar o wave verticalmente */
+  overflow-x: clip;
+}
+
+/* Camada de sombra — deslocada 10px acima da camada principal */
+.onda-camada-sombra {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  width: 100%;
+  height: 110px;
+  display: block;
+  opacity: 0.7;
+}
+
+/* Camada principal branca — fica na frente */
+.onda-camada-principal {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 110px;
+}
+
+/* ===== Hero específico da página Revendas ===== */
+.secao-hero-revenda {
+  /* overflow: clip bloqueia scroll sem criar stacking context */
+  overflow: clip;
+  /* garante que os orbs decorativos fora dos limites não causem scroll-x */
+  overflow-x: clip;
+}
+
+/* ===== Divisor Legado (index.html e outras páginas) ===== */
 .custom-shape-divider-bottom-1684365942 {
   position: absolute;
   bottom: 0;
@@ -163,14 +242,14 @@ h6 {
   width: 100%;
   overflow: hidden;
   line-height: 0;
-  transform: rotate(180deg);
+  /* rotate(180deg) REMOVIDO — estava invertendo a onda */
 }
 
 .custom-shape-divider-bottom-1684365942 svg {
   position: relative;
   display: block;
   width: calc(100% + 1.3px);
-  height: 100px;
+  height: 120px;
 }
 
 .custom-shape-divider-bottom-1684365942 .shape-fill {
@@ -270,7 +349,7 @@ h6 {
   }
 
   .hero-section {
-    padding-top: 120px;
+    padding-top: 140px;
     padding-bottom: 60px;
     text-align: center;
     min-height: auto;
@@ -323,3 +402,253 @@ h6 {
     font-size: 1rem;
   }
 }
+
+/* Card Descontinuado - Sistema Lotus */
+.product-card.discontinued-product {
+  position: relative;
+  overflow: hidden;
+  opacity: 0.75;
+  filter: grayscale(30%);
+  transition: all 0.3s ease;
+}
+
+.product-card.discontinued-product:hover {
+  opacity: 0.85;
+  filter: grayscale(10%);
+}
+
+/* Tarja diagonal vermelha com o texto "DESCONTINUADO" cruzando o card */
+.product-card.discontinued-product::before {
+  content: "DESCONTINUADO";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-30deg);
+  width: 150%;
+  background-color: rgba(220, 53, 69, 0.95);
+  color: #fff;
+  text-align: center;
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: 4px;
+  padding: 12px 0;
+  z-index: 10;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  text-transform: uppercase;
+  pointer-events: none;
+  display: block;
+}
+
+/* Desabilita os botões no card descontinuado */
+.product-card.discontinued-product .btn {
+  pointer-events: none;
+  opacity: 0.55;
+  background-color: #6c757d !important;
+  border-color: #6c757d !important;
+  color: #fff !important;
+}
+
+/* Custom AtendIA Styles */
+.bg-atendia-dark {
+  background-color: var(--atendia-bg-dark) !important;
+}
+
+.bg-atendia-light {
+  background-color: var(--atendia-bg-light) !important;
+}
+
+.text-atendia-primary {
+  color: var(--atendia-primary) !important;
+}
+
+.btn-atendia {
+  background-color: var(--atendia-primary);
+  border-color: var(--atendia-primary);
+  color: #fff !important;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-atendia:hover {
+  background-color: var(--atendia-primary-hover);
+  border-color: var(--atendia-primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 178, 137, 0.35);
+  color: #fff !important;
+}
+
+.btn-outline-atendia {
+  background-color: transparent;
+  border-color: var(--atendia-primary);
+  color: var(--atendia-primary) !important;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-atendia:hover {
+  background-color: var(--atendia-primary);
+  color: #fff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 178, 137, 0.25);
+}
+
+.product-card.atendia-highlight {
+  border: 2px solid var(--atendia-primary) !important;
+  box-shadow: 0 10px 30px rgba(0, 178, 137, 0.15) !important;
+}
+
+.product-card.atendia-highlight:hover {
+  box-shadow: 0 15px 35px rgba(0, 178, 137, 0.25) !important;
+}
+
+/* Showcase e abas do AtendIA */
+.atendia-tab-btn {
+  background: transparent;
+  border: 1px solid rgba(0, 178, 137, 0.3);
+  color: var(--text-color);
+  padding: 10px 24px;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  margin: 5px;
+  outline: none;
+}
+
+.atendia-tab-btn.active, .atendia-tab-btn:hover {
+  background: var(--atendia-primary);
+  color: #fff !important;
+  border-color: var(--atendia-primary);
+  box-shadow: 0 4px 10px rgba(0, 178, 137, 0.2);
+}
+
+.atendia-screenshot {
+  border-radius: 12px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  transition: all 0.4s ease;
+  max-width: 100%;
+  height: auto;
+  max-height: 480px;
+  object-fit: contain;
+}
+
+/* WABA Status Cards */
+.waba-status-card {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  background-color: #fff;
+  height: 100%;
+  overflow: hidden;
+}
+
+.waba-status-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  border-color: var(--atendia-primary);
+}
+
+.waba-status-img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* Estilos Customizados para o Programa de Revendas */
+.bg-revenda-suave {
+  background-color: var(--cor-revenda-fundo-suave) !important;
+}
+
+.bg-revenda-escura {
+  background-color: var(--cor-revenda-fundo-escura) !important;
+}
+
+.texto-revenda-primario {
+  color: var(--cor-revenda-primaria) !important;
+}
+
+.botao-revenda {
+  background-color: var(--cor-revenda-primaria);
+  border-color: var(--cor-revenda-primaria);
+  color: #fff !important;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.botao-revenda:hover {
+  background-color: var(--cor-revenda-primaria-hover);
+  border-color: var(--cor-revenda-primaria-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.35);
+  color: #fff !important;
+}
+
+.botao-contorno-revenda {
+  background-color: transparent;
+  border-color: var(--cor-revenda-primaria);
+  color: var(--cor-revenda-primaria) !important;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.botao-contorno-revenda:hover {
+  background-color: var(--cor-revenda-primaria);
+  color: #fff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+}
+
+.cartao-revenda {
+  border-radius: 12px;
+  border: 1px solid rgba(79, 70, 229, 0.15);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  background-color: #fff;
+  height: 100%;
+}
+
+.cartao-revenda:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(79, 70, 229, 0.1) !important;
+  border-color: var(--cor-revenda-primaria);
+}
+
+.imagem-painel-revenda {
+  border-radius: 12px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: all 0.4s ease;
+  max-width: 100%;
+  height: auto;
+  max-height: 480px;
+  object-fit: contain;
+}
+
+.imagem-painel-revenda:hover {
+  transform: scale(1.02);
+}
+
+.cartao-modulo-revenda {
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+  background-color: #fff;
+  transition: all 0.3s ease;
+  height: 100%;
+  overflow: hidden;
+}
+
+.cartao-modulo-revenda:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(79, 70, 229, 0.08);
+  border-color: var(--cor-revenda-primaria);
+}
+
+.imagem-modulo-revenda {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
