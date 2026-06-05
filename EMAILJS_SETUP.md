@@ -54,3 +54,40 @@ const templateID = 'SEU_TEMPLATE_ID_AQUI';
 ```
 
 Após fazer isso, faça o commit e push. Com a Whitelist configurada, você está seguro!
+
+---
+
+## 4. Como configurar o e-mail corporativo da Zoho no EmailJS
+
+Se você deseja enviar e receber os e-mails usando seu endereço corporativo do Zoho (ex: `atendimento@vcorpsistem.com`), siga este passo a passo:
+
+### Passo 1: Adicionar o Serviço SMTP da Zoho no EmailJS
+1. Acesse o painel do [EmailJS](https://dashboard.emailjs.com/) e clique em **"Email Services"** na barra lateral.
+2. Clique em **"Add Service"**.
+3. Procure e clique na opção **"SMTP Server"** (ou escolha "Zoho Mail" se estiver listado).
+4. Preencha as configurações de conexão da Zoho:
+   * **Name**: `Zoho Mail`
+   * **Service ID**: Defina como `service_zoho` (ou copie o ID que for gerado automaticamente).
+   * **SMTP Server**: `smtp.zoho.com`
+   * **SMTP Port**: `465` (recomendado com SSL) ou `587` (com TLS).
+   * **Connection Security**: `SSL/TLS` (se usar a porta 465) ou `STARTTLS` (se usar a porta 587).
+   * **Requires Authentication**: Marque como **Sim** (True).
+   * **Username**: `atendimento@vcorpsistem.com`
+   * **Password**: Insira a senha do seu e-mail da Zoho.
+     * *Importante*: Se você tem a Autenticação de Dois Fatores (2FA) ativada na Zoho, você precisará gerar uma **App Password** (Senha de Aplicativo) nas configurações da sua conta Zoho e colá-la aqui, ao invés da sua senha de login tradicional.
+5. Clique em **"Create Service"** e depois clique no botão de teste ("Test Service") para certificar-se de que a conexão funcionou.
+
+### Passo 2: Atualizar os Templates no EmailJS
+1. Vá em **"Email Templates"** e abra o modelo correspondente (ex: `template_pr6gg5r`).
+2. Na aba **"Settings"** do modelo, certifique-se de que o **"Default Service"** esteja apontando para o seu novo serviço da Zoho.
+3. No campo **"From Email"** (Remetente) do template, coloque o seu e-mail corporativo: `atendimento@vcorpsistem.com`.
+4. Salve as alterações do template.
+
+### Passo 3: Atualizar o Código do Projeto
+Abra o arquivo `scripts.js` e substitua a variável `serviceID` pelo ID do seu serviço da Zoho (se você definiu como `service_zoho`, por exemplo):
+
+```javascript
+const serviceID = 'service_zoho'; // ID do novo serviço SMTP da Zoho
+const templateID = 'template_pr6gg5r'; // ID do seu template
+```
+
