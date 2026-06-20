@@ -2,6 +2,10 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Language
+
+Always respond to the user in Brazilian Portuguese (pt-BR), for every request.
+
 ## Overview
 
 Static marketing website for **VCorp Sistem**, a Brazilian software company. It is plain
