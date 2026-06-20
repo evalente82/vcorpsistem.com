@@ -29,6 +29,43 @@
 
   <!-- Custom CSS -->
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- JSON-LD: Organization + Founder -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "VCorp Sistem",
+    "url": "https://vcorpsistem.com",
+    "logo": "https://vcorpsistem.com/assets/logo_sem_fundo.png",
+    "description": "Soluções tecnológicas para gestão empresarial: automação de atendimento com IA no WhatsApp, gestão de escalas e sistema PDV para varejo.",
+    "email": "atendimento@vcorpsistem.com",
+    "telephone": "+55-21-99029-7098",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Rio de Janeiro",
+      "addressRegion": "RJ",
+      "addressCountry": "BR"
+    },
+    "taxID": "28.988.813/0001-50",
+    "sameAs": ["https://www.linkedin.com/in/endrigo-valente-3357a635/"],
+    "founder": {
+      "@type": "Person",
+      "name": "Endrigo Valente",
+      "jobTitle": "Fundador e CEO",
+      "sameAs": "https://www.linkedin.com/in/endrigo-valente-3357a635/"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Atendimento Inteligente — Planos",
+      "itemListElement": [
+        { "@type": "Offer", "name": "Starter", "price": "349.90", "priceCurrency": "BRL" },
+        { "@type": "Offer", "name": "Professional", "price": "649.00", "priceCurrency": "BRL" },
+        { "@type": "Offer", "name": "Enterprise", "price": "1497.00", "priceCurrency": "BRL" }
+      ]
+    }
+  }
+  </script>
 </head>
 
 <body>
@@ -150,9 +187,11 @@
                 <li class="mb-2"><i class="fas fa-check me-2" style="color: var(--atendia-primary);"></i>Múltiplos atendentes</li>
                 <li class="mb-2"><i class="fas fa-check me-2" style="color: var(--atendia-primary);"></i>Dashboard de conversas</li>
               </ul>
-              <div class="price-tag mb-3">
-                <span class="currency">R$</span><span class="amount">Consultar</span>
+              <div class="price-tag mb-1">
+                <span class="small text-muted d-block mb-1">A partir de</span>
+                <span class="currency">R$</span><span class="amount">349,90</span>
               </div>
+              <p class="text-muted small mb-3">/mês</p>
               <div class="d-grid gap-2">
                 <a href="atendimento-inteligente.html" class="btn btn-outline-atendia rounded-pill">Saiba Mais</a>
                 <a href="https://wa.me/5521990297098?text=Olá,%20tenho%20interesse%20no%20Atendimento%20Inteligente%20para%20WhatsApp%20que%20esta%20no%20Site."
@@ -292,9 +331,42 @@
               </div>
             </div>
           </div>
-          <a href="#contato" class="btn btn-dark rounded-pill px-4">Saiba Mais</a>
+          <a href="#contato" class="btn btn-dark rounded-pill px-4">Fale Conosco</a>
         </div>
       </div>
+
+      <!-- Fundador -->
+      <div class="row mt-5 pt-4" data-aos="fade-up">
+        <div class="col-12 text-center mb-4">
+          <hr class="border-secondary mb-4">
+          <h6 class="text-uppercase text-primary fw-bold ls-2">Nosso Fundador</h6>
+        </div>
+        <div class="col-md-8 mx-auto">
+          <div class="card border-0 shadow-sm rounded-4 p-4">
+            <div class="d-flex flex-column flex-sm-row align-items-center align-items-sm-start gap-4">
+              <div class="flex-shrink-0 text-center">
+                <img src="assets/endrigo.jpg" alt="Endrigo Valente — Fundador VCorp Sistem"
+                  class="rounded-circle shadow" style="width:110px;height:110px;object-fit:cover;">
+              </div>
+              <div>
+                <h5 class="fw-bold mb-1">Endrigo Valente</h5>
+                <p class="text-primary fw-semibold small mb-2">Fundador &amp; CEO — VCorp Sistem</p>
+                <p class="text-muted small mb-3">
+                  Desenvolvedor de software com trajetória voltada a soluções de gestão e automação para empresas.
+                  Fundou a VCorp Sistem para democratizar o acesso a tecnologia de qualidade para pequenas e médias
+                  empresas brasileiras, unindo automação de atendimento com IA, gestão de escalas e sistemas de
+                  varejo em uma única plataforma.
+                </p>
+                <a href="https://www.linkedin.com/in/endrigo-valente-3357a635/" target="_blank" rel="noopener"
+                  class="btn btn-outline-primary btn-sm rounded-pill">
+                  <i class="fab fa-linkedin-in me-1"></i> Ver no LinkedIn
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
