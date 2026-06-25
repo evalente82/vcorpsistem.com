@@ -34,6 +34,9 @@ html {
   /* Impede que o iOS/Android aumente automaticamente o tamanho das fontes em landscape */
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  /* Blindagem extra contra arrasto horizontal no iOS Safari (o html é o scroller
+     da viewport; só o overflow-x:hidden do body não basta nele) */
+  overflow-x: hidden;
 }
 
 body {
@@ -425,9 +428,10 @@ h6 {
     margin-top: 0.5rem;
   }
 
+  /* padding-top generoso para o conteúdo nunca ficar atrás da navbar fixa */
   .hero-section {
-    padding-top: 140px;
-    padding-bottom: 60px;
+    padding-top: 7rem;
+    padding-bottom: 3.5rem;
     text-align: center;
     min-height: auto;
   }
@@ -447,7 +451,9 @@ h6 {
     transform: translateY(-10px);
   }
 
-  section {
+  /* :not(.hero-section) impede que este !important sobrescreva o padding-top
+     do hero (senão o título fica atrás da navbar fixa) */
+  section:not(.hero-section) {
     padding: 3rem 0 !important;
   }
 
@@ -463,6 +469,15 @@ h6 {
 }
 
 @media (max-width: 575.98px) {
+  /* Respiro lateral consistente: nada colado nas bordas no celular.
+     O Bootstrap usa só 12px; institucional pede mais ar. Também absorve a
+     margem negativa das .row (que causava ~12px de scroll horizontal). */
+  .container,
+  .container-fluid {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
   .lead {
     font-size: 1rem;
   }
