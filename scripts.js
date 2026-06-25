@@ -16,50 +16,55 @@ window.addEventListener('scroll', () => {
   }
 });
 
-// Inicialização do EmailJS
-// IMPORTANTE: Substitua "YOUR_PUBLIC_KEY" pela sua chave pública do EmailJS
-(function () {
-  // https://dashboard.emailjs.com/admin/account
-  emailjs.init("-uCdYWVFgdh2kcxRK");
-})();
+// Formulário de Contato via EmailJS
+// As páginas atuais usam links diretos do WhatsApp e não carregam a biblioteca EmailJS,
+// portanto este bloco só é executado se um formulário (#contactForm) e a lib estiverem presentes.
+// Os guards evitam que um "emailjs is not defined" interrompa o restante do script.
+const contactForm = document.getElementById('contactForm');
 
-// Manipulação do Formulário de Contato
-const btn = document.getElementById('button');
+if (contactForm && typeof emailjs !== 'undefined') {
+  emailjs.init('-uCdYWVFgdh2kcxRK');
 
-document.getElementById('contactForm').addEventListener('submit', function (event) {
-  event.preventDefault();
+  contactForm.addEventListener('submit', function (event) {
+    event.preventDefault();
 
-  const btn = document.getElementById('button');
-  const originalBtnText = btn.innerText;
+    const btn = document.getElementById('button');
+    const originalBtnText = btn ? btn.innerText : '';
 
-  // Validação básica
-  if (!this.checkValidity()) {
-    event.stopPropagation();
-    this.classList.add('was-validated');
-    return;
-  }
+    // Validação básica
+    if (!this.checkValidity()) {
+      event.stopPropagation();
+      this.classList.add('was-validated');
+      return;
+    }
 
-  btn.value = 'Enviando...';
-  btn.innerText = 'Enviando...';
-  btn.disabled = true;
+    if (btn) {
+      btn.value = 'Enviando...';
+      btn.innerText = 'Enviando...';
+      btn.disabled = true;
+    }
 
-  // IMPORTANTE: Insira seu Service ID e Template ID do EmailJS
-  const serviceID = 'service_qsxytmo'; // Substitua pelo seu Service ID do Zoho configurado no EmailJS
-  const templateID = 'template_pr6gg5r'; // Substitua pelo seu Template ID do EmailJS
+    const serviceID = 'service_qsxytmo';
+    const templateID = 'template_pr6gg5r';
 
-  emailjs.sendForm(serviceID, templateID, this)
-    .then(() => {
-      btn.value = 'Enviar Mensagem';
-      btn.innerText = originalBtnText;
-      btn.disabled = false;
-      alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
-      document.getElementById('contactForm').reset();
-      document.getElementById('contactForm').classList.remove('was-validated');
-    }, (err) => {
-      btn.value = 'Enviar Mensagem';
-      btn.innerText = originalBtnText;
-      btn.disabled = false;
-      console.error('Erro ao enviar email via EmailJS:', err);
-      alert('Não foi possível enviar a mensagem por e-mail no momento. Por favor, tente novamente mais tarde ou entre em contato diretamente pelo nosso WhatsApp!');
-    });
-});
+    emailjs.sendForm(serviceID, templateID, this)
+      .then(() => {
+        if (btn) {
+          btn.value = 'Enviar Mensagem';
+          btn.innerText = originalBtnText;
+          btn.disabled = false;
+        }
+        alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
+        contactForm.reset();
+        contactForm.classList.remove('was-validated');
+      }, (err) => {
+        if (btn) {
+          btn.value = 'Enviar Mensagem';
+          btn.innerText = originalBtnText;
+          btn.disabled = false;
+        }
+        console.error('Erro ao enviar email via EmailJS:', err);
+        alert('Não foi possível enviar a mensagem por e-mail no momento. Por favor, tente novamente mais tarde ou entre em contato diretamente pelo nosso WhatsApp!');
+      });
+  });
+}
