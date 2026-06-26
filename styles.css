@@ -36,9 +36,14 @@ html {
   text-size-adjust: 100%;
 }
 
+/* O overflow-x fica no body (não no html) para não quebrar position: sticky
+   nem a rolagem inercial do iOS. width:100% + position:relative garantem que
+   o body contenha sua largura e sirva de contexto de posicionamento. */
 body {
   font-family: var(--font-secondary);
   color: var(--text-color);
+  position: relative;
+  width: 100%;
   overflow-x: hidden;
 }
 
@@ -425,9 +430,10 @@ h6 {
     margin-top: 0.5rem;
   }
 
+  /* padding-top generoso para o conteúdo nunca ficar atrás da navbar fixa */
   .hero-section {
-    padding-top: 140px;
-    padding-bottom: 60px;
+    padding-top: 7rem;
+    padding-bottom: 3.5rem;
     text-align: center;
     min-height: auto;
   }
@@ -447,7 +453,9 @@ h6 {
     transform: translateY(-10px);
   }
 
-  section {
+  /* :not(.hero-section) impede que este !important sobrescreva o padding-top
+     do hero (senão o título fica atrás da navbar fixa) */
+  section:not(.hero-section) {
     padding: 3rem 0 !important;
   }
 
@@ -463,6 +471,17 @@ h6 {
 }
 
 @media (max-width: 575.98px) {
+  /* Respiro lateral consistente: nada colado nas bordas no celular.
+     Em vez de hardcodar o padding (o que descasaria do grid), redefinimos o
+     gutter do Bootstrap para 3rem. O próprio Bootstrap então deriva tudo de
+     forma coerente: padding do container 1.5rem (24px), margem negativa da
+     .row -1.5rem e padding das colunas 1.5rem — mantendo o grid alinhado.
+     Rows com g-* (ex.: g-4) continuam mandando no seu próprio espaçamento. */
+  .container,
+  .container-fluid {
+    --bs-gutter-x: 3rem;
+  }
+
   .lead {
     font-size: 1rem;
   }
