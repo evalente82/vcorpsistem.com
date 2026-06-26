@@ -34,14 +34,16 @@ html {
   /* Impede que o iOS/Android aumente automaticamente o tamanho das fontes em landscape */
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
-  /* Blindagem extra contra arrasto horizontal no iOS Safari (o html é o scroller
-     da viewport; só o overflow-x:hidden do body não basta nele) */
-  overflow-x: hidden;
 }
 
+/* O overflow-x fica no body (não no html) para não quebrar position: sticky
+   nem a rolagem inercial do iOS. width:100% + position:relative garantem que
+   o body contenha sua largura e sirva de contexto de posicionamento. */
 body {
   font-family: var(--font-secondary);
   color: var(--text-color);
+  position: relative;
+  width: 100%;
   overflow-x: hidden;
 }
 
@@ -470,12 +472,14 @@ h6 {
 
 @media (max-width: 575.98px) {
   /* Respiro lateral consistente: nada colado nas bordas no celular.
-     O Bootstrap usa só 12px; institucional pede mais ar. Também absorve a
-     margem negativa das .row (que causava ~12px de scroll horizontal). */
+     Em vez de hardcodar o padding (o que descasaria do grid), redefinimos o
+     gutter do Bootstrap para 3rem. O próprio Bootstrap então deriva tudo de
+     forma coerente: padding do container 1.5rem (24px), margem negativa da
+     .row -1.5rem e padding das colunas 1.5rem — mantendo o grid alinhado.
+     Rows com g-* (ex.: g-4) continuam mandando no seu próprio espaçamento. */
   .container,
   .container-fluid {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+    --bs-gutter-x: 3rem;
   }
 
   .lead {
