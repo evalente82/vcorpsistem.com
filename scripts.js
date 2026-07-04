@@ -1,6 +1,6 @@
 // Rastreamento de cliques em links do WhatsApp como conversão no GA4
 document.addEventListener('click', function (e) {
-  var link = e.target.closest('a[href*="wa.me"]');
+  var link = e.target.closest('a[href*="wa.me"], a[href*="api.whatsapp.com"]');
   if (link && typeof gtag === 'function') {
     gtag('event', 'whatsapp_click', {
       event_category: 'contato',
