@@ -1,572 +1,814 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-
 <head>
-  <!-- Google Analytics 4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y5FS3XS8X2"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-Y5FS3XS8X2');
-  </script>
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y5FS3XS8X2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-Y5FS3XS8X2');
+</script>
 
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description"
-    content="VCorp Sistem - Soluções tecnológicas para o seu negócio. Escala de Trabalho, Atendimento Inteligente e Sistema Lotus para Varejo." />
-  <meta name="keywords" content="vcorp, sistema, escala, atendimento whatsapp, pdv, varejo, lotus sistem" />
-  <title>VCorp Sistem | Soluções Inteligentes</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>VCorp Sistem | Tecnologia que transforma o seu negócio</title>
+<meta name="description" content="De gestão de escalas a automação de atendimento e RH. Soluções com IA para você escalar seus resultados — empresa oficial verificada pela Meta." />
+<meta name="keywords" content="vcorp, sistema, escala, atendimento whatsapp, rh, folha de ponto, meta tech provider, revenda whatsapp" />
+<meta name="theme-color" content="#060d16" />
+<link rel="icon" type="image/png" href="assets/Icone_fundo_Cinza.png" />
 
-  <link rel="icon" type="image/png" href="assets/Icone_fundo_Cinza.png">
+<meta property="og:title" content="VCorp Sistem — Tecnologia que transforma o seu negócio" />
+<meta property="og:description" content="Escala, Atendimento com IA e RH. Empresa oficial verificada pela Meta." />
+<meta property="og:type" content="website" />
 
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@400;600;700;800&display=swap"
-    rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 
-  <!-- Bootstrap 5 CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org","@type":"Organization","name":"VCorp Sistem",
+  "url":"https://vcorpsistem.com","logo":"https://vcorpsistem.com/assets/logo_sem_fundo.png",
+  "description":"Soluções de gestão com IA: automação de atendimento no WhatsApp (Meta Tech Provider oficial), gestão de escalas e RH.",
+  "email":"atendimento@vcorpsistem.com","telephone":"+55-21-99029-7098",
+  "address":{"@type":"PostalAddress","addressLocality":"Rio de Janeiro","addressRegion":"RJ","addressCountry":"BR"},
+  "taxID":"28.988.813/0001-50",
+  "founder":{"@type":"Person","name":"Endrigo Valente","jobTitle":"Fundador e CEO"}
+}
+</script>
 
-  <!-- FontAwesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<style>
+/* ==========================================================================
+   VCORP SISTEM — Home imersiva
+   Abertura em checkbox (logo) com movimento de câmera + scroll cinematográfico.
+   Engine própria (lerp + só transform/opacity) + Motion (motion.dev) p/ entradas.
+   ========================================================================== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#060d16; --bg-2:#081420; --surface:#0e1a28; --surface-2:#122234;
+  --border:rgba(148,197,215,.12); --border-2:rgba(148,197,215,.24);
+  --text:#e9f3f8; --muted:#93acbb; --faint:#5f7889;
+  --blue:#0062cc; --teal:#00c2b8; --teal-2:#2dd4bf; --green:#00b289; --wa:#25d366;
+  --amber:#f59e0b; --red:#ef4444;
+  --grad:linear-gradient(120deg,#0062cc 0%,#00c2b8 58%,#2dd4bf 115%);
+  --grad-soft:linear-gradient(120deg,rgba(0,98,204,.16),rgba(0,194,184,.16));
+  --radius:16px; --radius-lg:24px; --shadow:0 30px 70px -24px rgba(0,0,0,.75);
+  --maxw:1180px; --ff-d:'Sora',system-ui,sans-serif; --ff-b:'Inter',system-ui,sans-serif;
+}
+html{scroll-behavior:auto;-webkit-text-size-adjust:100%}
+body{font-family:var(--ff-b);background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body.intro-lock{overflow:hidden;height:100vh}
+a{color:inherit;text-decoration:none}
+img,svg{display:block;max-width:100%}
+::selection{background:rgba(0,194,184,.35);color:#fff}
 
-  <!-- AOS Animation CSS -->
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+/* fundo ambiente */
+body::before{content:"";position:fixed;inset:0;z-index:-2;
+  background:radial-gradient(760px 520px at 12% -5%,rgba(0,98,204,.16),transparent 60%),
+             radial-gradient(680px 520px at 92% 10%,rgba(0,194,184,.13),transparent 55%),
+             radial-gradient(760px 620px at 50% 112%,rgba(45,212,191,.07),transparent 60%)}
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background-image:linear-gradient(rgba(148,197,215,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(148,197,215,.03) 1px,transparent 1px);
+  background-size:60px 60px;mask-image:radial-gradient(ellipse 90% 60% at 50% 0%,#000 40%,transparent 100%)}
 
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="styles.css" />
+.grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+h1,h2,h3{font-family:var(--ff-d);line-height:1.08;letter-spacing:-.02em;font-weight:700;text-wrap:balance}
 
-  <!-- JSON-LD: Organization + Founder -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "VCorp Sistem",
-    "url": "https://vcorpsistem.com",
-    "logo": "https://vcorpsistem.com/assets/logo_sem_fundo.png",
-    "description": "Soluções tecnológicas para gestão empresarial: automação de atendimento com IA no WhatsApp, gestão de escalas e sistema PDV para varejo.",
-    "email": "atendimento@vcorpsistem.com",
-    "telephone": "+55-21-99029-7098",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Rio de Janeiro",
-      "addressRegion": "RJ",
-      "addressCountry": "BR"
-    },
-    "taxID": "28.988.813/0001-50",
-    "sameAs": ["https://www.linkedin.com/in/endrigo-valente-3357a635/"],
-    "founder": {
-      "@type": "Person",
-      "name": "Endrigo Valente",
-      "jobTitle": "Fundador e CEO",
-      "sameAs": "https://www.linkedin.com/in/endrigo-valente-3357a635/"
-    },
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "Atendimento Inteligente — Planos",
-      "itemListElement": [
-        { "@type": "Offer", "name": "Starter", "price": "159.90", "priceCurrency": "BRL" },
-        { "@type": "Offer", "name": "Professional", "price": "349.90", "priceCurrency": "BRL" },
-        { "@type": "Offer", "name": "Enterprise", "price": "1497.00", "priceCurrency": "BRL" }
-      ]
-    }
-  }
-  </script>
+/* ======================= INTRO CHECKBOX (câmera) ======================= */
+#intro{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;cursor:pointer;
+  background:radial-gradient(820px 620px at 50% 42%,rgba(0,194,184,.15),transparent 62%),var(--bg);
+  perspective:1400px;transition:opacity .9s ease}
+#intro.done{opacity:0;pointer-events:none}
+.cbx-wrap{display:grid;place-items:center;gap:30px;transform-style:preserve-3d;
+  transition:transform 1.9s cubic-bezier(.66,0,.2,1)}
+#intro.go .cbx-wrap{transform:translateY(-17vh) rotateX(66deg) scale(.84)}
+.cbx{width:min(54vmin,360px);height:min(54vmin,360px);position:relative}
+.cbx svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.cbx .sq{stroke:#28454e;stroke-width:6;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:stroke .9s}
+#intro.go .cbx .sq{stroke:#0d6d68}
+.cbx .ck{stroke:url(#gintro);stroke-width:9;fill:none;stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:1;stroke-dashoffset:1;filter:drop-shadow(0 0 0 rgba(45,212,191,0));
+  transition:stroke-dashoffset 1.05s .3s cubic-bezier(.7,0,.3,1),filter 1s .55s}
+#intro.go .cbx .ck{stroke-dashoffset:0;filter:drop-shadow(0 0 26px rgba(45,212,191,.75))}
+.cbx-line{width:min(54vmin,360px);height:3px;border-radius:3px;background:rgba(148,197,215,.14);position:relative;overflow:hidden}
+.cbx-line::after{content:"";position:absolute;inset:0;transform:scaleX(0);transform-origin:left;background:var(--grad);
+  transition:transform 1s cubic-bezier(.7,0,.3,1)}
+#intro.go .cbx-line::after{transform:scaleX(1)}
+.cbx-hint{font-family:var(--ff-d);font-weight:600;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
+  display:flex;align-items:center;gap:11px;transition:opacity .5s}
+#intro.go .cbx-hint{opacity:0}
+.cbx-hint .k{border:1px solid var(--border-2);border-radius:7px;padding:4px 10px;color:var(--text)}
+.cbx-brand{position:absolute;top:26px;left:0;right:0;text-align:center;font-family:var(--ff-d);font-weight:700;
+  letter-spacing:.02em;color:var(--text);opacity:.9;transition:opacity .6s}
+#intro.go .cbx-brand{opacity:0}
+.cbx-pulse{animation:cbxpulse 2.6s ease-in-out infinite}
+@keyframes cbxpulse{0%,100%{opacity:.5}50%{opacity:1}}
+.cbx-skip{position:absolute;bottom:24px;right:26px;font-size:12px;color:var(--faint);letter-spacing:.1em;text-transform:uppercase;font-family:var(--ff-d);opacity:.7;transition:color .3s}
+.cbx-skip:hover{color:var(--text)}
+
+/* ======================= LAYOUT ======================= */
+.wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:24px}
+.scene{position:relative}
+.vp{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:grid;place-items:center}
+#hero{height:130vh} #produtos{height:280vh} #meta{height:240vh}
+#sobre{height:240vh} #fundador{height:150vh} #revenda{height:240vh}
+@media(max-width:820px){
+  #hero{height:118vh} #produtos{height:300vh} #meta{height:220vh}
+  #sobre{height:230vh} #fundador{height:130vh} #revenda{height:230vh}
+}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-family:var(--ff-d);font-size:12px;font-weight:600;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--muted);padding:7px 14px;border-radius:999px;
+  border:1px solid var(--border);background:rgba(255,255,255,.02)}
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--grad);box-shadow:0 0 12px var(--teal)}
+
+/* ======================= NAV ======================= */
+.nav{position:fixed;top:0;left:0;right:0;z-index:90;display:flex;align-items:center;justify-content:space-between;
+  height:66px;padding:0 clamp(16px,4vw,40px);backdrop-filter:blur(12px);background:rgba(6,13,22,0);
+  border-bottom:1px solid transparent;transition:background .4s,border-color .4s;opacity:0;transform:translateY(-8px)}
+.nav.show{opacity:1;transform:none;transition:opacity .6s,transform .6s,background .4s,border-color .4s}
+.nav.scrolled{background:rgba(6,13,22,.82);border-bottom-color:var(--border)}
+.nav .brand{display:flex;align-items:center;gap:10px;font-family:var(--ff-d);font-weight:700;font-size:16px}
+.nav .mark{width:32px;height:32px;border-radius:9px;background:var(--grad);display:grid;place-items:center;box-shadow:0 6px 16px -4px rgba(0,194,184,.5);flex:none}
+.nav .mark svg{width:18px;height:18px}
+.nav-links{display:flex;align-items:center;gap:28px}
+.nav-links a{color:var(--muted);font-size:14.5px;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--text)}
+.nav-links .soon{font-family:var(--ff-d);font-size:8.5px;font-weight:700;letter-spacing:.1em;color:#fff;background:var(--grad);padding:2px 6px;border-radius:5px;margin-left:5px;vertical-align:middle}
+.nav-cta{display:inline-flex;align-items:center;gap:8px;font-family:var(--ff-d);font-weight:600;font-size:14px;color:#fff;
+  background:var(--grad);padding:10px 18px;border-radius:999px;box-shadow:0 8px 22px -6px rgba(0,194,184,.5);transition:transform .2s}
+.nav-cta:hover{transform:translateY(-2px)}
+.nav-toggle{display:none;background:none;border:1px solid var(--border-2);border-radius:9px;padding:8px;color:var(--text);cursor:pointer}
+@media(max-width:860px){.nav-links{display:none}.nav-cta{display:none}.nav-toggle{display:inline-flex}}
+.mobile-menu{position:fixed;top:66px;left:0;right:0;z-index:89;background:rgba(8,20,32,.98);border-bottom:1px solid var(--border);
+  display:none;padding:8px 0}
+.mobile-menu.open{display:block}
+.mobile-menu a{display:block;padding:14px 24px;color:var(--muted);border-bottom:1px solid var(--border);font-weight:500}
+.mobile-menu a:last-child{border-bottom:none;color:var(--teal-2)}
+
+/* ======================= HERO ======================= */
+.hero-floor{position:absolute;left:50%;top:0;width:200vw;height:150vh;transform:translateX(-50%) perspective(900px) rotateX(64deg);
+  transform-origin:top center;pointer-events:none;opacity:.5;
+  background:
+    radial-gradient(closest-side at 50% 0%,rgba(45,212,191,.18),transparent 70%),
+    linear-gradient(rgba(0,194,184,.10) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,194,184,.10) 1px,transparent 1px);
+  background-size:auto,44px 44px,44px 44px}
+.hero-check{position:absolute;top:6%;left:50%;transform:translateX(-50%);width:74px;height:74px;opacity:.9}
+.hero-check svg{width:100%;height:100%;filter:drop-shadow(0 0 20px rgba(45,212,191,.55))}
+.hero-inner{position:relative;z-index:3;text-align:center;padding:0 20px;max-width:900px}
+.hero-inner h1{font-size:clamp(38px,7vw,78px);font-weight:800;margin:20px 0 22px}
+.hero-inner .lead{color:var(--muted);font-size:clamp(16px,2.1vw,21px);max-width:660px;margin:0 auto}
+.hero-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:34px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:var(--ff-d);font-weight:600;font-size:15.5px;
+  padding:14px 26px;border-radius:12px;cursor:pointer;border:1px solid transparent;transition:transform .18s,box-shadow .25s,background .2s}
+.btn svg{width:17px;height:17px}
+.btn-primary{color:#fff;background:var(--grad);box-shadow:0 12px 32px -8px rgba(0,194,184,.55)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 44px -10px rgba(0,194,184,.7)}
+.btn-ghost{color:var(--text);background:rgba(255,255,255,.03);border-color:var(--border-2)}
+.btn-ghost:hover{background:rgba(255,255,255,.07);transform:translateY(-2px)}
+.btn-wa{color:#fff;background:var(--wa);box-shadow:0 12px 32px -8px rgba(37,211,102,.5)}
+.btn-wa:hover{transform:translateY(-2px)}
+.hero-scroll{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--faint);z-index:4}
+.hero-scroll::after{content:"";display:block;width:1px;height:32px;margin:8px auto 0;background:linear-gradient(var(--faint),transparent);animation:drop 1.7s ease-in-out infinite}
+@keyframes drop{0%{transform:scaleY(.2);transform-origin:top}55%{transform:scaleY(1)}100%{opacity:0}}
+
+/* ======================= PRODUTOS ======================= */
+#produtos .head{position:absolute;top:11%;left:0;right:0;text-align:center;z-index:5;padding:0 20px}
+#produtos .head h2{font-size:clamp(28px,4.4vw,44px);margin-top:14px}
+.prod-track{display:flex;gap:26px;align-items:stretch;justify-content:center;padding:0 20px;width:100%;max-width:1140px;perspective:1400px}
+@media(max-width:820px){.prod-track{flex-direction:column;align-items:center;gap:18px;max-width:420px}}
+.pcard{position:relative;flex:1 1 0;min-width:0;max-width:360px;border-radius:var(--radius-lg);border:1px solid var(--border);
+  background:linear-gradient(180deg,var(--surface),var(--bg-2));padding:30px 24px;box-shadow:var(--shadow);
+  display:flex;flex-direction:column}
+.pcard.pop{border-color:rgba(0,194,184,.45);background:linear-gradient(180deg,#0f2230,var(--bg-2));transform:translateY(-14px)}
+@media(max-width:820px){.pcard.pop{transform:none}}
+.pcard .tagpop{position:absolute;top:-13px;left:50%;transform:translateX(-50%);font-family:var(--ff-d);font-size:11px;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;color:#062018;background:var(--teal-2);padding:5px 14px;border-radius:999px;box-shadow:0 6px 16px -4px rgba(45,212,191,.6)}
+.pcard .pico{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;margin-bottom:18px;font-size:22px;
+  background:var(--grad-soft);border:1px solid var(--border-2)}
+.pcard.pop .pico{background:var(--grad);color:#062018}
+.pcard h3{font-size:21px;margin-bottom:4px}
+.pcard .sub{color:var(--faint);font-size:13px;margin-bottom:16px}
+.pcard ul{list-style:none;display:grid;gap:10px;margin-bottom:20px}
+.pcard li{display:flex;gap:9px;align-items:flex-start;font-size:14px;color:var(--muted)}
+.pcard li svg{width:16px;height:16px;color:var(--teal-2);flex:none;margin-top:3px}
+.pcard .soonbadge{align-self:flex-start;font-family:var(--ff-d);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--teal-2);background:rgba(45,212,191,.1);border:1px solid rgba(45,212,191,.3);padding:4px 9px;border-radius:999px;margin-bottom:14px}
+.pcard .pfoot{margin-top:auto;display:grid;gap:9px}
+.pcard .pbtn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--ff-d);font-weight:600;font-size:14px;
+  padding:11px;border-radius:10px;transition:transform .18s,background .2s,border-color .2s}
+.pbtn-solid{color:#fff;background:var(--grad)}
+.pbtn-solid.wa{background:var(--wa)}
+.pbtn-solid:hover{transform:translateY(-2px)}
+.pbtn-ghost{color:var(--text);border:1px solid var(--border-2);background:rgba(255,255,255,.02)}
+.pbtn-ghost:hover{background:rgba(255,255,255,.06)}
+
+/* ======================= META VERIFICADA ======================= */
+#meta .vp{background:linear-gradient(180deg,transparent,rgba(37,211,102,.03))}
+.meta-inner{width:100%;max-width:1100px;padding:0 20px;text-align:center}
+.meta-inner h2{font-size:clamp(30px,4.8vw,50px);margin:16px 0 12px}
+.meta-inner .lead{color:var(--muted);font-size:clamp(15px,2vw,19px);max-width:640px;margin:0 auto 40px}
+.meta-cmp{display:grid;grid-template-columns:1fr auto 1fr;gap:22px;align-items:stretch}
+@media(max-width:820px){.meta-cmp{grid-template-columns:1fr;gap:16px}}
+.meta-side{border-radius:var(--radius-lg);padding:26px 22px;border:1px solid var(--border);text-align:left;position:relative;overflow:hidden}
+.meta-side.bad{background:linear-gradient(180deg,rgba(239,68,68,.06),transparent);border-color:rgba(239,68,68,.28)}
+.meta-side.good{background:linear-gradient(180deg,rgba(37,211,102,.07),transparent);border-color:rgba(37,211,102,.35)}
+.meta-side .mtag{display:inline-flex;align-items:center;gap:8px;font-family:var(--ff-d);font-weight:600;font-size:12px;letter-spacing:.06em;
+  text-transform:uppercase;padding:6px 12px;border-radius:999px;margin-bottom:16px}
+.meta-side.bad .mtag{color:#fecaca;background:rgba(239,68,68,.14);border:1px solid rgba(239,68,68,.3)}
+.meta-side.good .mtag{color:#bbf7d0;background:rgba(37,211,102,.14);border:1px solid rgba(37,211,102,.35)}
+.meta-side h3{font-size:19px;margin-bottom:8px}
+.meta-side p{color:var(--muted);font-size:14px;margin-bottom:16px}
+.meta-side .phone{height:120px;border-radius:14px;border:1px dashed var(--border-2);display:grid;place-items:center;position:relative;background:rgba(0,0,0,.2)}
+.meta-side.bad .phone{border-color:rgba(239,68,68,.3)}
+.qr{width:64px;height:64px;border-radius:8px;background:
+  conic-gradient(#0000 0 25%,#334 0 50%,#0000 0 75%,#334 0) 0 0/16px 16px,
+  linear-gradient(#22303a,#22303a);opacity:.7}
+.ban-stamp{position:absolute;font-family:var(--ff-d);font-weight:800;font-size:26px;letter-spacing:.06em;color:var(--red);
+  border:4px solid var(--red);border-radius:8px;padding:4px 16px;transform:rotate(-12deg) scale(1.6);opacity:0;text-transform:uppercase}
+.shield{width:70px;height:80px;position:relative;display:grid;place-items:center}
+.shield svg{width:100%;height:100%;color:var(--wa);filter:drop-shadow(0 0 16px rgba(37,211,102,.5))}
+.meta-mid{display:grid;place-items:center;font-family:var(--ff-d);font-weight:700;color:var(--faint);font-size:14px}
+@media(max-width:820px){.meta-mid{display:none}}
+.meta-badge{display:inline-flex;align-items:center;gap:10px;margin-top:34px;padding:12px 22px;border-radius:999px;
+  background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.35);color:#bbf7d0;font-family:var(--ff-d);font-weight:600;font-size:15px}
+.meta-badge svg{width:22px;height:22px;color:var(--wa)}
+
+/* ======================= SOBRE (gráficos vivos) ======================= */
+.sobre-grid{width:100%;max-width:1100px;padding:0 20px;display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px);align-items:center}
+@media(max-width:860px){.sobre-grid{grid-template-columns:1fr;gap:34px}}
+.sobre-grid h2{font-size:clamp(28px,4.2vw,44px);margin:14px 0 16px}
+.sobre-grid p{color:var(--muted);font-size:16px}
+.charts{border-radius:var(--radius-lg);border:1px solid var(--border);background:linear-gradient(180deg,var(--surface),var(--bg-2));
+  padding:24px;box-shadow:var(--shadow)}
+.charts .ch-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:18px}
+.charts .ch-head b{font-family:var(--ff-d);font-size:14px}
+.charts .ch-head .up{color:var(--teal-2);font-family:var(--ff-d);font-weight:700;font-size:13px}
+.bars{display:flex;align-items:flex-end;gap:10px;height:130px;margin-bottom:20px}
+.bar{flex:1;border-radius:6px 6px 0 0;background:var(--grad);transform:scaleY(0);transform-origin:bottom;opacity:.9}
+.spark{width:100%;height:70px}
+.spark path.line{fill:none;stroke:var(--teal-2);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:1;stroke-dashoffset:1}
+.spark path.area{fill:url(#gspark);opacity:0}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+.kpi{border:1px solid var(--border);border-radius:12px;padding:12px;text-align:center}
+.kpi b{font-family:var(--ff-d);font-size:clamp(20px,2.6vw,26px);display:block;font-variant-numeric:tabular-nums}
+.kpi b.gt{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.kpi span{font-size:11px;color:var(--faint)}
+
+/* ======================= FUNDADOR ======================= */
+.founder{width:100%;max-width:820px;padding:0 20px;text-align:center}
+.founder .fimg{width:104px;height:104px;border-radius:50%;object-fit:cover;margin:0 auto 22px;border:2px solid var(--border-2);box-shadow:0 0 0 6px rgba(0,194,184,.08)}
+.founder .quote{font-family:var(--ff-d);font-weight:600;font-size:clamp(20px,3.2vw,32px);line-height:1.3;margin-bottom:20px}
+.founder .name{font-family:var(--ff-d);font-weight:700;font-size:17px}
+.founder .role{color:var(--teal-2);font-size:13.5px;margin-bottom:16px}
+.founder .li{display:inline-flex;align-items:center;gap:7px;font-size:13.5px;color:var(--muted);border:1px solid var(--border-2);padding:8px 15px;border-radius:999px;transition:color .2s,border-color .2s}
+.founder .li:hover{color:var(--text);border-color:var(--teal-2)}
+
+/* ======================= REVENDA ======================= */
+.rev-inner{width:100%;max-width:1100px;padding:0 20px}
+.rev-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,5vw,60px);align-items:center}
+@media(max-width:860px){.rev-grid{grid-template-columns:1fr;gap:34px}}
+.rev-grid h2{font-size:clamp(28px,4.4vw,46px);margin:16px 0 16px}
+.rev-grid .lead{color:var(--muted);font-size:16px;margin-bottom:26px}
+.rev-pillars{display:grid;gap:14px;margin-bottom:28px}
+.pillar{display:flex;gap:14px;padding:16px 18px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,.015)}
+.pillar .pi{width:40px;height:40px;border-radius:11px;background:var(--grad-soft);border:1px solid var(--border-2);display:grid;place-items:center;flex:none;color:var(--teal-2)}
+.pillar .pi svg{width:20px;height:20px}
+.pillar b{font-family:var(--ff-d);font-size:15px;display:block;margin-bottom:2px}
+.pillar span{font-size:13.5px;color:var(--muted)}
+.rev-card{border-radius:var(--radius-lg);border:1px solid var(--border-2);background:
+  radial-gradient(500px 300px at 80% 0%,rgba(0,194,184,.16),transparent 60%),linear-gradient(180deg,var(--surface),var(--bg-2));
+  padding:30px;box-shadow:var(--shadow);text-align:center}
+.rev-card .rk{font-family:var(--ff-d);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.rev-card .mrr{font-family:var(--ff-d);font-weight:800;font-size:clamp(40px,6vw,60px);margin:6px 0 2px;font-variant-numeric:tabular-nums;
+  background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.rev-card .mrr-sub{color:var(--faint);font-size:13px;margin-bottom:20px}
+.rev-card .rbar{height:8px;border-radius:6px;background:rgba(255,255,255,.06);overflow:hidden;margin-bottom:8px}
+.rev-card .rbar i{display:block;height:100%;width:0;background:var(--grad);border-radius:6px}
+.rev-card .rnote{font-size:12.5px;color:var(--faint);margin-bottom:22px}
+.chip-row{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.chip-row span{font-family:var(--ff-d);font-size:12px;font-weight:600;color:var(--muted);border:1px solid var(--border-2);background:rgba(255,255,255,.02);padding:7px 13px;border-radius:999px}
+
+/* ======================= CONTATO + FOOTER ======================= */
+#contato{background:var(--bg);position:relative;padding:14vh 5vw 8vh;text-align:center;overflow:hidden}
+#contato .glow{position:absolute;inset:0;background:radial-gradient(680px 400px at 50% 30%,rgba(0,194,184,.16),transparent 65%)}
+#contato .ci{position:relative;max-width:720px;margin:0 auto}
+#contato h2{font-size:clamp(30px,5vw,52px);margin-bottom:16px}
+#contato p{color:var(--muted);font-size:17px;margin-bottom:30px}
+#contato .info{display:flex;flex-wrap:wrap;gap:12px 26px;justify-content:center;margin-top:26px;color:var(--muted);font-size:14px}
+#contato .info i{color:var(--teal-2)}
+footer{background:var(--bg-2);border-top:1px solid var(--border);padding:44px 5vw 30px}
+.foot{max-width:var(--maxw);margin:0 auto;display:flex;justify-content:space-between;gap:34px;flex-wrap:wrap}
+.foot .fb{max-width:300px}
+.foot .fb .fbr{display:flex;align-items:center;gap:10px;font-family:var(--ff-d);font-weight:700;margin-bottom:12px}
+.foot .fb .mark{width:30px;height:30px;border-radius:9px;background:var(--grad);display:grid;place-items:center}
+.foot .fb .mark svg{width:16px;height:16px}
+.foot .fb p{color:var(--muted);font-size:13.5px}
+.foot-cols{display:flex;gap:56px;flex-wrap:wrap}
+.foot-col h5{font-family:var(--ff-d);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);margin-bottom:14px}
+.foot-col a,.foot-col li{display:block;color:var(--muted);font-size:14px;margin-bottom:10px}
+.foot-col a:hover{color:var(--text)}
+.foot-bottom{max-width:var(--maxw);margin:34px auto 0;padding-top:22px;border-top:1px solid var(--border);
+  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;color:var(--faint);font-size:12.5px}
+
+/* ======================= REVEAL / RM / NOSCRIPT ======================= */
+.cap-anim{opacity:0}
+html.rm .cap-anim{opacity:1 !important}
+html.rm .vp{position:relative;height:auto;min-height:100vh;overflow:visible}
+html.rm .scene{height:auto !important}
+html.rm #intro{display:none}
+html.rm body.intro-lock{overflow:auto}
+html.rm .bar{transform:scaleY(.7)!important}
+html.rm .spark path.line{stroke-dashoffset:0!important}
+html.rm .spark path.area,html.rm .nav{opacity:1!important}
+html.rm .rev-card .rbar i{width:72%!important}
+@media(prefers-reduced-motion:reduce){#contato .glow{animation:none}.hero-scroll::after{animation:none}.cbx-pulse{animation:none}}
+.ns{display:block;padding:84px 8vw 22px;text-align:center;font-family:var(--ff-d);font-size:15px;background:var(--bg);color:var(--text);border-bottom:1px solid var(--border)}
+
+/* mobile: cenas fluem (sem sticky), revela por IntersectionObserver */
+@media(max-width:820px){
+  .scene{height:auto !important}
+  .vp{position:relative;height:auto;min-height:auto;overflow:visible;padding:13vh 0}
+  #produtos .head{position:relative;top:auto;margin:0 0 24px}
+  .hero-floor{display:none}
+  .hero-check{top:2%}
+}
+body.flow .cap-anim{transition:opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1)}
+body.flow .cap-anim.inview{opacity:1 !important;transform:none !important}
+</style>
+<noscript><style>
+  #intro{display:none!important}
+  body{overflow:auto!important}
+  .scene{height:auto!important}
+  .vp{position:static!important;height:auto!important;min-height:0!important;overflow:visible!important;padding:9vh 0}
+  .cap-anim{opacity:1!important;transform:none!important}
+  .nav{opacity:1!important;transform:none!important;position:static}
+  .bar{transform:scaleY(.7)!important}
+  .spark path.line{stroke-dashoffset:0!important}.spark path.area{opacity:1!important}
+  .rev-card .rbar i{width:72%!important}
+  .hero-scroll,.hero-floor{display:none!important}
+</style></noscript>
 </head>
+<body class="intro-lock">
 
-<body>
-
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg fixed-top" id="navbar">
-    <div class="container">
-      <a class="navbar-brand" href="#">
-        <img src="assets/logo_sem_fundo.png" alt="VCorp Sistem" class="d-inline-block align-text-top me-2 logotipo-marca">
-        VCorp Sistem
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <i class="fas fa-bars text-white"></i>
-      </button>
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link" href="#home">Início</a></li>
-          <li class="nav-item"><a class="nav-link" href="#produtos">Soluções</a></li>
-          <li class="nav-item"><a class="nav-link" href="folha-ia.html">Folha IA</a></li>
-          <li class="nav-item"><a class="nav-link" href="#revenda">Revendas</a></li>
-          <li class="nav-item"><a class="nav-link" href="#sobre">Sobre</a></li>
-          <li class="nav-item"><a class="nav-link" href="#contato">Contato</a></li>
-          <li class="nav-item ms-lg-3">
-            <a href="#produtos" class="btn btn-custom-primary btn-sm px-4 rounded-pill">Contratar Agora</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Hero Section -->
-  <section id="home" class="hero-section d-flex align-items-center">
-    <div class="hero-bg-overlay"></div>
-    <div class="container position-relative z-2">
-      <div class="row align-items-center">
-        <div class="col-lg-6 text-white" data-aos="fade-right" data-aos-duration="1000">
-          <h1 class="display-4 fw-bold mb-4">Tecnologia que <span class="text-gradient">Transforma</span> o seu Negócio
-          </h1>
-          <p class="lead mb-4">De gestão de escalas a automação de atendimento e sistemas para varejo. Temos a solução
-            completa para você escalar seus resultados.</p>
-          <div class="d-flex flex-column flex-sm-row gap-3">
-            <a href="#produtos" class="btn btn-custom-primary btn-lg rounded-pill px-5">Ver Soluções</a>
-            <a href="#contato" class="btn btn-outline-light btn-lg rounded-pill px-5">Fale Conosco</a>
-          </div>
-        </div>
-        <div class="col-lg-6 mt-5 mt-lg-0 text-center" data-aos="fade-left" data-aos-duration="1000">
-          <img src="assets/logo_sem_fundo.png" alt="VCorp Technology" class="img-fluid hero-img floating-anim"
-            style="max-height: 480px;">
-        </div>
-      </div>
-    </div>
-    <div class="custom-shape-divider-bottom-1684365942">
-      <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120" preserveAspectRatio="none">
-        <path
-          d="M0,80 C360,120 720,40 1080,80 C1260,100 1380,60 1440,80 L1440,120 L0,120 Z"
-          class="shape-fill"></path>
+<!-- ===================== INTRO CHECKBOX ===================== -->
+<div id="intro" role="button" tabindex="0" aria-label="Clique para começar">
+  <div class="cbx-brand">VCorp Sistem</div>
+  <div class="cbx-wrap">
+    <div class="cbx">
+      <svg viewBox="0 0 100 100" aria-hidden="true">
+        <defs><linearGradient id="gintro" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#0062cc"/><stop offset=".5" stop-color="#00c2b8"/><stop offset="1" stop-color="#2dd4bf"/>
+        </linearGradient></defs>
+        <path class="sq" d="M74 22H22v56h56V50"/>
+        <path class="ck" pathLength="1" d="M36 52l12 12L86 18"/>
       </svg>
     </div>
-  </section>
+    <div class="cbx-line"></div>
+    <div class="cbx-hint cbx-pulse"><span class="k">clique</span> para marcar o check</div>
+  </div>
+  <div class="cbx-skip" id="cbx-skip">pular ›</div>
+</div>
 
-  <!-- Produtos Section -->
-  <section id="produtos" class="py-5 position-relative">
-    <div class="container py-5">
-      <div class="text-center mb-5" data-aos="fade-up">
-        <h6 class="text-uppercase text-primary fw-bold ls-2">Nossas Soluções</h6>
-        <h2 class="fw-bold display-5">Escolha o plano ideal para você</h2>
-        <p class="text-muted mx-auto" style="max-width: 600px;">Ferramentas poderosas desenvolvidas para otimizar
-          processos e aumentar a produtividade da sua empresa.</p>
+<!-- ===================== NAV ===================== -->
+<header class="nav" id="nav">
+  <a class="brand" href="#topo">
+    <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M17 5H5v14h14v-8"/><path d="M8.5 12l3 3L20 4.5"/></svg></span>
+    VCorp Sistem
+  </a>
+  <nav class="nav-links">
+    <a href="#produtos">Soluções</a>
+    <a href="folha-ia.html">RH<span class="soon">Em breve</span></a>
+    <a href="#meta">Verificada Meta</a>
+    <a href="#revenda">Revendas</a>
+    <a href="#sobre">Sobre</a>
+  </nav>
+  <a class="nav-cta" href="#contato">Falar com especialista</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+</header>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#produtos">Soluções</a>
+  <a href="folha-ia.html">RH · Folha IA (em breve)</a>
+  <a href="#meta">Empresa Verificada Meta</a>
+  <a href="#revenda">Seja uma Revenda</a>
+  <a href="#sobre">Sobre</a>
+  <a href="#contato">Falar com especialista</a>
+</div>
+
+<span id="topo"></span>
+
+<!-- ===================== HERO ===================== -->
+<section class="scene" id="hero">
+  <div class="vp">
+    <div class="hero-floor" id="hero-floor"></div>
+    <div class="hero-check" id="hero-check">
+      <svg viewBox="0 0 24 24" fill="none" stroke="url(#ghc)" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+        <defs><linearGradient id="ghc" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#00c2b8"/><stop offset="1" stop-color="#2dd4bf"/></linearGradient></defs>
+        <path d="M17 5H5v14h14v-8"/><path d="M8.5 12l3 3L20 4.5"/>
+      </svg>
+    </div>
+    <div class="hero-inner cap-anim" id="hero-inner">
+      <span class="eyebrow"><span class="dot"></span> Empresa oficial · verificada pela Meta</span>
+      <h1>Tecnologia que <span class="grad-text">transforma</span> o seu negócio</h1>
+      <p class="lead">De gestão de escalas a automação de atendimento e sistemas para RH. Temos a solução completa para você escalar seus resultados.</p>
+      <div class="hero-actions">
+        <a href="#produtos" class="btn btn-primary">Ver soluções <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="https://wa.me/5521990297098?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20quero%20conhecer%20as%20solu%C3%A7%C3%B5es%20da%20VCorp." target="_blank" rel="noopener" class="btn btn-wa"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1012 2zm0 2a8 8 0 11-4.2 14.8l-.3-.2-2.9.8.8-2.8-.2-.3A8 8 0 0112 4zm4.6 9.7c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1a6.5 6.5 0 01-3.2-2.8c-.1-.2 0-.4.1-.5l.4-.5.2-.4v-.4l-.8-1.8c-.2-.4-.4-.4-.5-.4h-.5c-.2 0-.5.1-.7.3-.7.7-.9 1.7-.6 2.8.5 1.7 1.6 3.1 3.4 4.2 2.3 1.3 3.4 1.1 4.4.9.6-.1 1.4-.6 1.6-1.2.2-.6.2-1.1.1-1.2z"/></svg> WhatsApp</a>
       </div>
+    </div>
+    <div class="hero-scroll cap-anim">role</div>
+  </div>
+</section>
 
-      <div class="row g-4">
-        <!-- Produto 1: Escala Trabalho -->
-        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-          <div class="card product-card h-100 border-0 shadow-sm">
-            <div class="card-header bg-transparent border-0 pt-4 pb-0 text-center">
-              <div class="icon-box mb-3 mx-auto bg-primary-subtle text-primary">
-                <i class="fas fa-calendar-alt fa-2x"></i>
-              </div>
-              <h3 class="card-title fw-bold">Escala Trabalho</h3>
-              <p class="text-muted small">Gestão de Escalas e Permutas</p>
+<!-- ===================== PRODUTOS ===================== -->
+<section class="scene" id="produtos">
+  <div class="vp">
+    <div class="head cap-anim" id="prod-head">
+      <span class="eyebrow"><span class="dot"></span> Nossas soluções</span>
+      <h2>Três formas de <span class="grad-text">escalar</span> o seu negócio</h2>
+    </div>
+    <div class="prod-track" id="prod-track">
+      <!-- Escala -->
+      <div class="pcard" data-p="0">
+        <div class="pico">📅</div>
+        <h3>Escala Trabalho</h3>
+        <div class="sub">Gestão de escalas e permutas</div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Trocas automatizadas</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Gestão de folgas</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>App para colaboradores</li>
+        </ul>
+        <div class="pfoot">
+          <a href="escala-trabalho.html" class="pbtn pbtn-ghost">Saiba mais</a>
+          <a href="https://wa.me/5521990297098?text=Ol%C3%A1!%20Tenho%20interesse%20no%20sistema%20de%20Escala%20de%20Trabalho." target="_blank" rel="noopener" class="pbtn pbtn-solid wa">Contratar</a>
+        </div>
+      </div>
+      <!-- AtendIA (popular) -->
+      <div class="pcard pop" data-p="1">
+        <div class="tagpop">Mais popular</div>
+        <div class="pico">💬</div>
+        <h3>AtendIA</h3>
+        <div class="sub">Atendimento inteligente no WhatsApp</div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Atendimento 24/7 com IA</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>API oficial — sem risco de bloqueio</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Múltiplos atendentes + dashboard</li>
+        </ul>
+        <div class="pfoot">
+          <a href="atendimento-inteligente.html" class="pbtn pbtn-ghost">Saiba mais</a>
+          <a href="https://wa.me/5521990297098?text=Ol%C3%A1!%20Tenho%20interesse%20no%20Atendimento%20Inteligente%20(AtendIA)." target="_blank" rel="noopener" class="pbtn pbtn-solid">Contratar agora</a>
+        </div>
+      </div>
+      <!-- RH / Folha IA (em breve) -->
+      <div class="pcard" data-p="2">
+        <div class="pico">🧠</div>
+        <span class="soonbadge">Em breve</span>
+        <h3>Vcorp Folha IA</h3>
+        <div class="sub">RH e folha de ponto com IA autônoma</div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Auditoria de ponto por IA</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Fechamento de folha + holerite</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>eSocial nativo · LGPD</li>
+        </ul>
+        <div class="pfoot">
+          <a href="folha-ia.html" class="pbtn pbtn-solid">Ver a experiência <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a href="https://wa.me/5521990297098?text=Ol%C3%A1!%20Quero%20entrar%20na%20lista%20de%20espera%20do%20Vcorp%20Folha%20IA." target="_blank" rel="noopener" class="pbtn pbtn-ghost">Lista de espera</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== EMPRESA VERIFICADA META ===================== -->
+<section class="scene" id="meta">
+  <div class="vp">
+    <div class="meta-inner cap-anim" id="meta-inner">
+      <span class="eyebrow"><span class="dot"></span> Meta Tech Provider oficial</span>
+      <h2>O contato da sua empresa <span class="grad-text">não pode ser banido</span>.</h2>
+      <p class="lead">Automação por leitura de QR Code é atalho para o bloqueio. Nós operamos pela API oficial da Meta — o seu número protegido, sem risco de perder anos de conversas.</p>
+      <div class="meta-cmp">
+        <div class="meta-side bad" id="meta-bad">
+          <span class="mtag"><i class="dotx"></i>⚠ QR Code / não-oficial</span>
+          <h3>Bots que escaneiam o QR Code</h3>
+          <p>Violam os termos do WhatsApp. A Meta detecta e bane o número — do dia para a noite, sem aviso.</p>
+          <div class="phone"><div class="qr"></div><div class="ban-stamp" id="ban-stamp">Banido</div></div>
+        </div>
+        <div class="meta-mid" aria-hidden="true">vs</div>
+        <div class="meta-side good">
+          <span class="mtag">✓ VCorp · API oficial</span>
+          <h3>Tech Provider verificado pela Meta</h3>
+          <p>Número oficializado na plataforma, selo verificado e conformidade total. Estabilidade que atalho nenhum entrega.</p>
+          <div class="phone"><div class="shield"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div></div>
+        </div>
+      </div>
+      <div class="meta-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg> 100% Autorizada e em conformidade com a Meta</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SOBRE (gráficos vivos) ===================== -->
+<section class="scene" id="sobre">
+  <div class="vp">
+    <div class="sobre-grid">
+      <div class="cap-anim" id="sobre-text">
+        <span class="eyebrow"><span class="dot"></span> Sobre nós</span>
+        <h2>Inovação que impulsiona o seu <span class="grad-text">crescimento</span></h2>
+        <p>A VCorp Sistem nasceu com a missão de simplificar a gestão empresarial através da tecnologia. Nossas soluções são desenvolvidas pensando na usabilidade e na eficiência, permitindo que você foque no que realmente importa: o seu negócio.</p>
+      </div>
+      <div class="charts cap-anim" id="charts">
+        <div class="ch-head"><b>Produtividade da operação</b><span class="up" id="ch-up">▲ 0%</span></div>
+        <div class="bars" id="bars">
+          <span class="bar" style="--h:.42"></span><span class="bar" style="--h:.55"></span>
+          <span class="bar" style="--h:.5"></span><span class="bar" style="--h:.68"></span>
+          <span class="bar" style="--h:.62"></span><span class="bar" style="--h:.8"></span>
+          <span class="bar" style="--h:.74"></span><span class="bar" style="--h:.95"></span>
+        </div>
+        <svg class="spark" id="spark" viewBox="0 0 300 70" preserveAspectRatio="none" aria-hidden="true">
+          <defs><linearGradient id="gspark" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2dd4bf" stop-opacity=".28"/><stop offset="1" stop-color="#2dd4bf" stop-opacity="0"/></linearGradient></defs>
+          <path class="area" d="M0 58 L40 52 L80 46 L120 40 L160 30 L200 26 L240 16 L300 8 L300 70 L0 70 Z"/>
+          <path class="line" pathLength="1" d="M0 58 L40 52 L80 46 L120 40 L160 30 L200 26 L240 16 L300 8"/>
+        </svg>
+        <div class="kpis">
+          <div class="kpi"><b class="gt" data-n="63" data-suf="%">0</b><span>menos retrabalho</span></div>
+          <div class="kpi"><b class="gt" data-n="24" data-suf="/7">0</b><span>operando sem parar</span></div>
+          <div class="kpi"><b class="gt" data-n="3" data-suf="x">0</b><span>mais agilidade</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FUNDADOR ===================== -->
+<section class="scene" id="fundador">
+  <div class="vp">
+    <div class="founder cap-anim" id="founder">
+      <img class="fimg" src="assets/endrigo.jpg" alt="Endrigo Valente — Fundador e CEO da VCorp Sistem" />
+      <p class="quote">"Democratizar tecnologia de qualidade para a pequena e média empresa brasileira."</p>
+      <div class="name">Endrigo Valente</div>
+      <div class="role">Fundador &amp; CEO — VCorp Sistem</div>
+      <a href="https://www.linkedin.com/in/endrigo-valente-3357a635/" target="_blank" rel="noopener" class="li"><svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 112.5 6 2.5 2.5 0 014.98 3.5zM3 8.98h4V21H3zM9 8.98h3.8v1.64h.05a4.2 4.2 0 013.75-2.06C20.4 8.56 22 10.6 22 14.3V21h-4v-6c0-1.43-.03-3.27-2-3.27s-2.3 1.56-2.3 3.17V21H9z"/></svg> Ver no LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== REVENDA ===================== -->
+<section class="scene" id="revenda">
+  <div class="vp">
+    <div class="rev-inner">
+      <div class="rev-grid">
+        <div class="cap-anim" id="rev-text">
+          <span class="eyebrow"><span class="dot"></span> Oportunidade de parceria</span>
+          <h2>De revenda a <span class="grad-text">empresário</span> do ecossistema Meta</h2>
+          <p class="lead">Não é só renda passiva — é independência financeira. Revenda a plataforma de atendimento mais estável do mercado sob a <strong style="color:var(--text)">sua marca</strong>, dentro do ecossistema oficial de um Meta Tech Provider.</p>
+          <div class="rev-pillars">
+            <div class="pillar">
+              <span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v6H4zM4 14h16v6H4z"/></svg></span>
+              <div><b>Plataforma White Label <span style="color:var(--faint);font-weight:500">(em breve)</span></b><span>Layout, logo e cores 100% sob a sua marca.</span></div>
             </div>
-            <div class="card-body text-center">
-              <ul class="list-unstyled mb-4 text-start mx-auto" style="max-width: 250px;">
-                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Trocas automatizadas</li>
-                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Gestão de folgas</li>
-                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>App para colaboradores</li>
-                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Relatórios detalhados</li>
-              </ul>
-              <div class="price-tag mb-3">
-                <span class="currency">R$</span><span class="amount">Consultar</span>
-              </div>
-              <div class="d-grid gap-2">
-                <a href="escala-trabalho.html" class="btn btn-outline-primary rounded-pill">Saiba Mais</a>
-                <a href="https://wa.me/5521990297098?text=Olá,%20tenho%20interesse%20no%20sistema%20de%20Escala%20de%20Trabalho%20que%20esta%20no%20Site."
-                  target="_blank" class="btn btn-primary rounded-pill">Contratar Agora</a>
-              </div>
+            <div class="pillar">
+              <span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></span>
+              <div><b>Ganhos recorrentes — 100% do lucro</b><span>Você define a assinatura e fica com a margem inteira.</span></div>
+            </div>
+            <div class="pillar">
+              <span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></span>
+              <div><b>100% em conformidade Meta</b><span>API oficial protegendo você e seus clientes de bloqueios.</span></div>
             </div>
           </div>
+          <a href="https://wa.me/5521990297098?text=Ol%C3%A1!%20Quero%20ser%20uma%20revenda%20autorizada%20da%20VCorp%20(Meta%20Tech%20Provider)." target="_blank" rel="noopener" class="btn btn-primary">Quero ser uma revenda <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </div>
-
-        <!-- Produto 2: Atendimento Inteligente -->
-        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-          <div class="card product-card h-100 border-0 shadow atendia-highlight">
-            <div class="position-absolute top-0 start-50 translate-middle">
-              <span class="badge bg-warning text-dark rounded-pill px-3 py-2">Mais Popular</span>
-            </div>
-            <div class="card-header bg-transparent border-0 pt-5 pb-0 text-center">
-              <div class="icon-box mb-3 mx-auto" style="background-color: rgba(0, 178, 137, 0.15); color: var(--atendia-primary);">
-                <i class="fab fa-whatsapp fa-2x"></i>
-              </div>
-              <img src="assets/AtendIA/AtendIA.png" alt="AtendIA Logo" class="img-fluid mb-2"
-                style="max-height: 40px; width: auto;">
-              <p class="text-muted small">Atendimento Inteligente via Whatsapp da Vcorp</p>
-            </div>
-            <div class="card-body text-center">
-              <ul class="list-unstyled mb-4 text-start mx-auto" style="max-width: 250px;">
-                <li class="mb-2"><i class="fas fa-check me-2" style="color: var(--atendia-primary);"></i>Atendimento 24/7</li>
-                <li class="mb-2"><i class="fas fa-check me-2" style="color: var(--atendia-primary);"></i>Respostas automáticas</li>
-                <li class="mb-2"><i class="fas fa-check me-2" style="color: var(--atendia-primary);"></i>Múltiplos atendentes</li>
-                <li class="mb-2"><i class="fas fa-check me-2" style="color: var(--atendia-primary);"></i>Dashboard de conversas</li>
-              </ul>
-              <div class="price-tag mb-1">
-                <span class="small text-muted d-block mb-1">A partir de</span>
-                <span class="d-block fw-bold mb-1" style="font-size:1.4rem; color:#adb5bd; text-decoration:line-through; text-decoration-color:#dc3545; text-decoration-thickness:3px;">R$ 349,90</span>
-                <span class="currency" style="color:var(--atendia-primary);">R$</span><span class="amount" style="color:var(--atendia-primary);">159,90</span>
-              </div>
-              <p class="text-muted small mb-1">/mês</p>
-              <p class="small fw-semibold mb-3" style="color:var(--atendia-primary);">Por tempo limitado! Corra e garanta essa assinatura de 1 ano por esse preço.</p>
-              <div class="d-grid gap-2">
-                <a href="atendimento-inteligente.html" class="btn btn-outline-atendia rounded-pill">Saiba Mais</a>
-                <a href="https://wa.me/5521990297098?text=Olá,%20tenho%20interesse%20no%20Atendimento%20Inteligente%20para%20WhatsApp%20que%20esta%20no%20Site."
-                  target="_blank" class="btn btn-atendia rounded-pill shadow-sm">Contratar Agora</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Produto 3: Lotus Sistem -->
-        <div class="col-lg-4 col-md-6 mx-auto" data-aos="fade-up" data-aos-delay="300">
-          <div class="card product-card h-100 border-0 shadow-sm discontinued-product">
-            <div class="card-header bg-transparent border-0 pt-4 pb-0 text-center">
-              <div class="icon-box mb-3 mx-auto bg-danger-subtle text-danger">
-                <i class="fas fa-store fa-2x"></i>
-              </div>
-              <h3 class="card-title fw-bold">Sistema Lotus</h3>
-              <p class="text-muted small">PDV e Retaguarda para Varejo</p>
-            </div>
-            <div class="card-body text-center">
-              <ul class="list-unstyled mb-4 text-start mx-auto" style="max-width: 250px;">
-                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Controle de estoque</li>
-                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Emissão de notas fiscais</li>
-                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Frente de caixa (PDV)</li>
-                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Gestão financeira</li>
-              </ul>
-              <div class="price-tag mb-3">
-                <span class="currency">R$</span><span class="amount">Consultar</span>
-              </div>
-              <div class="d-grid gap-2">
-                <a href="javascript:void(0)" class="btn btn-outline-danger rounded-pill disabled">Saiba Mais</a>
-                <a href="javascript:void(0)" class="btn btn-outline-primary w-100 rounded-pill disabled">Contratar Agora</a>
-              </div>
-            </div>
+        <div class="rev-card cap-anim" id="rev-card">
+          <div class="rk">Sua receita recorrente</div>
+          <div class="mrr" id="mrr">R$ 0</div>
+          <div class="mrr-sub">por mês, com sua base crescendo</div>
+          <div class="rbar"><i id="rbar-fill"></i></div>
+          <div class="rnote">exemplo ilustrativo: 60 clientes × assinatura própria</div>
+          <div class="chip-row">
+            <span>Painel SaaS centralizado</span><span>Sua marca</span><span>Suas margens</span><span>Suporte oficial</span>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Vcorp Folha IA — Lançamento (EM BREVE) -->
-  <section id="folha-ia" class="py-5 position-relative overflow-hidden" style="background:#0a0a14;">
-    <div class="position-absolute top-0 start-0 w-100 h-100 z-0"
-      style="background:radial-gradient(600px 320px at 12% 0%, rgba(99,102,241,.28), transparent 60%), radial-gradient(620px 340px at 88% 100%, rgba(34,211,238,.16), transparent 60%);"></div>
-    <div class="container py-4 py-lg-5 position-relative z-2">
-      <div class="row align-items-center g-5">
-        <!-- Texto -->
-        <div class="col-lg-6 text-white" data-aos="fade-right">
-          <span class="d-inline-flex align-items-center gap-2 mb-3 px-3 py-2 rounded-pill"
-            style="border:1px solid rgba(34,211,238,.4);background:rgba(34,211,238,.08);color:#22d3ee;font-weight:600;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;">
-            <i class="fas fa-lock"></i> Em breve · Novo produto
-          </span>
-          <h2 class="fw-bold display-5 mb-3">Vcorp <span
-              style="background:linear-gradient(120deg,#6366f1,#a855f7 55%,#22d3ee);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">Folha IA</span>
-          </h2>
-          <p class="lead mb-4" style="color:#9aa6c4;">A folha de pagamento que <strong class="text-white">se audita
-              sozinha</strong>. IA autônoma cruza ponto, CLT e a sua convenção coletiva — apontando riscos trabalhistas
-            antes que virem processo. Sem chatbot, sem madrugada, sem refazer.</p>
-          <div class="d-flex flex-wrap gap-2 mb-4">
-            <span class="badge rounded-pill" style="background:rgba(255,255,255,.06);border:1px solid rgba(148,163,184,.25);color:#cbd5e1;font-weight:500;padding:.5em .9em;">Auditoria de ponto por IA</span>
-            <span class="badge rounded-pill" style="background:rgba(255,255,255,.06);border:1px solid rgba(148,163,184,.25);color:#cbd5e1;font-weight:500;padding:.5em .9em;">Fechamento de folha</span>
-            <span class="badge rounded-pill" style="background:rgba(255,255,255,.06);border:1px solid rgba(148,163,184,.25);color:#cbd5e1;font-weight:500;padding:.5em .9em;">Holerite narrativo</span>
-            <span class="badge rounded-pill" style="background:rgba(255,255,255,.06);border:1px solid rgba(148,163,184,.25);color:#cbd5e1;font-weight:500;padding:.5em .9em;">eSocial nativo</span>
-            <span class="badge rounded-pill" style="background:rgba(255,255,255,.06);border:1px solid rgba(148,163,184,.25);color:#cbd5e1;font-weight:500;padding:.5em .9em;">LGPD by design</span>
-          </div>
-          <div class="d-flex flex-column flex-sm-row gap-3">
-            <a href="folha-ia.html" class="btn btn-lg rounded-pill px-4 fw-semibold text-white"
-              style="background:linear-gradient(120deg,#6366f1,#a855f7 55%,#22d3ee);box-shadow:0 14px 40px -10px rgba(99,102,241,.6);">
-              Ver a experiência completa <i class="fas fa-arrow-right ms-2"></i>
-            </a>
-            <a href="https://wa.me/5521990297098?text=Ol%C3%A1!%20Quero%20entrar%20na%20lista%20de%20espera%20do%20Vcorp%20Folha%20IA%20(sistema%20de%20folha%20de%20ponto%20com%20IA)."
-              target="_blank" class="btn btn-lg rounded-pill px-4 btn-outline-light">Entrar na lista de espera</a>
-          </div>
-        </div>
-        <!-- Teaser visual: auditoria em tempo real -->
-        <div class="col-lg-6" data-aos="fade-left">
-          <div class="p-3 p-md-4 rounded-4"
-            style="background:linear-gradient(180deg,#121829,#0d1220);border:1px solid rgba(148,163,184,.22);box-shadow:0 30px 70px -25px rgba(0,0,0,.75);">
-            <div class="d-flex align-items-center gap-2 pb-3 mb-3" style="border-bottom:1px solid rgba(148,163,184,.14);">
-              <span style="width:11px;height:11px;border-radius:50%;background:#2a3350;"></span>
-              <span style="width:11px;height:11px;border-radius:50%;background:#2a3350;"></span>
-              <span style="width:11px;height:11px;border-radius:50%;background:#2a3350;"></span>
-              <span class="ms-auto small" style="color:#9aa6c4;"><span
-                  style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#10b981;margin-right:6px;"></span>Auditoria
-                em tempo real</span>
-            </div>
-            <div class="d-flex justify-content-between align-items-start mb-3">
-              <div>
-                <div class="fw-semibold text-white">Anomalias detectadas</div>
-                <div class="small" style="color:#6b7794;">Competência 06/2026 · 42 funcionários</div>
-              </div>
-              <div class="text-end">
-                <div class="fw-bold" style="color:#10b981;font-size:1.5rem;line-height:1;">92%</div>
-                <div style="color:#6b7794;font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;">Conformidade</div>
-              </div>
-            </div>
-            <div class="d-flex align-items-center gap-3 p-2 mb-2 rounded-3"
-              style="border:1px solid rgba(244,63,94,.25);background:rgba(244,63,94,.06);">
-              <i class="fas fa-triangle-exclamation" style="color:#f43f5e;"></i>
-              <div class="flex-grow-1"><div class="text-white small fw-semibold">Hora extra excessiva</div><div style="color:#6b7794;font-size:.75rem;">M. Andrade · 18h acima do limite da CCT</div></div>
-              <span class="badge rounded-pill" style="background:rgba(244,63,94,.14);color:#fecdd3;font-weight:600;">Crítico</span>
-            </div>
-            <div class="d-flex align-items-center gap-3 p-2 mb-2 rounded-3"
-              style="border:1px solid rgba(245,158,11,.25);background:rgba(245,158,11,.06);">
-              <i class="fas fa-clock" style="color:#f59e0b;"></i>
-              <div class="flex-grow-1"><div class="text-white small fw-semibold">Intervalo de almoço &lt; 1h</div><div style="color:#6b7794;font-size:.75rem;">J. Castro · risco art. 71 CLT</div></div>
-              <span class="badge rounded-pill" style="background:rgba(245,158,11,.13);color:#fde68a;font-weight:600;">Atenção</span>
-            </div>
-            <div class="d-flex align-items-center gap-2 pt-3 mt-1 small" style="border-top:1px solid rgba(148,163,184,.14);color:#9aa6c4;">
-              <i class="fas fa-wand-magic-sparkles" style="color:#a855f7;"></i> Analisado por IA sobre a convenção coletiva vetorizada
-            </div>
-          </div>
-        </div>
+<!-- ===================== CONTATO ===================== -->
+<section id="contato">
+  <div class="glow"></div>
+  <div class="ci">
+    <span class="eyebrow"><span class="dot"></span> Vamos conversar</span>
+    <h2 style="margin-top:16px">Pronto para <span class="grad-text">transformar</span> a sua gestão?</h2>
+    <p>Fale direto com a nossa equipe no WhatsApp e descubra qual solução acelera os seus resultados.</p>
+    <a href="https://wa.me/5521990297098?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20quero%20falar%20com%20um%20especialista%20da%20VCorp." target="_blank" rel="noopener" class="btn btn-wa" style="font-size:17px;padding:16px 30px"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1012 2zm0 2a8 8 0 11-4.2 14.8l-.3-.2-2.9.8.8-2.8-.2-.3A8 8 0 0112 4zm4.6 9.7c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1a6.5 6.5 0 01-3.2-2.8c-.1-.2 0-.4.1-.5l.4-.5.2-.4v-.4l-.8-1.8c-.2-.4-.4-.4-.5-.4h-.5c-.2 0-.5.1-.7.3-.7.7-.9 1.7-.6 2.8.5 1.7 1.6 3.1 3.4 4.2 2.3 1.3 3.4 1.1 4.4.9.6-.1 1.4-.6 1.6-1.2.2-.6.2-1.1.1-1.2z"/></svg> Iniciar conversa no WhatsApp</a>
+    <div class="info">
+      <span><i class="fa">✉</i> atendimento@vcorpsistem.com</span>
+      <span><i class="fa">☎</i> (21) 99029-7098</span>
+      <span><i class="fa">◎</i> Rio de Janeiro, RJ</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="foot">
+    <div class="fb">
+      <div class="fbr"><span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M17 5H5v14h14v-8"/><path d="M8.5 12l3 3L20 4.5"/></svg></span>VCorp Sistem</div>
+      <p>Tecnologia de ponta e soluções inteligentes para transformar a gestão do seu negócio.</p>
+    </div>
+    <div class="foot-cols">
+      <div class="foot-col">
+        <h5>Soluções</h5>
+        <a href="folha-ia.html">Vcorp Folha IA (em breve)</a>
+        <a href="atendimento-inteligente.html">AtendIA</a>
+        <a href="escala-trabalho.html">Escala Trabalho</a>
+        <a href="#revenda">Seja uma revenda</a>
+      </div>
+      <div class="foot-col">
+        <h5>Empresa</h5>
+        <a href="#meta">Verificada Meta</a>
+        <a href="#sobre">Sobre nós</a>
+        <a href="#contato">Contato</a>
+        <a href="termos-de-uso.html">Termos de uso</a>
+      </div>
+      <div class="foot-col">
+        <h5>Contato</h5>
+        <li>atendimento@vcorpsistem.com</li>
+        <li>(21) 99029-7098</li>
+        <li>Rio de Janeiro, RJ</li>
       </div>
     </div>
-  </section>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 VCorp Sistem. Todos os direitos reservados.</span>
+    <span>CNPJ: 28.988.813/0001-50 · Meta Tech Provider oficial</span>
+  </div>
+</footer>
 
-  <!-- Verificada META Section -->
-  <section class="py-5 text-white text-center position-relative overflow-hidden" style="background-color: #25D366;">
-    <div class="position-absolute top-0 start-0 translate-middle rounded-circle bg-white z-0"
-      style="width: 150px; height: 150px; opacity: 0.15; mix-blend-mode: overlay;"></div>
-    <div class="position-absolute bottom-0 end-0 translate-middle rounded-circle bg-white z-0"
-      style="width: 200px; height: 200px; opacity: 0.15; mix-blend-mode: overlay;"></div>
-    <div class="container py-4 position-relative z-2">
-      <div class="row justify-content-center">
-        <div class="col-lg-8" data-aos="zoom-in" style="text-shadow: 0 1px 3px rgba(0,0,0,0.3);">
-          <div class="d-flex flex-column flex-md-row align-items-center justify-content-center gap-4">
-            <i class="fab fa-whatsapp fa-5x"></i>
-            <div class="text-md-start">
-              <h3 class="fw-bold mb-2"><i class="fas fa-check-circle me-2"></i> Empresa Verificada Meta</h3>
-              <p class="lead mb-2 fw-semibold">100% Autorizada e em Conformidade</p>
-              <p class="mb-0 fs-6">Administramos números de WhatsApp sem risco de <strong>BLOQUEIO</strong>, protegendo
-                seu bem mais valioso: <strong>o contato da sua empresa!</strong></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+<noscript><div class="ns">Ative o JavaScript para a experiência completa. Todo o conteúdo continua acessível abaixo.</div></noscript>
 
-  <!-- Revenda Section -->
-  <section id="revenda" class="py-5 bg-white overflow-hidden">
-    <div class="container py-5">
-      <div class="row align-items-center">
-        <div class="col-lg-6 mb-4 mb-lg-0" data-aos="fade-right">
-          <img src="assets/AtendIA/Revendas/Revendas 01.png" alt="Painel de Revendas VCorp"
-            class="img-fluid rounded-4 shadow-lg imagem-painel-revenda">
-        </div>
-        <div class="col-lg-6 ps-lg-5" data-aos="fade-left">
-          <h6 class="text-uppercase text-primary fw-bold ls-2">Oportunidade de Parceria</h6>
-          <h2 class="fw-bold mb-4 texto-revenda-primario">Seja uma Revenda Autorizada VCorp</h2>
-          <p class="text-muted mb-4">
-            Construa sua própria recorrência financeira vendendo a plataforma de atendimento mais estável e segura do mercado. Com a nossa solução **White Label**, você comercializa a plataforma sob a sua própria marca, define suas margens de lucro e gerencia seus clientes em um painel SaaS centralizado.
-          </p>
-          <ul class="list-unstyled mb-4">
-            <li class="mb-3 d-flex align-items-start">
-              <i class="fas fa-check-circle text-success mt-1 me-3"></i>
-              <span><strong>Plataforma White Label (Em breve):</strong> Layout customizável com sua logo e cores.</span>
-            </li>
-            <li class="mb-3 d-flex align-items-start">
-              <i class="fas fa-check-circle text-success mt-1 me-3"></i>
-              <span><strong>Ganhos Recorrentes:</strong> Defina o valor da assinatura e fique com 100% do lucro.</span>
-            </li>
-            <li class="mb-3 d-flex align-items-start">
-              <i class="fas fa-check-circle text-success mt-1 me-3"></i>
-              <span><strong>100% em Conformidade Meta:</strong> API oficial, protegendo a sua operação contra bloqueios.</span>
-            </li>
-          </ul>
-          <div class="d-flex flex-wrap gap-3">
-            <a href="revendas.html" class="btn botao-revenda rounded-pill px-4 py-2 shadow-sm">Conhecer o Programa</a>
-            <a href="https://wa.me/5521990297098?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20como%20ser%20uma%20revenda%20da%20VCorp."
-              target="_blank" class="btn botao-contorno-revenda rounded-pill px-4 py-2">Falar com Especialista</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+<script src="assets/motion.js"></script>
+<script>
+(function(){
+'use strict';
+const M=window.Motion||null;
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(reduced) document.documentElement.classList.add('rm');
+const $=(s,c)=>(c||document).querySelector(s);
+const $$=(s,c)=>Array.from((c||document).querySelectorAll(s));
+const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+const lerp=(a,b,t)=>a+(b-a)*t;
+const seg=(p,a,b)=>clamp((p-a)/(b-a),0,1);
+const E={outCubic:t=>1-Math.pow(1-t,3),inOut:t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2};
+const fmt=new Intl.NumberFormat('pt-BR');
+let vh=innerHeight;
 
-  <!-- Sobre Section -->
-  <section id="sobre" class="py-5 bg-light">
-    <div class="container py-5">
-      <div class="row align-items-center">
-        <div class="col-lg-6 mb-4 mb-lg-0" data-aos="fade-right">
-          <img src="assets/pessoas/Mulher-01.png" alt="Sobre VCorp"
-            class="img-fluid rounded-4 shadow-lg">
-        </div>
-        <div class="col-lg-6 ps-lg-5" data-aos="fade-left">
-          <h6 class="text-uppercase text-primary fw-bold ls-2">Sobre Nós</h6>
-          <h2 class="fw-bold mb-4">Inovação que impulsiona o seu crescimento</h2>
-          <p class="text-muted mb-4">A VCorp Sistem nasceu com a missão de simplificar a gestão empresarial através da
-            tecnologia. Nossas soluções são desenvolvidas pensando na usabilidade e na eficiência, permitindo que você
-            foque no que realmente importa: o seu negócio.</p>
-          <div class="row g-4 mb-4">
-            <div class="col-6">
-              <div class="d-flex align-items-center">
-                <div class="flex-shrink-0 btn-square bg-primary text-white rounded-3 p-3">
-                  <i class="fas fa-rocket"></i>
-                </div>
-                <div class="ms-3">
-                  <h5 class="mb-1 fw-bold">Agilidade</h5>
-                  <p class="mb-0 small text-muted">Processos otimizados</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-6">
-              <div class="d-flex align-items-center">
-                <div class="flex-shrink-0 btn-square bg-primary text-white rounded-3 p-3">
-                  <i class="fas fa-headset"></i>
-                </div>
-                <div class="ms-3">
-                  <h5 class="mb-1 fw-bold">Suporte</h5>
-                  <p class="mb-0 small text-muted">Atendimento humanizado</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <a href="#contato" class="btn btn-dark rounded-pill px-4">Fale Conosco</a>
-        </div>
-      </div>
+/* ---------------- modo: cinematográfico (desktop) x fluxo (mobile) x reduzido ---------------- */
+const intro=$('#intro'), nav=$('#nav');
+const mqMob=matchMedia('(max-width:820px)');
+const cinematic=!reduced && !mqMob.matches;
+let started=false;
 
-      <!-- Fundador -->
-      <div class="row mt-5 pt-4" data-aos="fade-up">
-        <div class="col-12 text-center mb-4">
-          <hr class="border-secondary mb-4">
-          <h6 class="text-uppercase text-primary fw-bold ls-2">Nosso Fundador</h6>
-        </div>
-        <div class="col-md-8 mx-auto">
-          <div class="card border-0 shadow-sm rounded-4 p-4">
-            <div class="d-flex flex-column flex-sm-row align-items-center align-items-sm-start gap-4">
-              <div class="flex-shrink-0 text-center">
-                <img src="assets/endrigo.jpg" alt="Endrigo Valente — Fundador VCorp Sistem"
-                  class="rounded-circle shadow" style="width:110px;height:110px;object-fit:cover;">
-              </div>
-              <div>
-                <h5 class="fw-bold mb-1">Endrigo Valente</h5>
-                <p class="text-primary fw-semibold small mb-2">Fundador &amp; CEO — VCorp Sistem</p>
-                <p class="text-muted small mb-3">
-                  Desenvolvedor de software com trajetória voltada a soluções de gestão e automação para empresas.
-                  Fundou a VCorp Sistem para democratizar o acesso a tecnologia de qualidade para pequenas e médias
-                  empresas brasileiras, unindo automação de atendimento com IA, gestão de escalas e sistemas de
-                  varejo em uma única plataforma.
-                </p>
-                <a href="https://www.linkedin.com/in/endrigo-valente-3357a635/" target="_blank" rel="noopener"
-                  class="btn btn-outline-primary btn-sm rounded-pill">
-                  <i class="fab fa-linkedin-in me-1"></i> Ver no LinkedIn
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+function setFinalStates(){
+  $$('#bars .bar').forEach(b=>{const h=parseFloat(b.style.getPropertyValue('--h'));b.style.transform=`scaleY(${h*.9})`;});
+  const ln=$('#spark .line'); if(ln) ln.style.strokeDashoffset='0';
+  const ar=$('#spark .area'); if(ar) ar.style.opacity='.9';
+  $('#ch-up').textContent='▲ 63%';
+  $$('#charts .kpi b').forEach(b=>b.textContent=b.dataset.n+(b.dataset.suf||''));
+  $('#mrr').textContent='R$ 11.940'; $('#rbar-fill').style.width='78%';
+  const bs=$('#ban-stamp'); if(bs){bs.style.opacity='.95';bs.style.transform='rotate(-12deg) scale(1)';}
+}
+function flowReveal(){
+  document.body.classList.add('flow');
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('inview');io.unobserve(e.target);}}),{threshold:.14});
+  $$('.cap-anim').forEach(el=>io.observe(el));
+}
+function startSite(skip){
+  if(started||reduced) return; started=true;
+  if(!skip) intro.classList.add('go');
+  const delay= skip?0:(cinematic?1700:1350);
+  setTimeout(()=>{
+    document.body.classList.remove('intro-lock');
+    intro.classList.add('done'); nav.classList.add('show'); measure();
+    if(!cinematic){ setFinalStates(); flowReveal(); }
+    setTimeout(()=>{ intro.style.display='none'; }, 900);
+  }, delay);
+}
+intro.addEventListener('click',()=>startSite(false));
+intro.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); startSite(false);} });
+$('#cbx-skip').addEventListener('click',e=>{ e.stopPropagation(); startSite(true); });
+['wheel','touchmove'].forEach(ev=>addEventListener(ev,()=>{ if(!started) startSite(false); },{passive:true}));
+setTimeout(()=>{ try{intro.focus();}catch(_){} },100);
 
-    </div>
-  </section>
+/* ---------------- rig de cenas (lerp) ---------------- */
+const scenes=[]; let docLen=1;
+function scene(id,update){ const el=document.getElementById(id); if(el) scenes.push({el,update,top:0,len:1,p:-1}); }
+function measure(){
+  vh=innerHeight;
+  scenes.forEach(s=>{ s.top=s.el.offsetTop; s.len=Math.max(1,s.el.offsetHeight-vh); });
+  docLen=document.documentElement.scrollHeight-vh;
+}
+let target=scrollY,eased=scrollY;
+addEventListener('scroll',()=>{target=scrollY;},{passive:true});
+addEventListener('resize',measure);
 
-  <!-- CTA Section -->
-  <section class="py-5 bg-primary text-white text-center position-relative overflow-hidden">
-    <!-- Decorative circles -->
-    <div class="position-absolute top-0 start-0 translate-middle rounded-circle bg-white z-0"
-      style="width: 200px; height: 200px; opacity: 0.15; mix-blend-mode: overlay;"></div>
-    <div class="position-absolute bottom-0 end-0 translate-middle rounded-circle bg-white z-0"
-      style="width: 250px; height: 250px; opacity: 0.15; mix-blend-mode: overlay;"></div>
+/* helper: caption fade/slide */
+function fade(el,tin,tout){ const o=tin*(1-(tout||0)); el.style.opacity=o;
+  el.style.transform=`translate3d(0,${(1-E.outCubic(tin))*26 - E.inOut(tout||0)*20}px,0)`; }
 
-    <div class="container py-4 position-relative z-2">
-      <div style="text-shadow: 0 1px 3px rgba(0,0,0,0.3);">
-        <h2 class="fw-bold mb-3" data-aos="zoom-in">Pronto para transformar sua gestão?</h2>
-        <p class="lead mb-4" data-aos="zoom-in" data-aos-delay="100">Entre em contato hoje mesmo e descubra como nossas
-          soluções podem ajudar sua empresa.</p>
-      </div>
-      <a href="#contato" class="btn btn-light btn-lg rounded-pill px-5 fw-bold text-primary shadow" data-aos="zoom-in"
-        data-aos-delay="200">Falar com Especialista</a>
-    </div>
-  </section>
+/* HERO */
+scene('hero',(p)=>{
+  const inner=$('#hero-inner');
+  fade(inner, 1, seg(p,.45,.95));
+  $('#hero-floor').style.transform=`translateX(-50%) perspective(900px) rotateX(64deg) translateY(${-p*140}px)`;
+  $('#hero-check').style.transform=`translateX(-50%) translateY(${-p*80}px) scale(${1-p*.2})`;
+  $('#hero-check').style.opacity=1-seg(p,.3,.8);
+  $('.hero-scroll').style.opacity=1-seg(p,.05,.3);
+});
+/* PRODUTOS — câmera "vira à esquerda" e revela os 3 cards */
+const pcards=$$('#prod-track .pcard');
+scene('produtos',(p)=>{
+  fade($('#prod-head'), seg(p,.05,.18), seg(p,.9,1));
+  pcards.forEach((c,i)=>{
+    const g=.2+i*.16;
+    const t=E.outCubic(seg(p,g,g+.26));
+    const fromX=(i-1)*60 + 120;                 // entram vindas da direita (câmera girando p/ esquerda)
+    const pop=c.classList.contains('pop');
+    const baseY=pop?-14:0;
+    c.style.opacity=t;
+    c.style.transform=`translate3d(${(1-t)*fromX}px,${baseY + (1-t)*30}px,0) rotateY(${(1-t)*-18}deg) scale(${.94+t*.06})`;
+  });
+});
 
-  <!-- Contato Section -->
-  <section id="contato" class="py-5 bg-light">
-    <div class="container py-5 text-center">
-      <div class="row justify-content-center" data-aos="fade-up">
-        <div class="col-lg-8">
-          <h6 class="text-uppercase text-primary fw-bold ls-2 mb-3">Contato</h6>
-          <h2 class="display-5 fw-bold mb-4">Vamos Conversar?</h2>
-          <p class="text-muted lead mb-5">Se você deseja conhecer mais sobre nossas soluções ou precisa de suporte, clique no botão abaixo para conversar diretamente com a nossa equipe no WhatsApp.</p>
-          
-          <div class="d-flex flex-column align-items-center gap-4">
-            <a href="https://api.whatsapp.com/send/?phone=5521990297098&text=Ol%C3%A1%2C+tenho+interesse+no+Atendimento+Inteligente+para+WhatsApp+que+esta+no+Site.&type=phone_number&app_absent=0"
-              target="_blank" class="btn btn-success btn-lg rounded-pill px-5 py-3 fw-bold shadow-lg d-inline-flex align-items-center gap-3"
-              style="background-color: #25D366; border-color: #25D366; transition: all 0.3s ease;">
-              <i class="fab fa-whatsapp fa-2x"></i>
-              <span style="font-size: 1.25rem;">Iniciar Conversa no WhatsApp</span>
-            </a>
-            
-            <div class="d-flex flex-wrap justify-content-center gap-4 mt-3">
-              <span class="text-muted"><i class="fas fa-envelope me-2 text-primary"></i>atendimento@vcorpsistem.com</span>
-              <span class="text-muted"><i class="fas fa-phone me-2 text-primary"></i>(21) 99029-7098</span>
-              <span class="text-muted"><i class="fas fa-map-marker-alt me-2 text-primary"></i>Rio de Janeiro, RJ</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+/* META — carimbo BANIDO + escudo */
+scene('meta',(p)=>{
+  fade($('#meta-inner'), seg(p,.06,.2), seg(p,.92,1));
+  const bs=$('#ban-stamp'); const t=E.outCubic(seg(p,.4,.52));
+  bs.style.opacity=Math.min(1,t*3)*.95;
+  bs.style.transform=`rotate(-12deg) scale(${lerp(1.7,1,t)})`;
+  const bad=$('#meta-bad'); bad.style.filter=`grayscale(${seg(p,.4,.6)}) brightness(${1-seg(p,.4,.6)*.25})`;
+});
 
-  <!-- Footer -->
-  <footer class="bg-dark text-white pt-5 pb-3">
-    <div class="container">
-      <div class="row g-4 mb-5">
-        <div class="col-lg-4 col-md-6">
-          <a href="#" class="d-flex align-items-center text-white text-decoration-none mb-3">
-            <img src="assets/logo_sem_fundo.png" alt="Logo" height="40" class="me-2 bg-white rounded-circle p-1">
-            <span class="fs-4 fw-bold">VCorp Sistem</span>
-          </a>
-          <p class="text-white-50">Transformando a gestão do seu negócio com tecnologia de ponta e soluções
-            inteligentes.</p>
-          <div class="d-flex gap-3 mt-4">
-            <a href="https://www.linkedin.com/company/vcorp-sistem" target="_blank" class="btn btn-outline-light btn-sm rounded-circle"><i class="fab fa-linkedin-in"></i></a>
-          </div>
-        </div>
-        <div class="col-lg-2 col-md-6">
-          <h5 class="fw-bold mb-3">Links Rápidos</h5>
-          <ul class="list-unstyled text-white-50">
-            <li class="mb-2"><a href="#home" class="text-white-50 text-decoration-none hover-white">Início</a></li>
-            <li class="mb-2"><a href="#produtos" class="text-white-50 text-decoration-none hover-white">Soluções</a>
-            </li>
-            <li class="mb-2"><a href="#sobre" class="text-white-50 text-decoration-none hover-white">Sobre</a></li>
-            <li class="mb-2"><a href="#contato" class="text-white-50 text-decoration-none hover-white">Contato</a></li>
-          </ul>
-        </div>
-        <div class="col-lg-3 col-md-6">
-          <h5 class="fw-bold mb-3">Soluções</h5>
-          <ul class="list-unstyled text-white-50">
-            <li class="mb-2"><a href="folha-ia.html" class="text-white-50 text-decoration-none hover-white">Folha IA <span class="badge rounded-pill ms-1" style="background:rgba(34,211,238,.15);color:#22d3ee;font-size:.6rem;">em breve</span></a>
-            </li>
-            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Gestão de Escalas</a>
-            </li>
-            <li class="mb-2"><a href="atendimento-inteligente.html"
-                class="text-white-50 text-decoration-none hover-white">Atendimento Inteligente Vcorp</a></li>
-            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Sistema PDV</a></li>
-            <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Consultoria</a></li>
-          </ul>
-        </div>
-        <div class="col-lg-3 col-md-6">
-          <h5 class="fw-bold mb-3">Contato</h5>
-          <ul class="list-unstyled text-white-50">
-            <li class="mb-2"><i class="fas fa-envelope me-2"></i> atendimento@vcorpsistem.com</li>
-            <li class="mb-2"><i class="fas fa-phone me-2"></i> (21) 99029-7098</li>
-            <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> Rio de Janeiro, RJ</li>
-            <li class="mb-2"><i class="fas fa-file-contract me-2"></i> <a href="termos-de-uso.html"
-                class="text-white-50 text-decoration-none hover-white">Termos de Uso</a></li>
-          </ul>
-        </div>
-      </div>
-      <hr class="border-secondary">
-      <div class="text-center text-white-50 pt-3">
-        <p class="mb-1">&copy; 2025 VCorp Sistem. Todos os direitos reservados.</p>
-        <p class="mb-0 small">CNPJ: 28.988.813/0001-50</p>
-      </div>
-    </div>
-  </footer>
+/* SOBRE — gráficos vivos */
+let charted=false;
+scene('sobre',(p)=>{
+  fade($('#sobre-text'), seg(p,.05,.2), seg(p,.9,1));
+  fade($('#charts'), seg(p,.12,.28), seg(p,.9,1));
+  const grow=E.outCubic(seg(p,.2,.7));
+  $$('#bars .bar').forEach((b,i)=>{ const h=parseFloat(b.style.getPropertyValue('--h'));
+    const gt=E.outCubic(seg(p,.2+i*.03,.55+i*.03)); b.style.transform=`scaleY(${h*gt})`; });
+  $('#spark .line').style.strokeDashoffset=String(1-grow);
+  $('#spark .area').style.opacity=grow*.9;
+  $('#ch-up').textContent='▲ '+Math.round(grow*63)+'%';
+  $$('#charts .kpi b').forEach(b=>{ const n=+b.dataset.n,suf=b.dataset.suf||'';
+    b.textContent=Math.round(E.outCubic(seg(p,.25,.7))*n)+suf; });
+});
 
-  <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="scripts.js"></script>
+/* FUNDADOR */
+scene('fundador',(p)=>{
+  const f=$('#founder'); fade(f, seg(p,.1,.34), seg(p,.85,1));
+  f.style.transform+=` scale(${.96+E.outCubic(seg(p,.1,.5))*.04})`;
+});
+
+/* REVENDA — MRR sobe */
+scene('revenda',(p)=>{
+  fade($('#rev-text'), seg(p,.05,.2), seg(p,.92,1));
+  fade($('#rev-card'), seg(p,.14,.3), seg(p,.92,1));
+  const g=E.outCubic(seg(p,.24,.72));
+  $('#mrr').textContent='R$ '+fmt.format(Math.round(g*11940));
+  $('#rbar-fill').style.width=(g*78)+'%';
+});
+
+/* ---------------- rAF central ---------------- */
+function frame(){
+  eased+=(target-eased)*.11; if(Math.abs(target-eased)<.2) eased=target;
+  for(const s of scenes){ const p=clamp((eased-s.top)/s.len,0,1);
+    if(p===s.p&&(p===0||p===1)) continue; s.p=p; s.update(p,s); }
+  nav.classList.toggle('scrolled', eased>40);
+  requestAnimationFrame(frame);
+}
+
+/* ---------------- nav mobile ---------------- */
+$('#navToggle').addEventListener('click',()=>$('#mobileMenu').classList.toggle('open'));
+$$('#mobileMenu a').forEach(a=>a.addEventListener('click',()=>$('#mobileMenu').classList.remove('open')));
+
+/* ---------------- boot ---------------- */
+function boot(){
+  measure();
+  addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40),{passive:true});
+  if(reduced){
+    document.body.classList.remove('intro-lock'); nav.classList.add('show');
+    setFinalStates();
+    $$('.cap-anim').forEach(el=>{el.style.opacity='1';el.style.transform='none';});
+    return;
+  }
+  if(cinematic) requestAnimationFrame(frame);
+  /* mobile: aguarda o clique no intro -> flowReveal() */
+}
+if(document.fonts&&document.fonts.ready){document.fonts.ready.then(measure);}
+addEventListener('load',measure);
+boot();
+})();
+</script>
 </body>
-
 </html>
