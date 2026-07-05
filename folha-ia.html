@@ -1,0 +1,1090 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vcorp Folha IA — A última folha de ponto que você segura na mão</title>
+<meta name="description" content="Do caos do fechamento manual à folha que se fecha sozinha. IA autônoma audita ponto, CLT e CCT — sem chatbot, sem madrugada, sem refazer." />
+<meta name="theme-color" content="#0a0a14" />
+<meta property="og:title" content="Vcorp Folha IA — Aposente o papel" />
+<meta property="og:description" content="A folha de pagamento que se audita e se fecha sozinha." />
+
+<link rel="icon" type="image/png" href="assets/Icone_fundo_Cinza.png" />
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y5FS3XS8X2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-Y5FS3XS8X2');
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+/* ==========================================================================
+   A ÚLTIMA FOLHA — Vcorp Folha IA
+   Scrollytelling em dois mundos: papel (caos) → sistema (ordem)
+   Só transform/opacity animados. Engine própria com lerp + Motion p/ entradas.
+   ========================================================================== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  /* mundo papel */
+  --paper:#f3ecdb; --paper-2:#efe6d0; --desk:#e9dfc8;
+  --ink:#233a7c; --ink-soft:#3a4a80; --pencil:#5b5647;
+  --red:#c22f2f; --postit:#ffe98a; --postit-2:#ffc7d8;
+  /* mundo sistema */
+  --bg:#0a0a14; --surface:#111122; --surface-2:#161630;
+  --border:rgba(148,163,184,.14); --border-2:rgba(148,163,184,.26);
+  --text:#eef2ff; --muted:#9aa6c4; --faint:#6b7794;
+  --indigo:#6366f1; --violet:#a855f7; --cyan:#22d3ee; --emerald:#10b981;
+  --grad:linear-gradient(120deg,#6366f1,#a855f7 55%,#22d3ee 120%);
+  --ff-d:'Sora',system-ui,sans-serif;
+  --ff-b:'Inter',system-ui,sans-serif;
+  --ff-h:'Caveat',cursive;
+  --ff-m:ui-monospace,'Cascadia Mono',Consolas,monospace;
+}
+
+html{scroll-behavior:auto;-webkit-text-size-adjust:100%}
+body{font-family:var(--ff-b);background:var(--desk);color:#2b2417;line-height:1.55;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img,svg{display:block;max-width:100%}
+::selection{background:rgba(99,102,241,.35);color:#fff}
+
+/* grão de papel (estático) */
+.grain::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .04 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+/* ============================ CENAS (rig sticky) ============================ */
+.scene{position:relative}
+.vp{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+/* alturas das pistas */
+#hero{height:170vh} #papelada{height:300vh} #calc{height:240vh}
+#climax{height:240vh} #scanner{height:340vh} #upload{height:240vh}
+#audita{height:300vh} #fechada{height:250vh}
+@media(max-width:760px){
+  #hero{height:150vh} #papelada{height:240vh} #calc{height:200vh}
+  #climax{height:200vh} #scanner{height:280vh} #upload{height:200vh}
+  #audita{height:250vh} #fechada{height:220vh}
+  .m-hide{display:none}
+}
+
+/* mundos */
+.world-paper{background:linear-gradient(175deg,var(--paper) 0%,var(--desk) 100%)}
+.world-dark{background:var(--bg);color:var(--text)}
+
+/* vinheta quente do abajur */
+.lamp::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(90vmax 70vmax at 50% 30%,rgba(255,214,140,.35),rgba(120,80,20,.16) 70%,rgba(60,38,8,.34) 100%)}
+
+/* copy central das cenas */
+.cap{position:absolute;left:50%;transform:translateX(-50%);width:min(92vw,760px);
+  text-align:center;z-index:30;opacity:0;pointer-events:none}
+.cap h2{font-family:var(--ff-d);font-weight:800;font-size:clamp(24px,4.6vw,44px);
+  line-height:1.12;letter-spacing:-.02em;color:#241c0e;text-wrap:balance}
+.cap p{margin-top:12px;font-size:clamp(14px,2vw,18px);color:#5c5138}
+.world-dark .cap h2{color:var(--text)}
+.world-dark .cap p{color:var(--muted)}
+.cap .hand{font-family:var(--ff-h);font-size:1.25em;color:var(--red)}
+
+/* ============================ FOLHA DE PONTO (papel) ============================ */
+.folha{position:absolute;width:min(74vw,340px);background:
+  repeating-linear-gradient(transparent 0 25px,rgba(120,140,190,.28) 25px 26px),
+  linear-gradient(160deg,#faf5e6,#f1e8d2);
+  border-radius:3px;padding:16px 14px 14px 26px;
+  box-shadow:0 14px 34px -12px rgba(60,42,10,.45),0 2px 6px rgba(60,42,10,.2);
+  color:var(--ink)}
+.folha::before{content:"";position:absolute;left:12px;top:0;bottom:0;width:1px;background:rgba(194,47,47,.45)}
+.folha::after{content:"";position:absolute;left:-7px;top:22px;width:11px;height:11px;border-radius:50%;
+  background:var(--desk);box-shadow:0 66px 0 var(--desk),0 132px 0 var(--desk),inset 0 1px 2px rgba(0,0,0,.28)}
+.folha .fh{font-family:var(--ff-b);font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:#7a6c4a;border-bottom:1px solid rgba(122,108,74,.35);padding-bottom:5px;margin-bottom:4px}
+.folha .fh b{display:block;font-size:10px;color:#4c4128;letter-spacing:.06em}
+.folha .nome{font-family:var(--ff-h);font-size:19px;font-weight:600;color:var(--ink);line-height:25px}
+.folha table{width:100%;border-collapse:collapse;font-family:var(--ff-h);font-size:16.5px;font-weight:500;color:var(--ink-soft)}
+.folha th{font-family:var(--ff-b);font-size:7.5px;letter-spacing:.1em;text-transform:uppercase;color:#8a7c58;font-weight:600;text-align:left;height:26px;vertical-align:bottom;padding-bottom:2px}
+.folha td{height:26px;vertical-align:middle;white-space:nowrap}
+.folha .rub{font-family:var(--ff-h);font-size:15px;color:#6b5d3b;margin-top:2px}
+.folha .anota{position:absolute;font-family:var(--ff-h);font-weight:700;color:var(--red);transform:rotate(-4deg);font-size:17px;line-height:1.05;text-shadow:0 0 1px rgba(194,47,47,.25)}
+.folha .circ{position:absolute;border:2.5px solid var(--red);border-radius:50%/60%;opacity:.85;transform:rotate(-3deg)}
+.folha .fita{position:absolute;top:-9px;left:50%;transform:translateX(-50%) rotate(-2deg);width:74px;height:20px;background:rgba(255,250,220,.6);border-left:1px dashed rgba(0,0,0,.08);border-right:1px dashed rgba(0,0,0,.08);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.folha .cafe{position:absolute;width:84px;height:78px;border-radius:50%;border:11px solid rgba(112,66,20,.28);filter:none;opacity:.8;transform:rotate(8deg)}
+.folha .rasura{text-decoration:line-through;text-decoration-color:var(--red);text-decoration-thickness:2px}
+.folha .rasura+ins{text-decoration:none;color:var(--red);font-size:.9em;margin-left:4px}
+
+/* post-it */
+.postit{position:absolute;width:120px;padding:12px 10px 16px;background:linear-gradient(180deg,var(--postit),#f7d95e);
+  font-family:var(--ff-h);font-weight:600;font-size:16.5px;line-height:1.15;color:#4c3d10;
+  box-shadow:0 10px 20px -8px rgba(60,42,10,.5);transform:rotate(4deg)}
+.postit.rosa{background:linear-gradient(180deg,var(--postit-2),#f7a8c2);color:#5c1c33}
+.postit::after{content:"";position:absolute;right:0;bottom:0;border-style:solid;border-width:0 0 16px 16px;border-color:transparent transparent rgba(0,0,0,.14) transparent}
+
+/* carimbo */
+.stamp{position:absolute;font-family:var(--ff-d);font-weight:800;letter-spacing:.08em;color:var(--red);
+  border:5px solid var(--red);border-radius:8px;padding:8px 20px;font-size:clamp(30px,6.5vw,58px);
+  text-transform:uppercase;opacity:0;white-space:nowrap;
+  mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='60'%3E%3Cfilter id='r'%3E%3CfeTurbulence baseFrequency='.6' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 .1'/%3E%3CfeComposite operator='in' in2='SourceGraphic'/%3E%3C/filter%3E%3Crect width='140' height='60' fill='%23000' filter='url(%23r)'/%3E%3C/svg%3E");
+  -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='60'%3E%3Cfilter id='r'%3E%3CfeTurbulence baseFrequency='.6' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 .1'/%3E%3CfeComposite operator='in' in2='SourceGraphic'/%3E%3C/filter%3E%3Crect width='140' height='60' fill='%23000' filter='url(%23r)'/%3E%3C/svg%3E");
+  mask-size:cover;-webkit-mask-size:cover}
+
+/* ============================ NAV ============================ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:90;display:flex;align-items:center;justify-content:space-between;
+  padding:14px clamp(16px,4vw,40px);transition:background .4s,color .4s}
+.nav .brand{display:flex;align-items:center;gap:10px;font-family:var(--ff-d);font-weight:700;font-size:16px;color:#241c0e}
+.nav .mark{width:30px;height:30px;border-radius:9px;background:var(--grad);display:grid;place-items:center;box-shadow:0 5px 16px -4px rgba(99,102,241,.55)}
+.nav .mark svg{width:16px;height:16px}
+.nav .cta-mini{font-family:var(--ff-d);font-weight:600;font-size:13.5px;color:#fff;background:#241c0e;padding:9px 16px;border-radius:999px;transition:transform .2s,background .4s}
+.nav .cta-mini:hover{transform:translateY(-2px)}
+.brand .soon{display:inline-block;font-family:var(--ff-d);font-size:9.5px;font-weight:700;letter-spacing:.1em;color:#fff;background:var(--grad);padding:3px 7px;border-radius:6px;vertical-align:middle;margin-left:7px;box-shadow:0 2px 8px -2px rgba(99,102,241,.55)}
+.cta-soon{display:inline-flex;align-items:center;gap:8px;font-family:var(--ff-d);font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);border:1px solid rgba(34,211,238,.4);background:rgba(34,211,238,.08);padding:8px 16px;border-radius:999px;margin-bottom:20px}
+.nav.dark{color:var(--text)}
+.nav.dark .brand{color:var(--text)}
+.nav.dark .cta-mini{background:var(--grad)}
+
+/* fita-progresso lateral (a bobina que narra o scroll) */
+#fita-rail{position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:80;width:150px;
+  font-family:var(--ff-h);font-size:15px;font-weight:600;color:#5a4c28;
+  background:linear-gradient(180deg,#fbf6e7,#f3ecd6);padding:12px 12px 16px;border-radius:2px;
+  box-shadow:0 10px 26px -10px rgba(60,42,10,.45);transition:background .5s,color .5s}
+#fita-rail::before{content:"";position:absolute;top:-6px;left:0;right:0;height:6px;
+  background:repeating-linear-gradient(90deg,transparent 0 6px,#f3ecd6 6px 12px)}
+#fita-rail li{list-style:none;opacity:0;transform:translateY(6px);transition:opacity .45s,transform .45s;padding:2px 0}
+#fita-rail li.on{opacity:1;transform:none}
+#fita-rail li .ok{color:var(--emerald)}
+#fita-rail li .no{color:var(--red)}
+#fita-rail.digital{background:var(--surface);color:var(--muted);font-family:var(--ff-m);font-size:11.5px;
+  box-shadow:0 10px 26px -10px rgba(0,0,0,.7);border:1px solid var(--border)}
+#fita-rail.digital::before{background:var(--grad);height:2px;top:-2px}
+@media(max-width:1100px){#fita-rail{display:none}}
+
+/* ============================ HERO ============================ */
+#hero .vp{display:grid;place-items:center}
+.hero-inner{position:relative;z-index:5;text-align:center;padding:0 16px}
+.hero-word{font-family:var(--ff-d);font-weight:800;font-size:clamp(72px,19vw,240px);line-height:.94;letter-spacing:-.03em;color:#241c0e;display:inline-flex}
+.hero-word span{display:inline-block;opacity:0}
+.hero-sub{margin-top:18px;font-size:clamp(15px,2.2vw,20px);color:#5c5138;font-weight:500;opacity:0}
+.hero-hand{margin-top:26px;font-family:var(--ff-h);font-size:clamp(18px,2.6vw,24px);font-weight:600;color:var(--ink);opacity:0;display:inline-flex;align-items:center;gap:10px}
+.hero-hand svg{width:26px;height:38px;stroke:var(--ink)}
+#hero .folha{z-index:1}
+#hero .postit{z-index:6}
+.hero-scroll{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#8a7c58;z-index:8}
+.hero-scroll::after{content:"";display:block;width:1px;height:34px;margin:8px auto 0;background:linear-gradient(#8a7c58,transparent);animation:drop 1.6s ease-in-out infinite}
+@keyframes drop{0%{transform:scaleY(.2);transform-origin:top}55%{transform:scaleY(1)}100%{opacity:0;transform:scaleY(1)}}
+
+/* ============================ PAPELADA ============================ */
+#papelada .layer{position:absolute;inset:0}
+#papelada .contador{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);z-index:20;text-align:center}
+#papelada .contador b{font-family:var(--ff-d);font-weight:800;font-size:clamp(70px,15vw,180px);letter-spacing:-.03em;color:rgba(36,28,14,.9);font-variant-numeric:tabular-nums}
+#papelada .contador span{display:block;font-family:var(--ff-b);font-size:clamp(12px,1.6vw,16px);letter-spacing:.18em;text-transform:uppercase;color:#6b5d3b}
+#papelada .cap{bottom:9%}
+
+/* ============================ CALCULADORA ============================ */
+#calc .vp{display:flex;align-items:center;justify-content:center;gap:clamp(20px,5vw,80px)}
+.calcw{position:relative;z-index:4;flex:none}
+.machine{width:min(66vw,250px);background:linear-gradient(170deg,#efe9da,#d9d2bd);border-radius:18px;padding:18px 16px 20px;
+  box-shadow:0 24px 50px -18px rgba(50,35,8,.55),inset 0 1px 0 rgba(255,255,255,.7)}
+.machine .visor{background:#20261c;border-radius:8px;padding:10px 12px;text-align:right;font-family:var(--ff-m);
+  font-size:clamp(18px,3vw,24px);color:#9fe870;letter-spacing:.06em;box-shadow:inset 0 3px 8px rgba(0,0,0,.6);min-height:1.5em}
+.machine .visor.err{animation:blink .5s steps(2) infinite}
+@keyframes blink{50%{color:#e0472f}}
+.keys{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
+.key{height:clamp(30px,5vw,40px);border-radius:8px;background:linear-gradient(180deg,#fbf7ec,#e4dcc6);
+  box-shadow:0 3px 0 #b8ae92,0 5px 8px rgba(50,35,8,.25);display:grid;place-items:center;
+  font-family:var(--ff-b);font-weight:600;font-size:13px;color:#4c4128;transition:transform .09s,box-shadow .09s}
+.key.op{background:linear-gradient(180deg,#f3d9a8,#e2b96a);box-shadow:0 3px 0 #b28a3c,0 5px 8px rgba(50,35,8,.25)}
+.key.down{transform:translateY(3px);box-shadow:0 0 0 #b8ae92,0 1px 3px rgba(50,35,8,.3)}
+/* fenda + fita */
+.slot{position:relative;width:76%;height:10px;margin:0 auto 12px;background:#3d3626;border-radius:5px;box-shadow:inset 0 2px 5px rgba(0,0,0,.7)}
+.tapewin{position:absolute;bottom:calc(100% - 2px);left:50%;transform:translateX(-50%);width:150px;height:56vh;overflow:hidden;display:flex;align-items:flex-end;pointer-events:none}
+.tape{width:100%;background:linear-gradient(180deg,#fefcf3,#f6f1de);box-shadow:0 8px 30px -10px rgba(50,35,8,.4);
+  padding:14px 13px;font-family:var(--ff-m);font-size:12.5px;line-height:2.05;color:#3c3424}
+.tape .tl{white-space:nowrap;position:relative}
+.tape .tl.red{color:var(--red);font-weight:700}
+.tape .tl .risk{position:absolute;left:-2px;top:50%;width:calc(100% + 4px);height:2.5px;background:var(--red);
+  transform:scaleX(0);transform-origin:left;border-radius:2px}
+.tape .tl .hand{font-family:var(--ff-h);font-size:15px;color:var(--red)}
+#calc .cap{bottom:8%}
+#calc .relogio{position:absolute;top:10%;right:8%;width:86px;height:86px;border-radius:50%;background:#f7f2e2;
+  box-shadow:0 10px 24px -8px rgba(50,35,8,.4),inset 0 0 0 6px #d9d2bd;z-index:2}
+#calc .relogio i{position:absolute;left:50%;bottom:50%;width:3px;border-radius:2px;background:#3c3424;transform-origin:bottom}
+#calc .relogio .ph{height:24px} #calc .relogio .pm{height:33px;width:2px;background:var(--red)}
+@media(max-width:760px){#calc .relogio{display:none}.tapewin{height:44vh}}
+
+/* ============================ CLÍMAX ============================ */
+#climax .vp{cursor:crosshair}
+.mini{position:absolute;width:120px;padding:10px 8px 10px 14px;background:
+  repeating-linear-gradient(transparent 0 13px,rgba(120,140,190,.3) 13px 14px),
+  linear-gradient(160deg,#faf5e6,#efe4c9);
+  box-shadow:0 8px 20px -8px rgba(50,35,8,.5);border-radius:2px;
+  font-family:var(--ff-h);font-size:12.5px;font-weight:600;line-height:14px;color:var(--ink-soft)}
+.mini b{display:block;font-family:var(--ff-b);font-size:7px;letter-spacing:.1em;color:#8a7c58;text-transform:uppercase;line-height:14px}
+.mini .r{color:var(--red)}
+#climax .mancha{position:absolute;left:6%;bottom:4%;width:340px;height:300px;opacity:0;transform:scale(.4);transform-origin:40% 60%;z-index:3}
+#climax .cap{bottom:10%;z-index:31}
+#climax .cap.virada h2{color:#f3ecdb;text-shadow:0 2px 24px rgba(0,0,0,.5)}
+#climax .escuro{position:absolute;inset:0;z-index:25;pointer-events:none;opacity:0;
+  background:radial-gradient(120vmax 90vmax at 50% 40%,transparent 30%,rgba(10,10,20,.94) 78%)}
+.click-stamp{position:absolute;font-family:var(--ff-d);font-weight:800;color:var(--red);border:3px solid var(--red);
+  border-radius:6px;padding:3px 10px;font-size:18px;letter-spacing:.06em;pointer-events:none;z-index:40;
+  animation:stampin .38s cubic-bezier(.2,2,.4,1) forwards}
+@keyframes stampin{from{opacity:0;transform:translate(-50%,-50%) scale(2.4) rotate(-14deg)}to{opacity:.9;transform:translate(-50%,-50%) scale(1) rotate(-8deg)}}
+
+/* ============================ SCANNER (transição) ============================ */
+#scanner .vp{background:var(--bg);display:grid;place-items:center}
+.scanbox{position:relative;width:min(88vw,420px)}
+.scan-stage{position:relative}
+.scan-stage .folha{position:relative;width:100%}
+.scanwrap{position:absolute;inset:0;overflow:hidden;will-change:transform}
+.scanwrap>.inner{position:absolute;inset:0;will-change:transform}
+/* versão digital da mesma folha */
+.folha-digital{width:100%;height:100%;background:var(--surface);border:1px solid var(--border-2);border-radius:12px;
+  padding:16px 16px 14px;color:var(--text);box-shadow:0 0 60px -18px rgba(34,211,238,.35)}
+.folha-digital .fh{font-family:var(--ff-m);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);border-bottom:1px solid var(--border);padding-bottom:6px;margin-bottom:5px}
+.folha-digital .fh b{display:block;font-family:var(--ff-d);font-size:11px;color:var(--muted);letter-spacing:.04em}
+.folha-digital .nome{font-family:var(--ff-d);font-weight:600;font-size:15px;line-height:25px;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.folha-digital table{width:100%;border-collapse:collapse;font-family:var(--ff-m);font-size:11.5px;color:var(--muted)}
+.folha-digital th{font-family:var(--ff-b);font-size:7.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-weight:600;text-align:left;height:26px;vertical-align:bottom;padding-bottom:2px}
+.folha-digital td{height:26px;white-space:nowrap}
+.folha-digital td .ok{color:var(--cyan)}
+.folha-digital .rub{font-family:var(--ff-m);font-size:10px;color:var(--faint);margin-top:4px}
+.beam{position:absolute;top:0;left:-14vw;right:-14vw;height:2px;background:var(--cyan);z-index:6;
+  box-shadow:0 0 18px 2px rgba(34,211,238,.8),0 0 60px 10px rgba(34,211,238,.35)}
+.beam::before,.beam::after{content:"";position:absolute;top:-4px;width:9px;height:9px;border-radius:50%;background:var(--cyan);box-shadow:0 0 14px 3px rgba(34,211,238,.9)}
+.beam::before{left:0}.beam::after{right:0}
+.spark{position:absolute;top:0;left:50%;width:4px;height:4px;border-radius:50%;background:var(--cyan);opacity:0;z-index:7;box-shadow:0 0 8px rgba(34,211,238,.9)}
+#scanner .cap{bottom:7%;z-index:30}
+#scanner .cap h2{color:var(--text)} #scanner .cap p{color:var(--muted)}
+
+/* ============================ UPLOAD ============================ */
+#upload .vp{display:grid;place-items:center}
+.appwin{position:relative;width:min(92vw,720px);border-radius:18px;border:1px solid var(--border-2);
+  background:linear-gradient(180deg,var(--surface),#0d0d1e);box-shadow:0 40px 90px -30px rgba(0,0,0,.8);overflow:hidden;z-index:4}
+.appwin .bar{display:flex;align-items:center;gap:7px;padding:13px 16px;border-bottom:1px solid var(--border)}
+.appwin .bar i{width:10px;height:10px;border-radius:50%;background:#252540;display:block}
+.appwin .bar span{margin-left:auto;font-family:var(--ff-m);font-size:10.5px;color:var(--faint)}
+.appwin .body{padding:22px;min-height:340px}
+.dropzone{position:relative;border:1.5px dashed var(--border-2);border-radius:14px;padding:26px;text-align:center;transition:border-color .3s}
+.dropzone.hot{border-color:var(--cyan)}
+.dropzone .dz-glow{position:absolute;inset:-1px;border-radius:14px;background:var(--grad);opacity:0;filter:none;transition:opacity .4s;z-index:0;
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;padding:1.5px}
+.dropzone.hot .dz-glow{opacity:1}
+.dropzone p{font-size:13.5px;color:var(--muted);position:relative;z-index:1}
+.filechip{position:absolute;left:50%;top:0;z-index:8;display:flex;align-items:center;gap:9px;
+  background:var(--surface-2);border:1px solid var(--border-2);border-radius:10px;padding:9px 14px;
+  font-family:var(--ff-m);font-size:12px;color:var(--text);box-shadow:0 14px 34px -10px rgba(0,0,0,.7);white-space:nowrap}
+.filechip svg{width:15px;height:15px;color:var(--cyan)}
+.uprows{margin-top:18px;display:grid;gap:7px}
+.uprow{display:flex;gap:12px;align-items:center;padding:9px 13px;border-radius:9px;background:rgba(255,255,255,.02);
+  border:1px solid var(--border);font-family:var(--ff-m);font-size:11.5px;color:var(--muted);opacity:0;transform:translateX(-14px)}
+.uprow b{color:var(--text);font-weight:500}
+.uprow .t{margin-left:auto;color:var(--cyan)}
+.upcount{margin-top:16px;text-align:center;font-family:var(--ff-d);font-size:13px;color:var(--faint)}
+.upcount b{font-size:22px;color:var(--text);font-variant-numeric:tabular-nums;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+#upload .cap{bottom:6%}
+
+/* ============================ AUDITORIA ============================ */
+#audita .vp{display:flex;align-items:center;justify-content:center;gap:clamp(18px,4vw,56px);padding:0 4vw}
+.audlist{position:relative;width:min(90vw,430px);border:1px solid var(--border);border-radius:14px;background:var(--surface);padding:12px;z-index:3}
+.audrow{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;font-family:var(--ff-m);font-size:11px;color:var(--muted)}
+.audrow .chk{width:15px;height:15px;flex:none;color:var(--cyan);opacity:0;transform:scale(.5)}
+.audrow.flag{background:rgba(244,63,94,.06)}
+.audbeam{position:absolute;left:8px;right:8px;height:1.5px;background:linear-gradient(90deg,transparent,var(--violet),transparent);
+  box-shadow:0 0 14px 1px rgba(168,85,247,.7);z-index:5;top:0}
+.audcards{width:min(90vw,360px);display:grid;gap:12px;z-index:4}
+.audcard{border:1px solid var(--border-2);border-radius:13px;background:var(--surface-2);padding:14px 15px;
+  opacity:0;transform:translateX(26px) scale(.96)}
+.audcard .tipo{display:inline-flex;font-family:var(--ff-d);font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  padding:4px 9px;border-radius:999px;margin-bottom:8px}
+.audcard .tipo.c1{color:#fecdd3;background:rgba(244,63,94,.13);border:1px solid rgba(244,63,94,.3)}
+.audcard .tipo.c2{color:#fde68a;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3)}
+.audcard .tipo.c3{color:#bae6fd;background:rgba(34,211,238,.12);border:1px solid rgba(34,211,238,.28)}
+.audcard h3{font-family:var(--ff-d);font-size:13.5px;color:var(--text);margin-bottom:4px}
+.audcard p{font-size:12px;color:var(--muted)}
+.audcard .antes{margin-top:9px;display:inline-block;font-family:var(--ff-h);font-size:14px;color:#a3906a;
+  background:rgba(243,236,219,.09);padding:2px 9px;border-radius:6px;text-decoration:line-through;text-decoration-color:var(--red)}
+.audcard .fix{margin-top:7px;display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--emerald)}
+.audcard .fix svg{width:13px;height:13px}
+#audita .cap{top:7%}
+@media(max-width:860px){#audita .vp{flex-direction:column;justify-content:center;gap:14px}#audita .cap{top:3%}.audlist{padding:8px}.audrow{padding:5px 8px}
+  #audita .audrow:nth-child(n+8){display:none}
+  #audita .audcards{position:relative}
+  #audita .audcard{grid-row:1;grid-column:1}}
+
+/* ============================ FECHADA ============================ */
+#fechada .vp{display:grid;place-items:center;text-align:center}
+.fech-inner{position:relative;z-index:4;padding:0 14px}
+.fech-word{font-family:var(--ff-d);font-weight:800;font-size:clamp(52px,14vw,170px);line-height:.95;letter-spacing:-.03em;display:inline-flex;overflow:hidden}
+.fech-word span{display:inline-block;transform:translateY(115%);
+  background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.selo{position:relative;width:110px;height:110px;margin:26px auto 0}
+.selo svg{width:100%;height:100%}
+.selo text{transform-box:view-box;transform-origin:center}
+.selo .anel{stroke:var(--cyan);stroke-width:2.5;fill:none;stroke-linecap:round}
+.selo .vcheck{stroke:var(--cyan);stroke-width:3.4;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.selo .orb{font-family:var(--ff-m);font-size:7.5px;letter-spacing:.28em;fill:var(--faint)}
+.fech-comp{margin-top:30px;display:flex;align-items:center;justify-content:center;gap:clamp(14px,4vw,36px);flex-wrap:wrap}
+.fech-comp .antes{font-family:var(--ff-h);font-size:clamp(19px,3vw,27px);font-weight:600;color:#8d7f5c;position:relative;white-space:nowrap}
+.fech-comp .antes i{position:absolute;left:-3px;top:52%;width:calc(100% + 6px);height:3px;background:var(--red);border-radius:2px;transform:scaleX(0);transform-origin:left}
+.fech-comp .seta{color:var(--faint)}
+.fech-comp .depois{font-family:var(--ff-d);font-weight:700;font-size:clamp(22px,3.6vw,34px);color:var(--cyan);opacity:0;white-space:nowrap}
+.fech-sub{margin-top:20px;color:var(--muted);font-size:clamp(14px,1.9vw,17px);opacity:0}
+
+/* ============================ HOLERITE (seção normal) ============================ */
+#holerite{background:var(--bg);color:var(--text);padding:15vh 5vw 12vh;position:relative}
+.hol-grid{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,5vw,72px);align-items:center}
+@media(max-width:860px){.hol-grid{grid-template-columns:1fr}}
+.hol-doc{border:1px solid var(--border-2);border-radius:16px;background:linear-gradient(180deg,var(--surface),#0d0d1e);padding:26px;box-shadow:0 34px 80px -30px rgba(0,0,0,.8)}
+.hol-doc .hh{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--border);padding-bottom:12px;margin-bottom:8px}
+.hol-doc .hh b{font-family:var(--ff-d);font-size:15px}
+.hol-doc .hh span{font-family:var(--ff-m);font-size:10.5px;color:var(--faint)}
+.hline{display:flex;justify-content:space-between;gap:14px;padding:11px 2px;border-bottom:1px dashed var(--border);
+  opacity:0;transform:translateY(10px);transition:opacity .6s,transform .6s}
+.hline.in{opacity:1;transform:none}
+.hline .l b{display:block;font-size:13.5px;font-weight:600}
+.hline .l span{font-size:11.5px;color:var(--faint)}
+.hline .v{font-family:var(--ff-m);font-size:13.5px;color:var(--muted);white-space:nowrap}
+.hline.total{border-bottom:none;padding-top:16px}
+.hline.total .l b{font-size:15px}
+.hline.total .v{font-size:19px;font-weight:700;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hol-side h2{font-family:var(--ff-d);font-weight:800;font-size:clamp(26px,3.8vw,40px);line-height:1.1;letter-spacing:-.02em;text-wrap:balance}
+.hol-side p{margin-top:14px;color:var(--muted);font-size:16px}
+.stats3{margin-top:28px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:520px){.stats3{grid-template-columns:1fr 1fr}}
+.stat3{border:1px solid var(--border);border-radius:12px;padding:14px;background:var(--surface)}
+.stat3 b{font-family:var(--ff-d);font-size:clamp(19px,2.6vw,26px);display:block;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-variant-numeric:tabular-nums}
+.stat3 span{font-size:11.5px;color:var(--faint)}
+
+/* ============================ CTA ============================ */
+#cta{background:var(--bg);color:var(--text);min-height:100vh;display:grid;place-items:center;position:relative;overflow:hidden;padding:16vh 5vw}
+#cta .glow{position:absolute;inset:0;background:radial-gradient(720px 420px at 50% 38%,rgba(99,102,241,.22),transparent 65%);animation:breathe 8s ease-in-out infinite}
+@keyframes breathe{0%,100%{opacity:.7}50%{opacity:1}}
+.cta-inner{position:relative;text-align:center;max-width:760px}
+.cta-folha{width:120px;margin:0 auto 30px;position:relative}
+.cta-folha .folha{position:relative;width:120px;padding:10px 8px 10px 16px;font-size:11px}
+.cta-folha .folha .nome{font-size:13px;line-height:16px}
+.cta-folha .folha table{font-size:10.5px} .cta-folha .folha td,.cta-folha .folha th{height:15px}
+.cta-inner h2{font-family:var(--ff-d);font-weight:800;font-size:clamp(34px,6.4vw,64px);line-height:1.05;letter-spacing:-.025em;text-wrap:balance}
+.cta-inner h2 em{font-style:normal;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.cta-inner>p{margin-top:18px;color:var(--muted);font-size:clamp(15px,2vw,18px)}
+.cta-btn{display:inline-flex;align-items:center;gap:10px;margin-top:34px;font-family:var(--ff-d);font-weight:600;font-size:16.5px;color:#fff;
+  background:var(--grad);padding:17px 32px;border-radius:999px;box-shadow:0 16px 44px -10px rgba(99,102,241,.65);
+  transition:transform .2s,box-shadow .25s}
+.cta-btn:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 24px 60px -12px rgba(99,102,241,.8)}
+.cta-btn:active{transform:translateY(0)}
+.cta-btn svg{width:18px;height:18px}
+.cta-chips{margin-top:26px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.cta-chips span{font-family:var(--ff-d);font-size:12.5px;font-weight:600;color:var(--muted);border:1px solid var(--border-2);
+  background:rgba(255,255,255,.03);padding:8px 15px;border-radius:999px}
+
+/* ============================ FOOTER ============================ */
+footer{background:var(--bg);color:var(--faint);border-top:1px solid var(--border);padding:34px 5vw;position:relative}
+.foot{max-width:1080px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;font-size:13px}
+.foot .fb{display:flex;align-items:center;gap:9px;font-family:var(--ff-d);font-weight:700;color:var(--muted)}
+.foot .fb .mark{width:26px;height:26px;border-radius:8px;background:var(--grad);display:grid;place-items:center}
+.foot .fb .mark svg{width:14px;height:14px}
+.foot a:hover{color:var(--text)}
+.foot-postit{position:absolute;right:26px;bottom:70px;width:106px;padding:10px 9px 13px;background:linear-gradient(180deg,var(--postit),#f7d95e);
+  font-family:var(--ff-h);font-weight:600;font-size:13.5px;line-height:1.2;color:#4c3d10;transform:rotate(-5deg);
+  box-shadow:0 10px 22px -8px rgba(0,0,0,.55)}
+@media(max-width:760px){.foot-postit{display:none}}
+
+/* ============================ REDUCED MOTION / NOSCRIPT ============================ */
+html.rm .scene{height:auto !important}
+html.rm .vp{position:relative;height:auto;min-height:100vh;overflow:visible}
+html.rm .cap{opacity:1 !important;transform:translateX(-50%) !important}
+html.rm .hero-word span,html.rm .hero-sub,html.rm .hero-hand,
+html.rm .uprow,html.rm .audcard,html.rm .fech-comp .depois,html.rm .fech-sub,
+html.rm .hline,html.rm .audrow .chk{opacity:1 !important;transform:none !important}
+html.rm .fech-word span{transform:none}
+html.rm #fita-rail,html.rm .hero-scroll{display:none}
+html.rm #audita .audcard{grid-row:auto !important;grid-column:auto !important}
+@media(prefers-reduced-motion:reduce){#cta .glow{animation:none}.hero-scroll::after{animation:none}}
+.ns{display:block;padding:84px 8vw 20px;text-align:center;font-family:var(--ff-d);font-size:16px;background:var(--bg);color:var(--text);border-bottom:1px solid var(--border)}
+.ns a{color:var(--cyan)}
+</style>
+<noscript><style>
+  .scene{height:auto!important}
+  .vp{position:static!important;height:auto!important;min-height:0!important;overflow:visible!important;padding:8vh 0}
+  .cap{position:static!important;transform:none!important;left:auto!important;margin:24px auto!important;pointer-events:auto}
+  .cap,.hero-word span,.hero-sub,.hero-hand,.uprow,.audcard,.fech-comp .depois,.fech-sub,.hline,.audrow .chk{opacity:1!important;transform:none!important}
+  .fech-word span{transform:none!important}
+  #fita-rail,.hero-scroll{display:none!important}
+  #audita .audcard{grid-row:auto!important;grid-column:auto!important}
+</style></noscript>
+</head>
+<body>
+
+<!-- ============================ NAV ============================ -->
+<header class="nav" id="nav" aria-label="Navegação">
+  <a class="brand" href="index.html">
+    <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13l4 4 8-11"/><path d="M14 6h6"/><path d="M17 3v6"/></svg></span>
+    Vcorp Folha IA <span class="soon">EM BREVE</span>
+  </a>
+  <a class="cta-mini" href="#cta">Entrar na lista de espera</a>
+</header>
+
+<noscript><div class="ns">Este site conta uma história com animações de rolagem — <b>ative o JavaScript</b> para vivê-la. Todo o conteúdo continua legível abaixo.</div></noscript>
+
+<!-- fita de calculadora que narra o scroll -->
+<ul id="fita-rail" aria-hidden="true">
+  <li data-at="0.05">+ 42 folhas de ponto</li>
+  <li data-at="0.14">+ 4.368 batidas à mão</li>
+  <li data-at="0.24">+ somas riscadas <span class="no">✗</span></li>
+  <li data-at="0.33">+ café · 23h47</li>
+  <li data-at="0.40">= <span class="no">REFAZER ✗</span></li>
+  <li data-at="0.56">+ upload do ponto <span class="ok">✓</span></li>
+  <li data-at="0.66">+ auditoria da IA <span class="ok">✓</span></li>
+  <li data-at="0.80">+ INSS · IRRF · FGTS <span class="ok">✓</span></li>
+  <li data-at="0.88">= <span class="ok">FOLHA FECHADA ✓</span></li>
+</ul>
+
+<!-- ============================ ATO I · HERO ============================ -->
+<section class="scene world-paper" id="hero">
+  <div class="vp lamp grain">
+    <!-- folhas decorativas ao fundo (posicionadas via JS) -->
+    <div id="hero-papers"></div>
+    <div class="hero-inner">
+      <h1 class="hero-word" id="hero-word" aria-label="FOLHA."><span>F</span><span>O</span><span>L</span><span>H</span><span>A</span><span>.</span></h1>
+      <p class="hero-sub" id="hero-sub">A palavra que faz todo Departamento Pessoal suar no dia 25.</p>
+      <p class="hero-hand" id="hero-hand">
+        role p/ ver o estrago
+        <svg viewBox="0 0 24 38" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 2c-3 8 3 12-2 20"/><path d="M6 26l4.5 8 6.5-6"/></svg>
+      </p>
+    </div>
+    <div class="hero-scroll">role</div>
+  </div>
+</section>
+
+<!-- ============================ ATO I · A PAPELADA ============================ -->
+<section class="scene world-paper" id="papelada" aria-label="A papelada do fechamento manual">
+  <div class="vp lamp grain">
+    <div class="layer" id="pap-l1"></div>
+    <div class="contador"><b id="pap-count">0000</b><span>batidas para conferir — à mão</span></div>
+    <div class="layer" id="pap-l2"></div>
+    <div class="cap" id="pap-cap">
+      <h2>42 funcionários. 26 dias úteis. 4 batidas por dia.</h2>
+      <p>Entrada, almoço, volta, saída — numa letra que só o Seu Odair entende.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ ATO I · A CONTA QUE NÃO FECHA ============================ -->
+<section class="scene world-paper" id="calc" aria-label="A conta que não fecha">
+  <div class="vp lamp grain">
+    <div class="relogio"><i class="ph" id="clk-h"></i><i class="pm" id="clk-m"></i></div>
+    <div class="calcw">
+      <div class="tapewin"><div class="tape" id="tape">
+        <div class="tl">MARTA · 01/06 ......... 8:44</div>
+        <div class="tl">07:58 → 12:03 = 4:05 +</div>
+        <div class="tl">13:07 → 17:45 = 4:38 +</div>
+        <div class="tl red">TOTAL 8:43 <span class="risk" data-g="0.36"></span> <span class="hand">↩ era 8:44!!</span></div>
+        <div class="tl">H.E. 0:43 × 1,5 = 1:04</div>
+        <div class="tl">CARLOS · 12/06 ....... ?:??</div>
+        <div class="tl red">SEM BATIDA <span class="risk" data-g="0.52"></span> <span class="hand">ver depois</span></div>
+        <div class="tl">JULIANA · almoço 0:47</div>
+        <div class="tl red">− DIF. R$ 184,90 ??</div>
+        <div class="tl">SOMA GERAL 176:30 +</div>
+        <div class="tl red">NÃO BATE <span class="risk" data-g="0.78"></span> <span class="hand">soma DE NOVO</span></div>
+      </div></div>
+      <div class="machine">
+        <div class="slot"></div>
+        <div class="visor" id="visor">0</div>
+        <div class="keys" id="keys"></div>
+      </div>
+    </div>
+    <div class="cap" id="calc-cap">
+      <h2>Soma. Confere. Não bate.<br/>Risca. <span class="hand">Soma de novo.</span></h2>
+      <p>A fita da calculadora já é maior que o seu dia.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ ATO I · CLÍMAX ============================ -->
+<section class="scene world-paper" id="climax" aria-label="O caos máximo">
+  <div class="vp lamp grain" id="climax-vp">
+    <div id="storm"></div>
+    <svg class="mancha" id="mancha" viewBox="0 0 200 180">
+      <path fill="rgba(96,56,16,.4)" d="M38 90c-10-26 8-52 36-56s58 4 74 24 18 48 2 66-44 26-70 18S48 116 38 90z"/>
+      <path fill="rgba(76,42,10,.32)" d="M60 84c-6-16 8-32 26-34s38 4 46 16 8 30-2 40-30 16-46 10-18-16-24-32z"/>
+    </svg>
+    <div class="stamp" id="stamp1" style="left:50%;top:38%">REFAZER</div>
+    <div class="stamp" id="stamp2" style="left:50%;top:56%">URGENTE</div>
+    <div class="escuro" id="escuro"></div>
+    <div class="cap" id="climax-cap1">
+      <h2>São 23h47 do dia 4.<br/>O café acabou. A folha, não.</h2>
+      <p class="hand" style="font-size:19px">clique em qualquer lugar — o carimbo é seu</p>
+    </div>
+    <div class="cap virada" id="climax-cap2">
+      <h2>E se ninguém mais precisasse<br/>tocar num papel?</h2>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ TRANSIÇÃO · O SCANNER ============================ -->
+<section class="scene world-dark" id="scanner" aria-label="A digitalização">
+  <div class="vp">
+    <div class="scanbox">
+      <div class="scan-stage" id="scan-stage">
+        <!-- versão papel (visível ABAIXO do feixe) -->
+        <div class="folha" id="scan-paper">
+          <div class="fh"><b>FOLHA DE PONTO — JUNHO/2026</b>VCORP LTDA · MATRÍCULA 0047</div>
+          <div class="nome">Marta Regina S. Oliveira</div>
+          <table>
+            <tr><th>dia</th><th>ent</th><th>almoço</th><th>saí</th></tr>
+            <tr><td>01 seg</td><td>07:58</td><td>12:03–13:07</td><td>17:45</td></tr>
+            <tr><td>02 ter</td><td>08:02</td><td>12:00–13:04</td><td>17:51</td></tr>
+            <tr><td>03 qua</td><td>07:55</td><td>12:05–13:05</td><td>18:10</td></tr>
+            <tr><td>18 qui</td><td>07:59</td><td>12:01–13:02</td><td class="rasura">—</td></tr>
+          </table>
+          <div class="rub">Assinatura: <span style="font-family:var(--ff-h)">Marta R.</span></div>
+          <div class="anota" style="right:6px;top:118px">esqueceu<br/>de bater!!</div>
+          <div class="circ" style="right:4px;top:148px;width:52px;height:24px"></div>
+          <div class="fita"></div>
+        </div>
+        <!-- versão digital (revelada ACIMA do feixe, via contra-transform) -->
+        <div class="scanwrap" id="scan-win"><div class="inner" id="scan-inner">
+          <div class="folha-digital">
+            <div class="fh"><b>ESPELHO DE PONTO · JUN/2026</b>vcorp folha ia · mat 0047</div>
+            <div class="nome">Marta Regina S. Oliveira</div>
+            <table>
+              <tr><th>dia</th><th>ent</th><th>almoço</th><th>saí</th></tr>
+              <tr><td>01 seg</td><td>07:58</td><td>12:03–13:07</td><td>17:45 <span class="ok">✓</span></td></tr>
+              <tr><td>02 ter</td><td>08:02</td><td>12:00–13:04</td><td>17:51 <span class="ok">✓</span></td></tr>
+              <tr><td>03 qua</td><td>07:55</td><td>12:05–13:05</td><td>18:10 <span class="ok">✓</span></td></tr>
+              <tr><td>18 qui</td><td>07:59</td><td>12:01–13:02</td><td style="color:var(--cyan)">17:47*</td></tr>
+            </table>
+            <div class="rub">* sugerido pela IA — padrão das demais batidas do mês · aguardando aprovação do gestor</div>
+          </div>
+        </div></div>
+        <div class="beam" id="beam"></div>
+        <div class="spark" data-i="0"></div><div class="spark" data-i="1"></div>
+        <div class="spark" data-i="2"></div><div class="spark" data-i="3"></div>
+      </div>
+    </div>
+    <div class="cap" id="scan-cap">
+      <h2>Respire. Envie o espelho de ponto.</h2>
+      <p>É a última vez que você encosta nele. <em style="color:var(--faint)">(role para trás e veja o papel voltar — aqui, só aqui.)</em></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ ATO II · UPLOAD ============================ -->
+<section class="scene world-dark" id="upload" aria-label="O upload">
+  <div class="vp">
+    <div class="filechip" id="filechip">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+      ponto_junho_2026.afd
+    </div>
+    <div class="appwin">
+      <div class="bar"><i></i><i></i><i></i><span>vcorp folha ia — importação</span></div>
+      <div class="body">
+        <div class="dropzone" id="dropzone">
+          <span class="dz-glow"></span>
+          <p>Solte aqui o arquivo do seu relógio de ponto — AFD, CSV ou TXT</p>
+        </div>
+        <div class="uprows" id="uprows">
+          <div class="uprow"><b>0047 · Marta R. Oliveira</b> 07:58 · 12:03 · 13:07 · 17:45 <span class="t">ok</span></div>
+          <div class="uprow"><b>0113 · Carlos E. Nunes</b> 07:45 · 12:02 · 13:00 · 17:30 <span class="t">lido</span></div>
+          <div class="uprow"><b>0089 · Juliana P. Castro</b> 08:02 · 12:00 · 12:47 · 18:11 <span class="t">lido</span></div>
+          <div class="uprow"><b>0201 · Roberto F. Lima</b> 22:01 · 01:00 · 02:00 · 05:04 <span class="t">lido</span></div>
+          <div class="uprow"><b>0056 · Ana B. Mendes</b> 07:52 · 12:04 · 13:06 · 17:49 <span class="t">ok</span></div>
+        </div>
+        <p class="upcount"><b id="upcount">0</b> registros importados · <span style="color:var(--emerald)">202 Accepted</span> — processando em segundo plano</p>
+      </div>
+    </div>
+    <div class="cap" id="up-cap">
+      <h2>Um arquivo. Qualquer relógio de ponto.</h2>
+      <p>É literalmente só isso que você faz. 4.368 registros lidos em 11 segundos.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ ATO II · AUDITORIA ============================ -->
+<section class="scene world-dark" id="audita" aria-label="A auditoria autônoma">
+  <div class="vp">
+    <div class="cap" id="aud-cap">
+      <h2>A IA não pergunta. <em style="font-style:normal;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">Ela audita.</em></h2>
+      <p>E os fantasmas do papel viram diagnósticos — antes do fechamento, não depois do processo.</p>
+    </div>
+    <div class="audlist" id="audlist">
+      <div class="audbeam" id="audbeam"></div>
+      <!-- rows geradas via JS -->
+    </div>
+    <div class="audcards">
+      <div class="audcard" id="ac1">
+        <span class="tipo c1">batida ausente</span>
+        <h3>Marta R. Oliveira — dia 18, sem saída</h3>
+        <p>Sugerido <b style="color:var(--cyan)">17:47</b> pelo padrão das demais batidas do mês. Gestor notificado.</p>
+        <span class="antes">esqueceu de bater!!</span>
+        <div class="fix"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>resolvido com um clique</div>
+      </div>
+      <div class="audcard" id="ac2">
+        <span class="tipo c2">intervalo abaixo do mínimo</span>
+        <h3>Juliana P. Castro — almoço de 47 min</h3>
+        <p>Alerta CLT art. 71 emitido <b style="color:var(--text)">antes</b> do fechamento. Risco contido.</p>
+        <span class="antes">almoço &lt; 1h ??</span>
+        <div class="fix"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>passivo evitado</div>
+      </div>
+      <div class="audcard" id="ac3">
+        <span class="tipo c3">adicional noturno</span>
+        <h3>Roberto F. Lima — turno 22h–05h</h3>
+        <p>Adicional noturno calculado pela CCT vetorizada. Atestado do dia 12 lançado — CID oculto (LGPD).</p>
+        <span class="antes">atestado dia 12 →</span>
+        <div class="fix"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>lançado automaticamente</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ ATO II · FECHADA ============================ -->
+<section class="scene world-dark" id="fechada" aria-label="A folha fechada">
+  <div class="vp">
+    <div class="fech-inner">
+      <h2 class="fech-word" id="fech-word" aria-label="FECHADA."><span>F</span><span>E</span><span>C</span><span>H</span><span>A</span><span>D</span><span>A</span><span>.</span></h2>
+      <div class="selo">
+        <svg viewBox="0 0 110 110">
+          <defs><path id="orbita" d="M55 13a42 42 0 110 84 42 42 0 010-84"/></defs>
+          <circle class="anel" id="anel" cx="55" cy="55" r="50" pathLength="1"/>
+          <path class="vcheck" id="vcheck" d="M38 56l12 12 22-26" pathLength="1"/>
+          <text class="orb"><textPath href="#orbita" id="orbtext">AUDITADO PELA IA · VCORP FOLHA · JUN/2026 ·</textPath></text>
+        </svg>
+      </div>
+      <div class="fech-comp">
+        <span class="antes" id="fech-antes">3 dias e 2 madrugadas<i id="fech-risco"></i></span>
+        <span class="seta">→</span>
+        <span class="depois" id="fech-depois">4 min 12 s</span>
+      </div>
+      <p class="fech-sub" id="fech-sub">Sem tremor no carimbo desta vez. Repare.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ HOLERITE NARRATIVO ============================ -->
+<section id="holerite" aria-label="Holerite narrativo">
+  <div class="hol-grid">
+    <div class="hol-doc" id="hol-doc">
+      <div class="hh"><b>Holerite — Marta R. Oliveira</b><span>JUN/2026 · gerado pela IA</span></div>
+      <div class="hline"><span class="l"><b>Salário base</b><span>seu mês integral, sem sustos</span></span><span class="v">R$ 3.840,00</span></div>
+      <div class="hline"><span class="l"><b>Horas extras 50%</b><span>as 6h20 que a IA encontrou — e você ia perder</span></span><span class="v">+ R$ 165,82</span></div>
+      <div class="hline"><span class="l"><b>INSS</b><span>sua aposentadoria sendo construída</span></span><span class="v">− R$ 374,11</span></div>
+      <div class="hline"><span class="l"><b>IRRF</b><span>isento até R$ 5.000 — Lei 15.270/2025, já aplicada</span></span><span class="v">R$ 0,00</span></div>
+      <div class="hline"><span class="l"><b>Dia 18 ajustado</b><span>com aprovação do gestor, registrada em auditoria</span></span><span class="v">✓</span></div>
+      <div class="hline total"><span class="l"><b>Líquido a receber</b></span><span class="v" id="hol-liq">R$ 3.631,71</span></div>
+    </div>
+    <div class="hol-side">
+      <h2>Cada holerite explica a si mesmo.</h2>
+      <p>Em português, não em código de verba. Seu funcionário entende — e o WhatsApp do DP finalmente fica em paz.</p>
+      <div class="stats3" id="stats3">
+        <div class="stat3"><b data-n="4" data-suf=" min">0</b><span>fechamento médio</span></div>
+        <div class="stat3"><b data-n="386" data-suf="">0</b><span>testes automatizados</span></div>
+        <div class="stat3"><b data-n="0" data-suf=" papel">0</b><span>para sempre</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ CTA ============================ -->
+<section id="cta" aria-label="Chamada final">
+  <div class="glow"></div>
+  <div class="cta-inner">
+    <div class="cta-folha" id="cta-folha">
+      <div class="folha">
+        <div class="fh"><b>FOLHA DE PONTO</b></div>
+        <div class="nome">Marta R. Oliveira</div>
+        <table><tr><td>01</td><td>07:58</td><td>17:45</td></tr><tr><td>02</td><td>08:02</td><td>17:51</td></tr></table>
+        <div class="fita"></div>
+      </div>
+    </div>
+    <span class="cta-soon">🔒 Lançamento em breve</span>
+    <h2>Esta é a <em>última folha</em> que você segura na mão.</h2>
+    <p>O Vcorp Folha IA está em fase final de desenvolvimento. Entre na lista de espera e seja o primeiro a fechar a folha sem papel, sem madrugada, sem refazer.</p>
+    <a class="cta-btn" href="https://wa.me/5521990297098?text=Ol%C3%A1!%20Quero%20entrar%20na%20lista%20de%20espera%20do%20Vcorp%20Folha%20IA%20(sistema%20de%20folha%20de%20ponto%20com%20IA)." target="_blank" rel="noopener">
+      Entrar na lista de espera
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+    <div class="cta-chips">
+      <span>LGPD by design</span><span>eSocial nativo</span><span>CCT lida por IA</span><span>Multi-tenant blindado</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ FOOTER ============================ -->
+<footer>
+  <div class="foot">
+    <span class="fb"><span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13l4 4 8-11"/><path d="M14 6h6"/><path d="M17 3v6"/></svg></span>Vcorp Folha IA</span>
+    <span>© 2026 VCorp Sistem · Feito com IA autônoma — sem chatbots · <a href="index.html" style="text-decoration:underline">voltar ao site</a></span>
+  </div>
+  <div class="foot-postit">vc chegou até aqui. o DP inteiro agradece. ❤</div>
+</footer>
+
+<script src="assets/motion.js"></script>
+<script>
+/* ==========================================================================
+   ENGINE — progresso por cena com lerp (inércia), só transform/opacity
+   ========================================================================== */
+(function(){
+'use strict';
+const M = window.Motion || null;
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const coarse = matchMedia('(pointer: coarse)').matches;
+if (reduced) { document.documentElement.classList.add('rm'); }
+
+const $ = (s,c)=> (c||document).querySelector(s);
+const $$ = (s,c)=> Array.from((c||document).querySelectorAll(s));
+const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+const lerp=(a,b,t)=>a+(b-a)*t;
+const seg=(p,a,b)=>clamp((p-a)/(b-a),0,1);
+const E={
+  outCubic:t=>1-Math.pow(1-t,3),
+  inOut:t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2,
+  outBack:t=>{const c=1.70158;return 1+(c+1)*Math.pow(t-1,3)+c*Math.pow(t-1,2)},
+};
+const fmt = new Intl.NumberFormat('pt-BR');
+
+let vw=innerWidth, vh=innerHeight;
+
+/* ---------- elenco: dados dos papéis ---------- */
+const CAST=[
+  {n:'Marta Regina S. Oliveira',m:'0047',rows:[['01 seg','07:58','12:03–13:07','17:45'],['02 ter','08:02','12:00–13:04','17:51'],['18 qui','07:59','12:01–13:02','—']],an:'esqueceu de bater!!',cafe:0},
+  {n:'Carlos Eduardo Nunes',m:'0113',rows:[['01 seg','07:45','12:02–13:02','17:30'],['02 ter','07:48','12:10–13:12','17:29'],['03 qua','07:51','12:05–13:08','17:44']],an:'anotação ilegível',cafe:1},
+  {n:'Juliana P. Castro',m:'0089',rows:[['01 seg','08:02','12:00–12:47','18:11'],['02 ter','08:00','12:03–12:49','18:05'],['03 qua','07:57','12:01–12:50','18:20']],an:'almoço &lt; 1h!!',cafe:0},
+  {n:'Roberto Farias Lima',m:'0201',rows:[['01 seg','22:01','01:00–02:00','05:04'],['02 ter','22:00','01:02–02:03','05:01'],['12 sex','—','—','—']],an:'atestado dia 12 →',cafe:0},
+  {n:'Ana Beatriz Mendes',m:'0056',rows:[['01 seg','07:52','12:04–13:06','17:49'],['02 ter','07:55','12:00–13:02','17:52'],['03 qua','08:01','12:06–13:07','18:22']],an:'rasura de caneta',cafe:0},
+  {n:'Odair José (Portaria)',m:'0007',rows:[['01 seg','06:00','11:30–12:30','15:20'],['02 ter','05:58','11:32–12:31','15:18'],['03 qua','06:03','11:29–12:33','15:25']],an:'letra ilegível',cafe:1},
+];
+function folhaHTML(c,extra){
+  return `<div class="fh"><b>FOLHA DE PONTO — JUNHO/2026</b>VCORP LTDA · MATRÍCULA ${c.m}</div>
+  <div class="nome">${c.n}</div>
+  <table><tr><th>dia</th><th>ent</th><th>almoço</th><th>saí</th></tr>
+  ${c.rows.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td></tr>`).join('')}</table>
+  <div class="rub">Visto: <span style="font-family:var(--ff-h)">${c.n.split(' ')[0]}</span></div>
+  <div class="anota" style="right:8px;top:${100+((c.m.charCodeAt(3))%3)*22}px">${c.an}</div>
+  ${c.cafe?'<div class="cafe" style="right:-18px;bottom:-14px"></div>':''}
+  ${extra||''}<div class="fita"></div>`;
+}
+
+/* ---------- rig de cenas ---------- */
+const scenes=[];
+function scene(id, update){
+  const el=document.getElementById(id);
+  if(!el) return;
+  scenes.push({el, update, top:0, len:1, p:-1});
+}
+let scanH=1, audH=1, dzY=0;
+function measure(){
+  vw=innerWidth; vh=innerHeight;
+  scenes.forEach(s=>{ s.top=s.el.offsetTop; s.len=Math.max(1, s.el.offsetHeight - vh); });
+  docLen = document.documentElement.scrollHeight - vh;
+  const st=$('#scan-stage'); if(st) scanH=st.offsetHeight||1;
+  const al=$('#audlist'); if(al) audH=al.offsetHeight||1;
+  const dz=$('#dropzone'), aw=$('.appwin');
+  if(dz&&aw) dzY = dz.offsetTop + aw.offsetTop + 60;
+}
+
+/* progresso global suavizado */
+let target=scrollY, eased=scrollY, docLen=1;
+addEventListener('scroll', ()=>{ target=scrollY; }, {passive:true});
+addEventListener('resize', measure);
+
+/* =============== HERO =============== */
+const heroPapers=$('#hero-papers');
+const HP=[ // papéis decorativos do hero {cast, x(vw), y(vh), rot, scale, drift}
+  {c:0,x:.10,y:.16,r:-7,s:.92,d:1.2},{c:2,x:.74,y:.10,r:5,s:.8,d:.7},
+  {c:4,x:.06,y:.62,r:4,s:.75,d:.9},{c:1,x:.78,y:.58,r:-4,s:.9,d:1.4},
+];
+const heroEls=[];
+HP.forEach((cfg,i)=>{
+  const d=document.createElement('div'); d.className='folha';
+  d.innerHTML=folhaHTML(CAST[cfg.c]);
+  d.style.cssText=`left:${cfg.x*100}%;top:${cfg.y*100}%;transform:rotate(${cfg.r}deg) scale(${cfg.s});opacity:.9`;
+  if(i>1) d.classList.add('m-hide');
+  heroPapers.appendChild(d); heroEls.push({el:d,cfg});
+});
+/* folhas extras do hero: escondidas no mobile via .m-hide no CSS (responde a resize/rotação) */
+/* post-it do hero */
+(function(){ const p=document.createElement('div'); p.className='postit';
+  p.textContent='conferir INSS!!'; p.style.cssText='right:12%;top:26%;z-index:6;transform:rotate(7deg)';
+  heroPapers.appendChild(p); })();
+
+scene('hero',(p,s)=>{
+  const drift = p*vh*.5;
+  heroEls.forEach(({el,cfg})=>{ el.style.transform=`translate3d(0,${-drift*cfg.d}px,0) rotate(${cfg.r+p*cfg.d*6}deg) scale(${cfg.s})`; });
+  s.el.querySelector('.hero-inner').style.transform=`translate3d(0,${-p*vh*.22}px,0)`;
+  s.el.querySelector('.hero-inner').style.opacity = 1 - E.inOut(seg(p,.5,.95));
+});
+
+/* entrada do hero com Motion (springs de papel caindo) */
+function heroIn(){
+  const letters=$$('#hero-word span');
+  if(M && !reduced){
+    letters.forEach((l,i)=> M.animate(l,{opacity:[0,1],y:[-90,0],rotate:[(i%2?8:-9),0]},{duration:.85,delay:.12+i*.07,ease:[.2,1.4,.3,1]}));
+    M.animate('#hero-sub',{opacity:[0,1],y:[16,0]},{duration:.7,delay:.75,ease:'easeOut'});
+    M.animate('#hero-hand',{opacity:[0,1]},{duration:.6,delay:1.05});
+  } else { letters.forEach(l=>l.style.opacity=1); $('#hero-sub').style.opacity=1; $('#hero-hand').style.opacity=1; }
+}
+
+/* =============== PAPELADA =============== */
+const PAP=[ // {cast, layer(1=trás|2=frente), destino x,y (fração), rot, escala, janela}
+  {c:1,l:1,x:.07,y:.08,r:-8,s:.78,w:[.02,.22]},{c:3,l:1,x:.68,y:.04,r:6,s:.72,w:[.08,.30]},
+  {c:5,l:1,x:.16,y:.55,r:5,s:.7,w:[.14,.36]},{c:2,l:1,x:.74,y:.5,r:-5,s:.76,w:[.20,.44]},
+  {c:0,l:2,x:.28,y:.14,r:-4,s:1,w:[.3,.55]},{c:4,l:2,x:.55,y:.42,r:7,s:.95,w:[.4,.66]},
+  {c:2,l:2,x:.1,y:.34,r:9,s:.88,w:[.5,.76]},{c:5,l:2,x:.62,y:.16,r:-9,s:.9,w:[.58,.84]},
+];
+const papEls=[];
+PAP.forEach((cfg,i)=>{
+  const d=document.createElement('div'); d.className='folha';
+  d.innerHTML=folhaHTML(CAST[cfg.c]);
+  d.style.left=(cfg.x*100)+'%'; d.style.top=(cfg.y*100)+'%';
+  $(cfg.l===1?'#pap-l1':'#pap-l2').appendChild(d);
+  papEls.push({el:d,cfg,from:{x:(i%2? 1.3:-0.5)*vw, y:-vh*(0.6+ (i%3)*0.3), r:(i%2? 40:-46)}});
+});
+/* post-its da papelada */
+[['CCT mudou!!','rosa',.42,.68,-6],['banco de horas da Marta??','',.2,.75,5],['ligar p/ contador','',.66,.7,8]].forEach(([t,k,x,y,r])=>{
+  const p=document.createElement('div'); p.className='postit '+k; p.textContent=t;
+  p.style.cssText=`left:${x*100}%;top:${y*100}%;transform:rotate(${r}deg)`;
+  $('#pap-l2').appendChild(p);
+});
+scene('papelada',(p)=>{
+  papEls.forEach(({el,cfg,from})=>{
+    const t=E.outCubic(seg(p,cfg.w[0],cfg.w[1]));
+    const x=lerp(from.x,0,t), y=lerp(from.y,0,t), r=lerp(from.r,cfg.r,t);
+    el.style.transform=`translate3d(${x}px,${y}px,0) rotate(${r}deg) scale(${cfg.s})`;
+    el.style.opacity=Math.min(1,t*2);
+  });
+  const n=Math.round(E.outCubic(seg(p,.05,.8))*4368);
+  $('#pap-count').textContent=String(n).padStart(4,'0');
+  cap($('#pap-cap'), seg(p,.42,.52), seg(p,.9,1));
+});
+
+/* =============== CALC =============== */
+const KEYCHARS=['7','8','9','÷','4','5','6','×','1','2','3','−','0','·','=','+'];
+KEYCHARS.forEach(k=>{ const d=document.createElement('div'); d.className='key'+(/[÷×−+=]/.test(k)?' op':''); d.textContent=k; $('#keys').appendChild(d); });
+const keyEls=$$('#keys .key');
+const tapeLines=$$('#tape .tl');
+const visorSeq=['8:43','8:44','176:30','1.912:45','-2:15','Err'];
+scene('calc',(p)=>{
+  /* fita cresce (contra-translate dentro da janela) */
+  const t=$('#tape'); const rise=E.inOut(seg(p,.05,.9));
+  t.style.transform=`translate3d(0,${(1-rise)*70}%,0)`;
+  /* linhas aparecem por gates */
+  tapeLines.forEach((l,i)=>{ l.style.opacity=seg(p,.06+i*.065,.1+i*.065); });
+  /* riscos vermelhos */
+  $$('#tape .risk').forEach(r=>{ r.style.transform=`scaleX(${E.outCubic(seg(p,+r.dataset.g,+r.dataset.g+.06))})`; });
+  /* teclas digitam sozinhas */
+  const ki=Math.floor(seg(p,.08,.85)*28)%16;
+  keyEls.forEach((k,i)=>k.classList.toggle('down', i===ki && p>.08 && p<.85));
+  /* visor */
+  const vi=Math.min(visorSeq.length-1, Math.floor(seg(p,.1,.92)*visorSeq.length));
+  const visor=$('#visor'); visor.textContent=visorSeq[vi];
+  visor.classList.toggle('err', vi===visorSeq.length-1);
+  /* relógio acelera */
+  $('#clk-m').style.transform=`rotate(${p*1080}deg)`;
+  $('#clk-h').style.transform=`rotate(${300+p*90}deg)`;
+  cap($('#calc-cap'), seg(p,.3,.4), seg(p,.92,1));
+});
+
+/* =============== CLÍMAX (tempestade) =============== */
+const storm=$('#storm'); const stormEls=[];
+const NSTORM = coarse? 12: 22;
+for(let i=0;i<NSTORM;i++){
+  const c=CAST[i%CAST.length];
+  const d=document.createElement('div'); d.className='mini';
+  d.innerHTML=`<b>PONTO · ${c.m}</b>${c.n.split(' ')[0]} — 07:5${i%9}<br/>12:0${i%6} · 17:4${i%9}<br/><span class="r">${['REFAZER','conferir!!','não bate','H.E.???'][i%4]}</span>`;
+  storm.appendChild(d);
+  const side=i%4; // 0 esq→dir, 1 dir→esq, 2 topo, 3 diagonal
+  stormEls.push({el:d,
+    sx: side===0? -0.25: side===1? 1.15: (0.1+ (i*.13)%0.8), sy: side<2? (0.05+(i*.17)%0.8): -0.3,
+    ex: side===0? 1.2: side===1? -0.3: (0.05+(i*.21)%0.85), ey: side<2? (0.1+(i*.29)%0.75): 1.2,
+    r0:(i*47)%360, spin:(i%2?1:-1)*(120+(i*31)%160), amp:(20+(i*13)%60),
+    w:[ (i/NSTORM)*0.45, (i/NSTORM)*0.45+0.4 ], s:.7+(i%5)*.12});
+}
+scene('climax',(p)=>{
+  stormEls.forEach(o=>{
+    const t=seg(p,o.w[0],o.w[1]);
+    const x=lerp(o.sx,o.ex,t)*vw, y=lerp(o.sy,o.ey,t)*vh + Math.sin(t*Math.PI*2.2)*o.amp;
+    o.el.style.transform=`translate3d(${x}px,${y}px,0) rotate(${o.r0+t*o.spin}deg) scale(${o.s})`;
+    o.el.style.opacity = t<=0||t>=1? 0: 1;
+  });
+  /* carimbos com impacto (scrubbável) */
+  stampAt($('#stamp1'), seg(p,.3,.36), -9);
+  stampAt($('#stamp2'), seg(p,.48,.54), 6);
+  /* shake do impacto */
+  const sh1=seg(p,.355,.395), sh2=seg(p,.535,.575);
+  const sh=(sh1>0&&sh1<1? Math.sin(sh1*28)*(1-sh1)*5:0)+(sh2>0&&sh2<1? Math.sin(sh2*28)*(1-sh2)*4:0);
+  $('#climax-vp').style.transform=`translate3d(${sh}px,0,0)`;
+  /* mancha de café */
+  const mc=E.outCubic(seg(p,.42,.6));
+  const mancha=$('#mancha'); mancha.style.opacity=mc*.9; mancha.style.transform=`scale(${.4+mc*.6})`;
+  /* escurecimento + captions */
+  $('#escuro').style.opacity=E.inOut(seg(p,.62,.92));
+  cap($('#climax-cap1'), seg(p,.12,.2), seg(p,.55,.62));
+  cap($('#climax-cap2'), seg(p,.7,.8), seg(p,.97,1));
+});
+function stampAt(el,t,rot){
+  if(t<=0){ el.style.opacity=0; return; }
+  const e=E.outBack(t);
+  el.style.opacity=Math.min(1,t*3)*.96;
+  el.style.transform=`translate(-50%,-50%) scale(${lerp(2.6,1,e)}) rotate(${rot}deg)`;
+}
+/* easter egg: carimbo no clique (evento click não dispara em swipe de scroll no touch) */
+$('#climax-vp').addEventListener('click',ev=>{
+  const r=$('#climax-vp').getBoundingClientRect();
+  const d=document.createElement('div'); d.className='click-stamp'; d.textContent='REFAZER';
+  d.style.left=(ev.clientX-r.left)+'px'; d.style.top=(ev.clientY-r.top)+'px';
+  $('#climax-vp').appendChild(d); setTimeout(()=>d.remove(),4000);
+});
+
+/* =============== SCANNER =============== */
+scene('scanner',(p)=>{
+  const H=scanH;
+  const k=E.inOut(seg(p,.12,.78)); // 0 = tudo papel, 1 = tudo digital
+  /* digital: janela mostra o topo k% (contra-transform) */
+  $('#scan-win').style.transform=`translate3d(0,${-(1-k)*100}%,0)`;
+  $('#scan-inner').style.transform=`translate3d(0,${(1-k)*100}%,0)`;
+  /* papel: esconde topo k% via clip no wrapper análogo — usamos opacity global do papel só no fim */
+  $('#scan-paper').style.opacity = k>=1? 0:1;
+  /* feixe acompanha a fronteira */
+  $('#beam').style.transform=`translate3d(0,${k*H}px,0)`;
+  $('#beam').style.opacity = p<.06||p>.94? 0: .85+Math.sin(p*40)*.15;
+  /* faíscas sobem da linha */
+  $$('#scanner .spark').forEach((s,i)=>{
+    const t=(p*3+i*.25)%1;
+    s.style.opacity=(p>.1&&p<.9)? (1-t)*.9:0;
+    s.style.transform=`translate3d(${(i-1.5)*38 + Math.sin(t*6+i)*10}px,${k*H - t*70}px,0)`;
+  });
+  cap($('#scan-cap'), seg(p,.2,.3), seg(p,.92,1));
+});
+
+/* =============== UPLOAD =============== */
+const uprows=$$('.uprow');
+scene('upload',(p)=>{
+  /* arquivo cai na dropzone */
+  const dz=$('#dropzone'), chip=$('#filechip');
+  const drop=E.outBack(seg(p,.08,.3));
+  chip.style.transform=`translate(-50%,0) translate3d(0,${lerp(-vh*.2, dzY, drop)}px,0) rotate(${lerp(-8,0,drop)}deg)`;
+  chip.style.opacity = p<.04? 0: 1-seg(p,.34,.4);
+  dz.classList.toggle('hot', p>.22 && p<.42);
+  /* linhas em cascata */
+  uprows.forEach((r,i)=>{ const t=E.outCubic(seg(p,.36+i*.06,.44+i*.06));
+    r.style.opacity=t; r.style.transform=`translate3d(${(1-t)*-14}px,0,0)`; });
+  /* contador */
+  $('#upcount').textContent=fmt.format(Math.round(E.outCubic(seg(p,.36,.88))*4368));
+  cap($('#up-cap'), seg(p,.5,.6), seg(p,.94,1));
+});
+
+/* =============== AUDITORIA =============== */
+const audlist=$('#audlist');
+const AUDNAMES=['0047 Marta R. Oliveira','0113 Carlos E. Nunes','0089 Juliana P. Castro','0201 Roberto F. Lima','0056 Ana B. Mendes','0007 Odair José','0140 Paulo Sena','0092 Renata Luz','0177 Igor Prado','0063 Bia Rocha'];
+const FLAG={0:1,2:2,3:3}; // índice da row → card
+AUDNAMES.forEach((n,i)=>{
+  const d=document.createElement('div'); d.className='audrow'+(FLAG[i]?' flag':'');
+  d.innerHTML=`<svg class="chk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span>${n}</span><span style="margin-left:auto;opacity:.6">jun/2026</span>`;
+  audlist.appendChild(d);
+});
+const audrows=$$('.audrow');
+scene('audita',(p)=>{
+  const L=audH;
+  const bt=E.inOut(seg(p,.1,.78));
+  $('#audbeam').style.transform=`translate3d(0,${bt*(L-16)+8}px,0)`;
+  $('#audbeam').style.opacity=(p>.06&&p<.85)?1:0;
+  audrows.forEach((r,i)=>{
+    const gate=.12+ (i/audrows.length)*.62;
+    const t=seg(p,gate,gate+.04);
+    const chk=r.querySelector('.chk');
+    chk.style.opacity=t; chk.style.transform=`scale(${.5+t*.5})`;
+  });
+  const mobAud=matchMedia('(max-width:860px)').matches;
+  [['#ac1',.20,.42],['#ac2',.42,.62],['#ac3',.62,1.2]].forEach(([id,g,gOut])=>{
+    const t=E.outCubic(seg(p,g,g+.09));
+    const o=mobAud? t*(1-E.inOut(seg(p,gOut,gOut+.05))) : t;
+    const c=$(id); c.style.opacity=o; c.style.transform=`translate3d(${(1-t)*26}px,0,0) scale(${.96+t*.04})`;
+  });
+  cap($('#aud-cap'), seg(p,.03,.1), seg(p,.95,1));
+});
+
+/* =============== FECHADA =============== */
+const fletters=$$('#fech-word span');
+scene('fechada',(p)=>{
+  fletters.forEach((l,i)=>{
+    const t=E.outCubic(seg(p,.06+i*.022,.3+i*.022));
+    l.style.transform=`translate3d(0,${(1-t)*115}%,0)`;
+  });
+  const anel=$('#anel'), vch=$('#vcheck');
+  anel.style.strokeDasharray='1'; anel.style.strokeDashoffset=String(1-E.inOut(seg(p,.3,.55)));
+  vch.style.strokeDasharray='1'; vch.style.strokeDashoffset=String(1-E.outCubic(seg(p,.5,.66)));
+  $('#orbtext').parentElement.style.transform=`rotate(${p*40}deg)`;
+  $('#fech-risco').style.transform=`scaleX(${E.outCubic(seg(p,.6,.72))})`;
+  $('#fech-depois').style.opacity=seg(p,.7,.8);
+  $('#fech-depois').style.transform=`translate3d(0,${(1-E.outCubic(seg(p,.7,.8)))*14}px,0)`;
+  $('#fech-sub').style.opacity=seg(p,.8,.9);
+});
+
+/* =============== rAF central =============== */
+function cap(el, tin, tout){
+  const o = tin*(1-tout);
+  el.style.opacity=o;
+  el.style.transform=`translateX(-50%) translate3d(0,${(1-E.outCubic(tin))*26 - E.inOut(tout)*20}px,0)`;
+}
+const nav=$('#nav'), rail=$('#fita-rail'), railItems=$$('#fita-rail li');
+function frame(){
+  eased += (target-eased)*0.11;
+  if(Math.abs(target-eased)<.2) eased=target;
+  for(const s of scenes){
+    const p=clamp((eased - s.top)/s.len, 0, 1);
+    if(p===s.p && (p===0||p===1)) continue; // cena parada fora da janela
+    s.p=p; s.update(p,s);
+  }
+  /* progresso global: nav + fita */
+  const g=clamp(eased/docLen,0,1);
+  nav.classList.toggle('dark', g>.46);
+  rail.classList.toggle('digital', g>.47);
+  railItems.forEach(li=>li.classList.toggle('on', g>=+li.dataset.at));
+  requestAnimationFrame(frame);
+}
+
+/* =============== seções normais (inView) =============== */
+function inViewInit(){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{
+    if(!e.isIntersecting) return;
+    const el=e.target;
+    if(el.id==='hol-doc'){
+      $$('.hline',el).forEach((l,i)=>setTimeout(()=>l.classList.add('in'), 160*i));
+    }
+    if(el.id==='stats3'){
+      $$('#stats3 b').forEach(b=>{
+        const n=+b.dataset.n, suf=b.dataset.suf; const t0=performance.now();
+        (function tick(t){ const k=Math.min(1,(t-t0)/1100);
+          b.textContent=Math.round(E.outCubic(k)*n)+suf;
+          if(k<1) requestAnimationFrame(tick); })(t0);
+      });
+    }
+    if(el.id==='cta-folha' && M && !reduced){
+      M.animate(el.querySelector('.folha'),{y:[-30,0],rotate:[-6,-2]},{duration:1,ease:[.2,1.3,.3,1]});
+    }
+    io.unobserve(el);
+  }),{threshold:.35});
+  ['hol-doc','stats3','cta-folha'].forEach(id=>{const el=document.getElementById(id); if(el) io.observe(el);});
+}
+
+/* =============== boot =============== */
+function boot(){
+  measure(); heroIn(); inViewInit();
+  if(!reduced) requestAnimationFrame(frame);
+  else { /* estados finais no modo reduzido */
+    $('#pap-count').textContent='4368'; $('#upcount').textContent=fmt.format(4368);
+    $$('.hline').forEach(l=>l.classList.add('in'));
+    const sc=document.getElementById('scanner');
+    const navDark=()=>nav.classList.toggle('dark', !!sc && scrollY >= sc.offsetTop-60);
+    addEventListener('scroll', navDark, {passive:true}); addEventListener('resize', navDark); navDark();
+  }
+}
+if(document.fonts && document.fonts.ready){ document.fonts.ready.then(()=>{ measure(); }); }
+addEventListener('load', measure);
+boot();
+})();
+</script>
+</body>
+</html>
