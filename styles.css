@@ -586,6 +586,32 @@ h6 {
   color: #fff !important;
 }
 
+/* Card "Em Construção" - Vcorp Folha IA (RH): tarja de canto, card ATIVO (clicável) */
+.product-card.em-construcao {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(99, 102, 241, 0.28) !important;
+}
+.product-card.em-construcao::before {
+  content: "EM CONSTRUÇÃO";
+  position: absolute;
+  top: 20px;
+  right: -54px;
+  transform: rotate(45deg);
+  width: 200px;
+  text-align: center;
+  background: linear-gradient(135deg, #f59e0b, #f5a623);
+  color: #3a2600;
+  font-weight: 800;
+  font-size: 0.7rem;
+  letter-spacing: 1.5px;
+  padding: 7px 0;
+  z-index: 10;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
 /* Custom AtendIA Styles */
 .bg-atendia-dark {
   background-color: var(--atendia-bg-dark) !important;

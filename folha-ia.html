@@ -139,6 +139,10 @@ img,svg{display:block;max-width:100%}
 .nav .cta-mini{font-family:var(--ff-d);font-weight:600;font-size:13.5px;color:#fff;background:#241c0e;padding:9px 16px;border-radius:999px;transition:transform .2s,background .4s}
 .nav .cta-mini:hover{transform:translateY(-2px)}
 .brand .soon{display:inline-block;font-family:var(--ff-d);font-size:9.5px;font-weight:700;letter-spacing:.1em;color:#fff;background:var(--grad);padding:3px 7px;border-radius:6px;vertical-align:middle;margin-left:7px;box-shadow:0 2px 8px -2px rgba(99,102,241,.55)}
+.brandlogo{height:36px;width:auto;background:#fff;border-radius:9px;padding:5px 10px;box-shadow:0 4px 14px -4px rgba(0,0,0,.4);flex:none}
+.brandsub{font-family:var(--ff-d);font-weight:700;font-size:15px}
+.foot .fb .brandlogo{height:30px;padding:4px 8px}
+@media(max-width:600px){.brandlogo{height:30px;padding:4px 8px}.brandsub{display:none}}
 .cta-soon{display:inline-flex;align-items:center;gap:8px;font-family:var(--ff-d);font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);border:1px solid rgba(34,211,238,.4);background:rgba(34,211,238,.08);padding:8px 16px;border-radius:999px;margin-bottom:20px}
 .nav.dark{color:var(--text)}
 .nav.dark .brand{color:var(--text)}
@@ -420,8 +424,8 @@ html.rm #audita .audcard{grid-row:auto !important;grid-column:auto !important}
 <!-- ============================ NAV ============================ -->
 <header class="nav" id="nav" aria-label="Navegação">
   <a class="brand" href="index.html">
-    <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 5H5v14h14v-8"/><path d="M8.5 12l3 3L20 4.5"/></svg></span>
-    Vcorp Folha IA <span class="soon">EM BREVE</span>
+    <img src="assets/logo_sem_fundo.png" alt="VCorp Sistem" class="brandlogo" />
+    <span class="brandsub">Folha IA <span class="soon">EM BREVE</span></span>
   </a>
   <a class="cta-mini" href="#cta">Entrar na lista de espera</a>
 </header>
@@ -714,7 +718,7 @@ html.rm #audita .audcard{grid-row:auto !important;grid-column:auto !important}
 <!-- ============================ FOOTER ============================ -->
 <footer>
   <div class="foot">
-    <span class="fb"><span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 5H5v14h14v-8"/><path d="M8.5 12l3 3L20 4.5"/></svg></span>Vcorp Folha IA</span>
+    <span class="fb"><img src="assets/logo_sem_fundo.png" alt="VCorp Sistem" class="brandlogo" /> Folha IA</span>
     <span>© 2026 VCorp Sistem · Feito com IA autônoma — sem chatbots · <a href="index.html" style="text-decoration:underline">voltar ao site</a></span>
   </div>
   <div class="foot-postit">vc chegou até aqui. o DP inteiro agradece. ❤</div>
