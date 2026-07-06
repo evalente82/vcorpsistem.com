@@ -408,6 +408,38 @@ html.rm #audita .audcard{grid-row:auto !important;grid-column:auto !important}
 @media(prefers-reduced-motion:reduce){#cta .glow{animation:none}.hero-scroll::after{animation:none}}
 .ns{display:block;padding:84px 8vw 20px;text-align:center;font-family:var(--ff-d);font-size:16px;background:var(--bg);color:var(--text);border-bottom:1px solid var(--border)}
 .ns a{color:var(--cyan)}
+
+/* ---------- Modal Lista de espera ---------- */
+.lead-overlay{position:fixed;inset:0;z-index:2000;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(4,6,12,.74);backdrop-filter:blur(6px)}
+.lead-overlay.open{display:flex}
+.lead-modal{width:100%;max-width:460px;max-height:92vh;overflow:auto;background:linear-gradient(180deg,var(--surface),#0d0d1e);border:1px solid var(--border-2);border-radius:18px;padding:26px 24px;box-shadow:0 40px 90px -30px rgba(0,0,0,.85);position:relative}
+.lead-x{position:absolute;top:12px;right:15px;background:none;border:none;color:var(--muted);font-size:26px;line-height:1;cursor:pointer}
+.lead-x:hover{color:var(--text)}
+.lead-eyebrow{font-family:var(--ff-d);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);margin-bottom:8px}
+.lead-modal h3{font-family:var(--ff-d);font-size:22px;color:var(--text);margin-bottom:4px}
+.lead-sub{color:var(--muted);font-size:13.5px;margin-bottom:18px}
+.lead-modal form label{display:block;font-family:var(--ff-d);font-size:12.5px;font-weight:600;color:var(--muted);margin-bottom:12px}
+.lead-modal input,.lead-modal select{width:100%;margin-top:5px;background:rgba(255,255,255,.04);border:1px solid var(--border-2);border-radius:10px;padding:11px 13px;color:var(--text);font-family:var(--ff-b);font-size:14px;font-weight:400}
+.lead-modal input:focus,.lead-modal select:focus{outline:none;border-color:var(--cyan);background:rgba(34,211,238,.06)}
+.lead-modal select{appearance:none;-webkit-appearance:none}
+.lead-modal .lead-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.lead-hp{position:absolute !important;left:-9999px}
+.lead-check{display:flex !important;gap:9px;align-items:flex-start;font-weight:400 !important;color:var(--muted);font-size:12.5px !important}
+.lead-check input{width:auto !important;margin:2px 0 0 !important}
+.lead-check a{color:var(--cyan);text-decoration:underline}
+.lead-submit{width:100%;margin-top:6px;background:var(--grad);color:#fff;border:none;border-radius:999px;padding:14px;font-family:var(--ff-d);font-weight:600;font-size:15px;cursor:pointer;box-shadow:0 12px 30px -8px rgba(99,102,241,.6);transition:transform .18s}
+.lead-submit:hover{transform:translateY(-2px)}.lead-submit:disabled{opacity:.7;transform:none}
+.lead-msg{text-align:center;font-size:13px;margin-top:12px}
+.lead-msg.ok{color:#34d399}.lead-msg.err{color:#f87171}
+@media(max-width:560px){.lead-modal .lead-row{grid-template-columns:1fr}}
+
+/* ---------- Mobile: versão estática limpa ---------- */
+@media(max-width:760px){
+  html.rm .vp{min-height:auto;padding:12vh 18px 6vh}
+  html.rm .cap{position:relative;left:auto !important;transform:none !important;width:auto !important;max-width:640px;margin:0 auto 18px !important;text-align:center}
+  html.rm .cap h2{font-size:clamp(21px,6vw,30px);line-height:1.16}
+  html.rm .foot{flex-direction:column;gap:10px;text-align:center}
+}
 </style>
 <noscript><style>
   .scene{height:auto!important}
@@ -427,7 +459,7 @@ html.rm #audita .audcard{grid-row:auto !important;grid-column:auto !important}
     <img src="assets/logo_sem_fundo.png" alt="VCorp Sistem" class="brandlogo" />
     <span class="brandsub">Folha IA <span class="soon">EM BREVE</span></span>
   </a>
-  <a class="cta-mini" href="#cta">Entrar na lista de espera</a>
+  <a class="cta-mini js-lead" href="#lead" role="button" data-origem="Folha IA · nav">Entrar na lista de espera</a>
 </header>
 
 <noscript><div class="ns">Este site conta uma história com animações de rolagem — <b>ative o JavaScript</b> para vivê-la. Todo o conteúdo continua legível abaixo.</div></noscript>
@@ -705,7 +737,7 @@ html.rm #audita .audcard{grid-row:auto !important;grid-column:auto !important}
     <span class="cta-soon">🔒 Lançamento em breve</span>
     <h2>Esta é a <em>última folha</em> que você segura na mão.</h2>
     <p>O Vcorp Folha IA está em fase final de desenvolvimento. Entre na lista de espera e seja o primeiro a fechar a folha sem papel, sem madrugada, sem refazer.</p>
-    <a class="cta-btn" href="https://wa.me/5521990297098?text=Ol%C3%A1!%20Quero%20entrar%20na%20lista%20de%20espera%20do%20Vcorp%20Folha%20IA%20(sistema%20de%20folha%20de%20ponto%20com%20IA)." target="_blank" rel="noopener">
+    <a class="cta-btn js-lead" href="#lead" role="button" data-origem="Folha IA · CTA final">
       Entrar na lista de espera
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     </a>
@@ -732,7 +764,8 @@ html.rm #audita .audcard{grid-row:auto !important;grid-column:auto !important}
 (function(){
 'use strict';
 const M = window.Motion || null;
-const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* no celular usamos a versão estática limpa (o cinema sticky é pesado/cortado no mobile) */
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches || matchMedia('(max-width:760px)').matches;
 const coarse = matchMedia('(pointer: coarse)').matches;
 if (reduced) { document.documentElement.classList.add('rm'); }
 
@@ -1088,6 +1121,74 @@ function boot(){
 if(document.fonts && document.fonts.ready){ document.fonts.ready.then(()=>{ measure(); }); }
 addEventListener('load', measure);
 boot();
+})();
+</script>
+
+<!-- Modal: Lista de espera -->
+<div class="lead-overlay" id="leadOverlay" aria-hidden="true">
+  <div class="lead-modal" role="dialog" aria-modal="true" aria-labelledby="leadTitle">
+    <button class="lead-x" id="leadClose" aria-label="Fechar">×</button>
+    <div class="lead-eyebrow">🔒 Vcorp Folha IA · em construção</div>
+    <h3 id="leadTitle">Entrar na lista de espera</h3>
+    <p class="lead-sub">Deixe seus dados e você é o primeiro a saber quando lançar.</p>
+    <form id="leadForm" novalidate>
+      <input type="text" name="website" class="lead-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <label>Nome da empresa *<input required name="empresa" type="text" placeholder="Sua empresa"></label>
+      <label>CNPJ *<input required name="cnpj" type="text" inputmode="numeric" placeholder="00.000.000/0000-00"></label>
+      <div class="lead-row">
+        <label>E-mail *<input required name="email" type="email" placeholder="voce@empresa.com"></label>
+        <label>Telefone / WhatsApp *<input required name="telefone" type="tel" placeholder="(21) 90000-0000"></label>
+      </div>
+      <label>Nº de funcionários *
+        <select required name="funcionarios">
+          <option value="" selected disabled>Selecione…</option>
+          <option>1 a 9</option>
+          <option>10 a 49</option>
+          <option>50 a 199</option>
+          <option>200 ou mais</option>
+        </select>
+      </label>
+      <label class="lead-check"><input required type="checkbox" name="consent"> <span>Autorizo o contato e o tratamento dos meus dados conforme a <a href="termos-de-uso.html" target="_blank">LGPD</a>.</span></label>
+      <button type="submit" class="lead-submit" id="leadSubmit">Entrar na lista de espera</button>
+      <div id="leadMsg" class="lead-msg"></div>
+    </form>
+  </div>
+</div>
+
+<!-- Lista de espera -> Google Sheets -->
+<script>
+(function(){
+  /* Cole aqui a URL do seu Web App do Apps Script (veja as instruções): */
+  const SHEET_ENDPOINT='https://script.google.com/macros/s/COLE_AQUI_A_URL_DO_WEB_APP/exec';
+  const overlay=document.getElementById('leadOverlay'); if(!overlay) return;
+  const form=document.getElementById('leadForm'), msg=document.getElementById('leadMsg'), btn=document.getElementById('leadSubmit');
+  let origem='Folha IA';
+  function openM(o){ origem=o||'Folha IA'; overlay.classList.add('open'); overlay.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; setTimeout(()=>{try{form.empresa.focus();}catch(e){}},80); }
+  function closeM(){ overlay.classList.remove('open'); overlay.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
+  document.querySelectorAll('.js-lead').forEach(a=>a.addEventListener('click',e=>{e.preventDefault(); openM(a.dataset.origem);}));
+  document.getElementById('leadClose').addEventListener('click',closeM);
+  overlay.addEventListener('click',e=>{ if(e.target===overlay) closeM(); });
+  addEventListener('keydown',e=>{ if(e.key==='Escape'&&overlay.classList.contains('open')) closeM(); });
+  const cnpj=form.cnpj, tel=form.telefone;
+  cnpj.addEventListener('input',()=>{let v=cnpj.value.replace(/\D/g,'').slice(0,14);v=v.replace(/^(\d{2})(\d)/,'$1.$2').replace(/^(\d{2})\.(\d{3})(\d)/,'$1.$2.$3').replace(/\.(\d{3})(\d)/,'.$1/$2').replace(/(\d{4})(\d)/,'$1-$2');cnpj.value=v;});
+  tel.addEventListener('input',()=>{let v=tel.value.replace(/\D/g,'').slice(0,11);if(v.length>7)v=v.replace(/^(\d{2})(\d{5})(\d+)/,'($1) $2-$3');else if(v.length>2)v=v.replace(/^(\d{2})(\d+)/,'($1) $2');tel.value=v;});
+  function validCNPJ(v){v=(v||'').replace(/\D/g,'');if(v.length!==14||/^(\d)\1{13}$/.test(v))return false;const c=x=>{const n=v.substring(0,x);let s=0,p=x-7;for(let i=x;i>=1;i--){s+=n.charAt(x-i)*p--;if(p<2)p=9;}const r=s%11;return r<2?0:11-r;};return c(12)==v.charAt(12)&&c(13)==v.charAt(13);}
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();
+    if(form.website.value)return;
+    if(!form.checkValidity()){form.reportValidity();return;}
+    if(!validCNPJ(cnpj.value)){msg.className='lead-msg err';msg.textContent='CNPJ inválido — confira os números.';return;}
+    const data={empresa:form.empresa.value.trim(),cnpj:cnpj.value,email:form.email.value.trim(),telefone:form.telefone.value.trim(),funcionarios:form.funcionarios.value,consent:form.consent.checked,origem:origem};
+    btn.disabled=true;btn.textContent='Enviando…';msg.textContent='';
+    try{
+      if(SHEET_ENDPOINT.indexOf('COLE_AQUI')>-1)throw new Error('endpoint');
+      await fetch(SHEET_ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(data)});
+      msg.className='lead-msg ok';msg.textContent='✓ Recebido! Avisaremos você assim que lançar.';form.reset();btn.textContent='Enviado ✓';
+    }catch(err){
+      btn.disabled=false;btn.textContent='Entrar na lista de espera';
+      msg.className='lead-msg err';msg.textContent=(err.message==='endpoint')?'Formulário ainda não conectado — configure a planilha.':'Não foi possível enviar agora. Tente novamente.';
+    }
+  });
 })();
 </script>
 </body>
