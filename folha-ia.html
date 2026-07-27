@@ -384,6 +384,34 @@ img,svg{display:block;max-width:100%}
 .cta-chips span{font-family:var(--ff-d);font-size:12.5px;font-weight:600;color:var(--muted);border:1px solid var(--border-2);
   background:rgba(255,255,255,.03);padding:8px 15px;border-radius:999px}
 
+/* ============================ PLANOS & PREÇOS ============================ */
+#planos{background:var(--bg);color:var(--text);padding:96px 5vw;position:relative}
+#planos .planos-head{max-width:820px;margin:0 auto 12px;text-align:center}
+#planos h2{font-family:var(--ff-d);font-weight:800;font-size:clamp(28px,4.5vw,46px);line-height:1.08;letter-spacing:-.02em}
+#planos h2 em{font-style:normal;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+#planos .sub{color:var(--muted);font-size:16px;margin-top:14px}
+.mod-toggle{display:inline-flex;gap:6px;margin:24px auto 8px;padding:5px;border:1px solid var(--border-2);border-radius:999px;background:rgba(255,255,255,.03)}
+.mod-toggle button{font-family:var(--ff-d);font-weight:600;font-size:13.5px;color:var(--muted);background:transparent;border:0;padding:9px 18px;border-radius:999px;cursor:pointer;transition:.2s}
+.mod-toggle button[aria-pressed="true"]{background:var(--grad);color:#fff}
+.planos-grid{max-width:1180px;margin:30px auto 0;display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+@media(max-width:980px){.planos-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.planos-grid{grid-template-columns:1fr}}
+.plano{border:1px solid var(--border);background:var(--surface);border-radius:18px;padding:22px 18px;display:flex;flex-direction:column;gap:6px;position:relative;transition:transform .2s,border-color .2s}
+.plano:hover{transform:translateY(-4px);border-color:var(--border-2)}
+.plano.pop{border-color:transparent;background:linear-gradient(var(--surface),var(--surface)) padding-box,var(--grad) border-box;border:1.5px solid transparent}
+.plano .tag{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--grad);color:#fff;font-family:var(--ff-d);font-weight:700;font-size:11px;padding:4px 12px;border-radius:999px;white-space:nowrap}
+.plano .nome{font-family:var(--ff-d);font-weight:700;font-size:18px}
+.plano .lim{color:var(--faint);font-size:13px}
+.plano .preco{margin-top:8px;font-family:var(--ff-d);font-weight:800;font-size:30px;line-height:1}
+.plano .preco small{font-size:14px;font-weight:600;color:var(--muted)}
+.plano .combo{color:var(--muted);font-size:12.5px;min-height:18px}
+.plano .pbtn{margin-top:14px;display:inline-flex;justify-content:center;align-items:center;gap:7px;font-family:var(--ff-d);font-weight:600;font-size:14px;color:#fff;background:var(--grad);padding:12px 16px;border-radius:12px;transition:transform .18s,box-shadow .2s;box-shadow:0 10px 28px -12px rgba(99,102,241,.7)}
+.plano .pbtn:hover{transform:translateY(-2px)}
+.planos-nota{max-width:1180px;margin:22px auto 0;color:var(--faint);font-size:13px;text-align:center}
+.planos-nota b{color:var(--muted)}
+.planos-tags{margin-top:22px;display:flex;gap:9px;justify-content:center;flex-wrap:wrap}
+.planos-tags span{font-family:var(--ff-d);font-size:12px;font-weight:600;color:var(--muted);border:1px solid var(--border-2);background:rgba(255,255,255,.03);padding:7px 13px;border-radius:999px}
+
 /* ============================ FOOTER ============================ */
 footer{background:var(--bg);color:var(--faint);border-top:1px solid var(--border);padding:34px 5vw;position:relative}
 .foot{max-width:1080px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;font-size:13px}
@@ -486,7 +514,7 @@ html.rm #audita .audcard{grid-row:auto !important;grid-column:auto !important}
     <img src="assets/logo_sem_fundo.png" alt="VCorp Sistem" class="brandlogo" />
     <span class="brandsub">Folha IA <span class="soon">EM BREVE</span></span>
   </a>
-  <a class="cta-mini js-lead" href="#lead" role="button" data-origem="Folha IA · nav">Entrar na lista de espera</a>
+  <a class="cta-mini" href="#planos" role="button">Ver planos</a>
 </header>
 
 <noscript><div class="ns">Este site conta uma história com animações de rolagem — <b>ative o JavaScript</b> para vivê-la. Todo o conteúdo continua legível abaixo.</div></noscript>
@@ -702,6 +730,65 @@ html.rm #audita .audcard{grid-row:auto !important;grid-column:auto !important}
   </div>
 </section>
 
+<!-- ============================ PLANOS & PREÇOS ============================ -->
+<section id="planos" aria-label="Planos e preços">
+  <div class="planos-head">
+    <h2>Escolha o plano. <em>Comece hoje.</em></h2>
+    <p class="sub">14 dias grátis, sem cartão de crédito. Pague no cartão, PIX (ano à vista) ou boleto. Cancele quando quiser.</p>
+  </div>
+
+  <div style="text-align:center">
+    <div class="mod-toggle" role="group" aria-label="Escolha os módulos">
+      <button type="button" data-mod="rh" aria-pressed="true">Só RH (Ponto &amp; Folha)</button>
+      <button type="button" data-mod="combo" aria-pressed="false">RH + Escala</button>
+    </div>
+  </div>
+
+  <div class="planos-grid" id="planosGrid">
+    <!-- data-rh = preço RH anual/mês · data-combo = RH+Escala/mês -->
+    <div class="plano" data-rh="49" data-combo="68.60">
+      <div class="nome">Micro</div><div class="lim">até 5 funcionários</div>
+      <div class="preco"><span class="val">R$ 49</span><small>/mês</small></div>
+      <div class="combo"></div>
+      <a class="pbtn js-registro" href="#" data-plano="Micro">Começar grátis →</a>
+    </div>
+    <div class="plano" data-rh="129" data-combo="180.60">
+      <div class="nome">Pequeno</div><div class="lim">até 20 funcionários</div>
+      <div class="preco"><span class="val">R$ 129</span><small>/mês</small></div>
+      <div class="combo"></div>
+      <a class="pbtn js-registro" href="#" data-plano="Pequeno">Começar grátis →</a>
+    </div>
+    <div class="plano pop" data-rh="299" data-combo="418.60">
+      <div class="tag">MAIS ESCOLHIDO</div>
+      <div class="nome">Médio</div><div class="lim">até 50 funcionários</div>
+      <div class="preco"><span class="val">R$ 299</span><small>/mês</small></div>
+      <div class="combo"></div>
+      <a class="pbtn js-registro" href="#" data-plano="Medio">Começar grátis →</a>
+    </div>
+    <div class="plano" data-rh="549" data-combo="768.60">
+      <div class="nome">Profissional</div><div class="lim">até 100 funcionários</div>
+      <div class="preco"><span class="val">R$ 549</span><small>/mês</small></div>
+      <div class="combo"></div>
+      <a class="pbtn js-registro" href="#" data-plano="Profissional">Começar grátis →</a>
+    </div>
+    <div class="plano" data-rh="999" data-combo="1398.60">
+      <div class="nome">Ilimitado</div><div class="lim">funcionários sem limite</div>
+      <div class="preco"><span class="val">R$ 999</span><small>/mês</small></div>
+      <div class="combo"></div>
+      <a class="pbtn js-registro" href="#" data-plano="Ilimitado">Começar grátis →</a>
+    </div>
+  </div>
+
+  <p class="planos-nota">
+    Preços do ciclo <b>anual</b> (fidelidade). No <b>mês a mês</b> (avulso) acresce +10%.
+    O módulo <b>Escala</b> pode ser contratado sozinho por metade do valor do RH.
+    O plano e os módulos são confirmados no cadastro — troque quando precisar.
+  </p>
+  <div class="planos-tags">
+    <span>LGPD by design</span><span>eSocial nativo</span><span>Multi-tenant blindado</span><span>Pagamento seguro (tokenização)</span>
+  </div>
+</section>
+
 <!-- ============================ ATO II · FECHADA ============================ -->
 <section class="scene world-dark" id="fechada" aria-label="A folha fechada">
   <div class="vp">
@@ -761,11 +848,11 @@ html.rm #audita .audcard{grid-row:auto !important;grid-column:auto !important}
         <div class="fita"></div>
       </div>
     </div>
-    <span class="cta-soon">🔒 Lançamento em breve</span>
+    <span class="cta-soon">✓ 14 dias grátis · sem cartão</span>
     <h2>Esta é a <em>última folha</em> que você segura na mão.</h2>
-    <p>O Vcorp Folha IA está em fase final de desenvolvimento. Entre na lista de espera e seja o primeiro a fechar a folha sem papel, sem madrugada, sem refazer.</p>
-    <a class="cta-btn js-lead" href="#lead" role="button" data-origem="Folha IA · CTA final">
-      Entrar na lista de espera
+    <p>Crie sua conta, importe um arquivo de ponto e veja a IA auditar em segundos. Sem papel, sem madrugada, sem refazer.</p>
+    <a class="cta-btn js-registro" href="#" role="button" data-plano="Medio">
+      Começar teste grátis
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     </a>
     <div class="cta-chips">
@@ -1216,6 +1303,43 @@ boot();
       msg.className='lead-msg err';msg.textContent=(err.message==='endpoint')?'Formulário ainda não conectado — configure a planilha.':'Não foi possível enviar agora. Tente novamente.';
     }
   });
+})();
+</script>
+<!-- ===================== Planos: toggle de módulos + CTA de registro ===================== -->
+<script>
+(function(){
+  // URL do app RH-Inteligente. Em DEV (site em localhost) aponta para o front do Vite
+  // (127.0.0.1:5081); fora disso, para a homologação. Troque APP_PROD quando a produção subir.
+  var APP_PROD = 'https://demo-rh.vcorpsistem.com';
+  var ehLocal = ['localhost','127.0.0.1'].indexOf(location.hostname) > -1;
+  var APP_BASE = ehLocal ? 'http://127.0.0.1:5081' : APP_PROD;
+
+  // CTAs de registro → /registro do app (o plano é um hint; o app confirma no checkout).
+  document.querySelectorAll('.js-registro').forEach(function(a){
+    var plano = a.getAttribute('data-plano') || '';
+    a.setAttribute('href', APP_BASE + '/registro' + (plano ? ('?plano=' + encodeURIComponent(plano)) : ''));
+    a.setAttribute('rel', 'noopener');
+  });
+
+  // Toggle RH / RH+Escala: troca o preço exibido e mostra a linha do combo.
+  var grid = document.getElementById('planosGrid');
+  var botoes = document.querySelectorAll('.mod-toggle button');
+  function aplicar(mod){
+    botoes.forEach(function(b){ b.setAttribute('aria-pressed', b.getAttribute('data-mod') === mod ? 'true' : 'false'); });
+    grid.querySelectorAll('.plano').forEach(function(card){
+      var rh = card.getAttribute('data-rh'), combo = card.getAttribute('data-combo');
+      var val = card.querySelector('.val'), linha = card.querySelector('.combo');
+      if (mod === 'combo'){
+        val.textContent = 'R$ ' + combo.replace('.', ',');
+        linha.textContent = 'RH sozinho: R$ ' + rh.replace('.', ',') + '/mês';
+      } else {
+        val.textContent = 'R$ ' + rh;
+        linha.textContent = '+ Escala no combo: R$ ' + combo.replace('.', ',') + '/mês';
+      }
+    });
+  }
+  botoes.forEach(function(b){ b.addEventListener('click', function(){ aplicar(b.getAttribute('data-mod')); }); });
+  aplicar('rh');
 })();
 </script>
 </body>
