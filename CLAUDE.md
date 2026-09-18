@@ -61,7 +61,7 @@ FontAwesome 6.4, Google Fonts). No local copies or lockfiles.
 - **Layout/components** come from Bootstrap 5 utility classes; custom styling layers on top in
   `styles.css`. Scroll animations use AOS via `data-aos="..."` attributes.
 - **Contact / conversion** is handled entirely through WhatsApp deep links
-  (`https://wa.me/5521990297098?text=...` with a URL-encoded pre-filled message), not an
+  (`https://wa.me/5521993593760?text=...` with a URL-encoded pre-filled message), not an
   on-page form. When adding a CTA, follow this pattern.
 - **SEO**: `index.html` embeds a JSON-LD `Organization` schema (founder, contact, pricing
   offers). Keep prices/contact info there in sync with the visible page content.
